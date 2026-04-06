@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutations &amp; Genetic Exchange - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight { color: var(--green); font-weight: 600; }
+  .organism { color: var(--orange); font-weight: 600; }
+  .warn { color: var(--red); font-weight: 600; }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  .tab-row { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th { background: var(--surface2); color: var(--accent-light); font-weight: 600; }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  .fc-container { perspective: 1000px; margin-bottom: 16px; }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav { display: flex; gap: 10px; justify-content: center; align-items: center; }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #4a4e63; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ Practice</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hardfrq')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Mutations &amp; Genetic Exchange</h1>
+    <p>BIOL 3303 &middot; Lecture 12 &mdash; How bacterial genomes change and share DNA</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">26</div><div class="stat-label">FRQ Qs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>4 types of point mutations (silent, missense, nonsense, frameshift)</li>
+        <li>4 types of large DNA rearrangements (inversion, translocation, duplication, insertion)</li>
+        <li>Transposons and their elements (IS, non-composite, composite)</li>
+        <li>Transformation (Griffith's experiment, natural mechanism, artificial)</li>
+        <li>Conjugation (F+/F-, Hfr, Gram-positive pheromone system)</li>
+        <li>Transduction (phage-mediated DNA transfer)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li><span class="highlight">Learn</span> &mdash; Read through all lecture material organized by topic</li>
+      <li><span class="highlight">Flashcards</span> &mdash; Click to flip, test your recall of key terms</li>
+      <li><span class="highlight">FRQ Practice</span> &mdash; Write out free response answers, then reveal model answers and self-grade</li>
+      <li><span class="highlight">Matching</span> &mdash; Match terms to their definitions</li>
+      <li><span class="highlight">Hard FRQ</span> &mdash; Application and conceptual reasoning questions</li>
+      <li style="color: var(--yellow); font-weight: 700;">Gold-highlighted = CONFIRMED exam topics. Start with these.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn hy-tab active" onclick="showTab('learn',0)">Point Mutations</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',1)">Large Rearrangements</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',2)">Transposons</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',3)">Transformation</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',4)">Conjugation</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',5)">Transduction</button>
+  </div>
+
+  <!-- Point Mutations -->
+  <div class="tab-content active" id="learn-0">
+    <div class="card hy-card">
+      <h2>4 Types of Point Mutations <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p>Disruption of one base may make no difference, or it could alter the encoded amino acid and protein. The genetic code is <span class="highlight">degenerate</span> (64 codons for 22 amino acids), which is why some mutations are silent.</p>
+      <table class="data-table hy-table">
+        <tr><th>Type</th><th>What Happens to DNA</th><th>What Happens to Protein</th><th>Severity</th></tr>
+        <tr><td><span class="highlight">Silent</span></td><td>Base changes but codon still codes for the <span class="highlight">same amino acid</span></td><td>No change</td><td>None</td></tr>
+        <tr><td><span class="highlight">Missense</span></td><td>Base changes and codon codes for a <span class="warn">different amino acid</span></td><td>One amino acid is different; may or may not affect function</td><td>Variable</td></tr>
+        <tr><td><span class="warn">Nonsense</span></td><td>Base change creates a <span class="warn">premature stop codon</span></td><td><span class="warn">Truncated protein</span> &mdash; usually complete loss of function</td><td>High</td></tr>
+        <tr><td><span class="warn">Frameshift</span></td><td>Insertion or deletion of bases <span class="warn">NOT a multiple of 3</span></td><td><span class="warn">Entire reading frame shifts</span> downstream &mdash; completely wrong amino acid sequence</td><td>Very High</td></tr>
+      </table>
+      <h3>Why Silent Mutations Happen</h3>
+      <ul>
+        <li>The genetic code is <span class="highlight">degenerate</span> &mdash; multiple codons code for the same amino acid</li>
+        <li><span class="highlight">Wobble:</span> tRNAs recognize multiple codons via irregular base pairing at the <span class="highlight">3rd codon position</span></li>
+        <li>Codons for the same amino acid typically only differ at position 3</li>
+        <li>So a mutation at the 3rd position often = <span class="highlight">silent mutation</span></li>
+      </ul>
+      <h3>Why Frameshifts Are So Damaging</h3>
+      <ul>
+        <li>Codons are read in <span class="highlight">groups of 3</span> from a fixed start</li>
+        <li>Inserting/deleting a non-multiple of 3 <span class="warn">shifts the entire reading frame</span></li>
+        <li>Every codon downstream is now read incorrectly</li>
+        <li>If insertion/deletion IS a multiple of 3, only a few amino acids are added/removed &mdash; less catastrophic</li>
+      </ul>
+      <h3>What Causes Mutations?</h3>
+      <ul>
+        <li><span class="highlight">Spontaneous:</span> errors during DNA replication</li>
+        <li><span class="highlight">Mutagens:</span> chemical or physical agents that increase mutation rates</li>
+        <li><span class="highlight">Base analogs:</span> incorporated instead of normal dNTPs, pair incorrectly during replication</li>
+        <li><span class="highlight">DNA modifiers:</span> chemically alter bases (e.g., nitrous acid deaminates C&rarr;U, causing <span class="warn">CG-to-TA transition</span>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Large DNA Rearrangements -->
+  <div class="tab-content" id="learn-1">
+    <div class="card hy-card">
+      <h2>4 Types of Large DNA Rearrangements <span class="hy-badge">EXAM TOPIC</span></h2>
+      <table class="data-table hy-table">
+        <tr><th>Type</th><th>What Happens</th><th>Effect on Genes</th></tr>
+        <tr><td><span class="highlight">Inversion</span></td><td>A segment of DNA is <span class="highlight">reversed in orientation</span> (flipped 180&deg;)</td><td>Genes in the inverted segment are now read in reverse direction; genes at breakpoints may be disrupted</td></tr>
+        <tr><td><span class="highlight">Translocation</span></td><td>A segment of DNA <span class="highlight">moves to a different location</span> in the genome</td><td>Gene may be placed under different regulatory control; breakpoints may disrupt genes</td></tr>
+        <tr><td><span class="highlight">Duplication</span></td><td>A segment of DNA is <span class="highlight">copied</span>, creating two copies</td><td>Extra copy of genes; can lead to gene divergence and evolution of new functions</td></tr>
+        <tr><td><span class="highlight">Insertion</span></td><td>New DNA is <span class="highlight">inserted</span> into the genome (e.g., by transposons or foreign DNA)</td><td>Disrupts the gene at the insertion site; may cause frameshift or block transcription</td></tr>
+      </table>
+      <h3>Key Distinctions</h3>
+      <ul>
+        <li><span class="highlight">Inversion</span> = same location, reversed orientation</li>
+        <li><span class="highlight">Translocation</span> = different location, same orientation</li>
+        <li><span class="highlight">Duplication</span> = extra copy created</li>
+        <li><span class="highlight">Insertion</span> = new DNA added (often from transposons or external sources)</li>
+      </ul>
+      <h3>Compared to Point Mutations</h3>
+      <ul>
+        <li>Point mutations affect <span class="highlight">single bases</span></li>
+        <li>Large rearrangements affect <span class="warn">entire segments</span> of DNA &mdash; hundreds to thousands of bases</li>
+        <li>Large rearrangements can affect <span class="warn">multiple genes simultaneously</span></li>
+      </ul>
+      <h3>Classes of Mutants</h3>
+      <ul>
+        <li><span class="highlight">Biosynthetic mutants:</span> cannot synthesize a required building block</li>
+        <li><span class="highlight">Utilization mutants:</span> cannot use a particular substrate</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Transposons -->
+  <div class="tab-content" id="learn-2">
+    <div class="card hy-card">
+      <h2>Transposons &amp; Their Elements <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li><span class="highlight">Transposons</span> = mobile DNA elements ("jumping genes")</li>
+        <li>Major contributors to <span class="highlight">evolution</span></li>
+        <li>All organisms carry them; in some bacteria <span class="warn">half of DNA</span> is transposons</li>
+        <li>Movement catalyzed by <span class="highlight">transposase</span> enzyme</li>
+        <li>Transposase recognizes <span class="highlight">terminal inverted repeats (IRs)</span> and cuts/pastes to a new location</li>
+      </ul>
+      <h3>All Transposable Elements Share</h3>
+      <ul>
+        <li><span class="highlight">Inverted repeats (IRs)</span> at both ends</li>
+        <li>At least one <span class="highlight">transposase gene</span></li>
+      </ul>
+      <h3>3 Types of Transposable Elements</h3>
+      <table class="data-table hy-table">
+        <tr><th>Type</th><th>Structure</th><th>Key Features</th></tr>
+        <tr><td><span class="highlight">Insertion Sequence (IS)</span></td><td>IRs + transposase gene only</td><td>Simplest mobile element; no extra genes</td></tr>
+        <tr><td><span class="highlight">Non-composite transposon</span></td><td>IRs flanking transposase + <span class="warn">extra genes</span> (e.g., antibiotic resistance)</td><td>Extra gene (GeneR) is more likely to be mobile &mdash; moves as one unit</td></tr>
+        <tr><td><span class="highlight">Composite transposon</span></td><td><span class="warn">Two IS elements</span> flanking additional genes in the middle</td><td>IS elements can initially move independently; genes in the middle don't necessarily move with IS</td></tr>
+      </table>
+      <h3>Why Composite Transposons Stabilize Over Time</h3>
+      <ul>
+        <li><span class="key">1</span> A new composite transposon <span class="highlight">can break up</span> (IS elements leave independently)</li>
+        <li><span class="key">2</span> However, the middle gene (e.g., GeneR) is typically <span class="highlight">useful</span> &mdash; loss is selected against</li>
+        <li><span class="key">3</span> Over time, mutations <span class="highlight">inactivate the internal IR</span> between IS and central genes</li>
+        <li><span class="key">4</span> Mutations can also <span class="highlight">knock out 1 of the 2 transposases</span></li>
+        <li><span class="key">5</span> Now the composite can only <span class="highlight">move as a single unit</span> (behaves like non-composite)</li>
+        <li>If GeneR provides a fitness advantage, mutations making the composite act as one unit <span class="highlight">accumulate under selection</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Transformation -->
+  <div class="tab-content" id="learn-3">
+    <div class="card hy-card">
+      <h2>Transformation <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p><span class="highlight">Transformation</span> = uptake of naked DNA from the environment. One of 3 methods of <span class="highlight">Horizontal Gene Transfer (HGT)</span>.</p>
+      <table class="data-table hy-table">
+        <tr><th>HGT Method</th><th>Analogy</th><th>DNA Source</th></tr>
+        <tr><td><span class="highlight">Transformation</span></td><td>Mailing a postcard (naked)</td><td>Free DNA from environment</td></tr>
+        <tr><td><span class="highlight">Transduction</span></td><td>Mailing a letter in an envelope</td><td>DNA inside a phage</td></tr>
+        <tr><td><span class="highlight">Conjugation</span></td><td>Handing someone a birthday present</td><td>Direct cell-to-cell transfer</td></tr>
+      </table>
+
+      <h3>Griffith's Experiment (1928)</h3>
+      <table class="data-table hy-table">
+        <tr><th>Condition</th><th>Result</th><th>Conclusion</th></tr>
+        <tr><td>Live <span class="highlight">S (smooth)</span> cells &rarr; mouse</td><td><span class="warn">Mouse dies</span></td><td>S strain is virulent (has capsule)</td></tr>
+        <tr><td>Live <span class="highlight">R (rough)</span> cells &rarr; mouse</td><td>Mouse lives</td><td>R strain is avirulent (no capsule)</td></tr>
+        <tr><td><span class="highlight">Heat-killed S</span> cells &rarr; mouse</td><td>Mouse lives</td><td>Dead cells are not virulent; capsule alone is innocuous</td></tr>
+        <tr><td><span class="warn">Heat-killed S + Live R</span> &rarr; mouse</td><td><span class="warn">Mouse dies!</span> R cells recovered as S</td><td>R cells were <span class="highlight">transformed</span> &mdash; acquired capsule genes from dead S cells</td></tr>
+      </table>
+      <ul>
+        <li>This led to the discovery that <span class="highlight">genes are made of DNA</span></li>
+      </ul>
+
+      <h3>5 Steps of Natural Transformation</h3>
+      <ul>
+        <li><span class="key">1</span> Exogenous <span class="highlight">dsDNA binds</span> to competence system proteins on the cell membrane</li>
+        <li><span class="key">2</span> DNA is <span class="highlight">fragmented</span> into smaller pieces</li>
+        <li><span class="key">3</span> One strand is <span class="warn">degraded by nuclease</span>; the other strand enters the cell</li>
+        <li><span class="key">4</span> Entering strand is coated with <span class="highlight">RecA protein</span> (protects from cytoplasmic exonucleases)</li>
+        <li><span class="key">5</span> If homologous to resident DNA, RecA facilitates <span class="highlight">integration by homologous recombination</span></li>
+      </ul>
+      <ul>
+        <li>Cells capable of uptake = <span class="highlight">competent</span> (some naturally, others must be made artificially)</li>
+      </ul>
+
+      <h3>Artificial Transformation</h3>
+      <table class="data-table">
+        <tr><th>Method</th><th>How It Works</th></tr>
+        <tr><td><span class="highlight">Chemical transformation</span></td><td>High [Ca2+] at cold temperature, then <span class="highlight">heat shock</span> &rarr; increases membrane permeability</td></tr>
+        <tr><td><span class="highlight">Electroporation</span></td><td>Short, <span class="highlight">high-voltage jolts</span> create tiny transient holes in the membrane</td></tr>
+      </table>
+      <ul>
+        <li>Most prokaryotes can be made competent artificially</li>
+        <li>Critical step in <span class="highlight">recombinant DNA methods</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Conjugation -->
+  <div class="tab-content" id="learn-4">
+    <div class="card hy-card">
+      <h2>Conjugation <span class="hy-badge">EXAM TOPIC</span></h2>
+
+      <h3>Gram-Negative Conjugation (F Plasmid System)</h3>
+      <ul>
+        <li>Bacteria exchange <span class="highlight">plasmid DNA</span> through conjugation</li>
+        <li>Requires a <span class="highlight">conjugative pilus</span> and <span class="highlight">T4SS</span> (type IV secretion system)</li>
+        <li><span class="highlight">Conjugative plasmids</span> carry all genes needed for transfer</li>
+      </ul>
+
+      <h3>F Plasmid Transfer: Step by Step</h3>
+      <ul>
+        <li><span class="key">1</span> <span class="highlight">F+ cell</span> extends conjugative pilus to <span class="highlight">F- cell</span> and retracts (brings cells together)</li>
+        <li><span class="key">2</span> F plasmid replicates by <span class="highlight">rolling circle mechanism</span> in the donor</li>
+        <li><span class="key">3</span> A <span class="highlight">nick</span> is made in the dsDNA of the plasmid</li>
+        <li><span class="key">4</span> A <span class="highlight">single strand enters</span> the F- cell</li>
+        <li><span class="key">5</span> In the F- cell, the strand is <span class="highlight">duplicated and circularized</span></li>
+        <li><span class="key">Result</span> F- cell becomes <span class="highlight">F+</span></li>
+      </ul>
+
+      <h3>Hfr Strains (High Frequency of Recombination)</h3>
+      <ul>
+        <li>Rarely, F plasmid can <span class="highlight">integrate into the chromosome</span> via IS element homology</li>
+        <li>Creates <span class="highlight">Hfr</span> cells</li>
+        <li>Hfr can still transfer F, but often <span class="warn">transfers part of the chromosome</span> along with it</li>
+        <li>This increases chances of chromosomal DNA <span class="highlight">integrating in the recipient</span> by recombination</li>
+        <li>In molecular cloning: regions of homology on plasmids used for <span class="highlight">gene knock-out/knock-in</span> strategies</li>
+      </ul>
+
+      <h3>Gram-Positive Conjugation (E. faecalis Pheromone System)</h3>
+      <ul>
+        <li>Transfer does <span class="warn">NOT happen via a pilus</span></li>
+        <li>Mediated by <span class="highlight">pheromones</span> instead</li>
+      </ul>
+      <table class="data-table hy-table">
+        <tr><th>Step</th><th>What Happens</th><th>Key Molecule</th></tr>
+        <tr><td><span class="key">1</span></td><td>Recipient cell produces a pheromone</td><td><span class="highlight">cA</span> (chromosomally encoded)</td></tr>
+        <tr><td><span class="key">2</span></td><td>cA interacts with plasmid in donor, triggers surface protein</td><td><span class="highlight">pA</span> (plasmid) &rarr; makes <span class="highlight">Aggregation Substance (AS)</span></td></tr>
+        <tr><td><span class="key">3</span></td><td>AS binds to substance on other cells, causing clumping</td><td>AS binds <span class="highlight">Binding Substance (BS)</span></td></tr>
+        <tr><td><span class="key">4</span></td><td>Donor prevents self-clumping</td><td><span class="highlight">IcA</span> inhibits cA production in donor</td></tr>
+        <tr><td><span class="key">5</span></td><td>Plasmid is transferred once cells are clumped</td><td>&mdash;</td></tr>
+      </table>
+      <h3>Gram-Negative vs. Gram-Positive Conjugation</h3>
+      <table class="data-table hy-table">
+        <tr><th></th><th>Gram-Negative</th><th>Gram-Positive</th></tr>
+        <tr><td>Contact mechanism</td><td><span class="highlight">Conjugative pilus</span></td><td><span class="highlight">Pheromone-mediated aggregation</span></td></tr>
+        <tr><td>Cell recognition</td><td>Pilus extends to F- cell</td><td>cA pheromone attracts donor</td></tr>
+        <tr><td>Anti-self mechanism</td><td>Only F+ cells have pilus</td><td><span class="highlight">IcA</span> inhibits cA in donor</td></tr>
+        <tr><td>Transfer mechanism</td><td>Rolling circle, single strand</td><td>Transfer after clumping</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Transduction -->
+  <div class="tab-content" id="learn-5">
+    <div class="card hy-card">
+      <h2>Transduction <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li>Prokaryotes receive DNA from <span class="highlight">bacteriophages (phages)</span></li>
+        <li>Sometimes phages make <span class="warn">mistakes when packaging</span> their DNA</li>
+        <li>They accidentally package <span class="highlight">host DNA</span> instead of (or along with) their own</li>
+        <li>When this phage infects a <span class="highlight">new host cell</span>, it delivers the previous host's DNA</li>
+        <li>The donor DNA can then <span class="highlight">recombine into the new host's genome</span></li>
+        <li>This can give the new host a <span class="highlight">new phenotype</span></li>
+      </ul>
+      <h3>Key Points</h3>
+      <ul>
+        <li>DNA is <span class="highlight">protected inside the phage</span> (unlike naked DNA in transformation)</li>
+        <li>Limited by <span class="warn">phage host range</span> &mdash; phage must be able to infect both donor and recipient</li>
+        <li>Limited by <span class="warn">packaging capacity</span> of the phage head</li>
+        <li>The transducing phage particle is typically <span class="highlight">non-infectious</span> (carries host DNA, not phage DNA)</li>
+      </ul>
+      <h3>All 3 HGT Methods Compared</h3>
+      <table class="data-table hy-table">
+        <tr><th></th><th>Transformation</th><th>Transduction</th><th>Conjugation</th></tr>
+        <tr><td>DNA source</td><td>Naked DNA from environment</td><td>DNA inside a phage</td><td>Plasmid from living donor cell</td></tr>
+        <tr><td>Requires</td><td>Competent recipient</td><td>Phage that infects both cells</td><td>F plasmid + cell contact</td></tr>
+        <tr><td>DNA protection</td><td><span class="warn">None</span> (naked)</td><td><span class="highlight">Phage coat</span></td><td><span class="highlight">Direct transfer</span></td></tr>
+        <tr><td>Donor must be</td><td>Dead (releases DNA)</td><td>Previously infected by phage</td><td>Alive (F+ or Hfr)</td></tr>
+        <tr><td>DNA size</td><td>Small fragments</td><td>Limited by phage head</td><td>Can be very large (whole plasmid or chromosome)</td></tr>
+        <tr><td>Integration</td><td>Homologous recombination (RecA)</td><td>Homologous recombination</td><td>Plasmid stays episomal or recombines</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <div class="card" style="text-align:center; padding: 16px 28px;">
+    <p style="font-size:13px; color: var(--text-dim);">Click the card to flip. Use arrows to navigate.</p>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&#8592;</button>
+    <span class="fc-counter" id="fc-counter">1 / 24</span>
+    <button class="fc-btn" onclick="nextCard()">&#8594;</button>
+    <button class="fc-btn" onclick="shuffleCards()" title="Shuffle" style="font-size:14px;">&#x1f500;</button>
+  </div>
+</div>
+
+<!-- FRQ PRACTICE -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div><div class="score-text">Self-Assessment</div><div class="score-pct" id="frq-score">0 / 0</div></div>
+    <button class="reset-btn" onclick="resetFRQ('frq')">Reset</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- MATCHING -->
+<div class="section" id="sec-matching">
+  <div class="card" style="padding: 16px 28px;">
+    <p style="font-size:14px; font-weight:600;">Match the term on the left with its description on the right.</p>
+  </div>
+  <div class="score-bar">
+    <div><div class="score-text">Matched</div><div class="score-pct" id="match-score">0 / 14</div></div>
+    <button class="reset-btn" onclick="resetMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div><div class="match-col-header">Term</div><div id="match-left"></div></div>
+    <div><div class="match-col-header">Description</div><div id="match-right"></div></div>
+  </div>
+</div>
+
+<!-- HARD FRQ -->
+<div class="section" id="sec-hardfrq">
+  <div class="score-bar">
+    <div><div class="score-text">Self-Assessment</div><div class="score-pct" id="hardfrq-score">0 / 0</div></div>
+    <button class="reset-btn" onclick="resetFRQ('hardfrq')">Reset</button>
+  </div>
+  <div id="hardfrq-container"></div>
+</div>
+
+</main>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showTab(section, idx) {
+  const parent = document.getElementById('sec-' + section);
+  parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(section + '-' + idx).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// FLASHCARDS - prioritized for exam topics
+const flashcards = [
+  // Point mutations
+  ["What are the 4 types of point mutations?", "1) Silent: same amino acid. 2) Missense: different amino acid. 3) Nonsense: premature stop codon, truncated protein. 4) Frameshift: insertion/deletion not a multiple of 3, shifts entire reading frame."],
+  ["Why can a base change result in a silent mutation?", "The genetic code is degenerate — 64 codons for 22 amino acids. Multiple codons code for the same amino acid. Wobble allows tRNAs to recognize codons that differ at the 3rd position."],
+  ["Why are frameshift mutations typically the most damaging?", "Codons are read in groups of 3. An insertion/deletion not a multiple of 3 shifts the ENTIRE reading frame downstream. Every amino acid after the mutation is wrong. Usually = complete loss of function."],
+  ["What is a nonsense mutation?", "A base change that creates a premature STOP codon. The protein is truncated (cut short). Usually results in complete loss of function because the protein is incomplete."],
+  // Large rearrangements
+  ["What are the 4 types of large DNA rearrangements?", "1) Inversion: segment reversed in orientation. 2) Translocation: segment moves to different location. 3) Duplication: segment is copied. 4) Insertion: new DNA inserted into genome."],
+  ["How does an inversion differ from a translocation?", "Inversion: DNA segment stays at same location but is FLIPPED 180\u00b0. Translocation: DNA segment MOVES to a completely different location in the genome. Both can disrupt genes at breakpoints."],
+  ["What is a duplication and why is it evolutionarily important?", "A segment of DNA is copied, creating two copies. One copy can maintain original function while the other is free to accumulate mutations — can evolve new functions."],
+  ["How do large rearrangements differ from point mutations?", "Point mutations affect single bases. Large rearrangements affect entire segments (hundreds to thousands of bases) and can affect multiple genes simultaneously."],
+  // Transposons
+  ["What structural features do ALL transposable elements share?", "1) Terminal inverted repeats (IRs) at both ends. 2) At least one transposase gene. Transposase recognizes the IRs and catalyzes cut-and-paste movement."],
+  ["IS element vs. non-composite vs. composite transposon?", "IS: simplest — just IRs + transposase. Non-composite: IRs + transposase + extra genes (e.g., antibiotic resistance) — moves as one unit. Composite: TWO IS elements flanking central genes — IS can initially move independently."],
+  ["Why do composite transposons stabilize over time?", "Central gene is useful (selected for). Mutations inactivate internal IR and one transposase. Now composite can only move as single unit. If the gene gives fitness advantage, these stabilizing mutations accumulate."],
+  ["Why is GeneR more likely to be mobile in a non-composite vs. composite transposon?", "In non-composite: GeneR is between the IRs and always moves with the transposon. In composite: IS elements can move independently, leaving GeneR behind. So GeneR in non-composite is reliably mobile."],
+  // Transformation
+  ["What is transformation?", "Uptake of naked DNA from the environment by a competent cell, followed by recombination into the chromosome. Like mailing a postcard — DNA is exposed/unprotected."],
+  ["Describe all 4 conditions of Griffith's experiment and results.", "1) Live S (capsule) → mouse dies. 2) Live R (no capsule) → mouse lives. 3) Heat-killed S → mouse lives. 4) Heat-killed S + live R → mouse DIES. R cells transformed into S by acquiring capsule genes from dead S cells."],
+  ["What are the 5 steps of natural transformation?", "1) dsDNA binds competence proteins. 2) DNA fragmented. 3) One strand degraded by nuclease, other enters cell. 4) Entering strand coated with RecA (protection). 5) RecA facilitates homologous recombination if DNA has homology to chromosome."],
+  ["Chemical transformation vs. electroporation?", "Chemical: high Ca2+ at cold temp then heat shock — increases membrane permeability. Electroporation: short high-voltage jolts create transient holes. Both make cells artificially competent."],
+  // Conjugation
+  ["Describe the steps of F plasmid conjugation.", "1) F+ pilus extends to F- and retracts (cell contact). 2) F replicates by rolling circle. 3) Nick made in plasmid dsDNA. 4) Single strand enters F-. 5) Strand duplicated and circularized in F-. Result: F- becomes F+."],
+  ["What is an Hfr strain and why is it significant?", "Hfr = F plasmid integrated into the chromosome (via IS element homology). When Hfr conjugates, it transfers part of the chromosome along with F. Recipient gets chromosomal genes that can recombine into its genome."],
+  ["How does Gram-positive conjugation differ from Gram-negative?", "No pilus! Uses pheromones. Recipient makes cA → triggers donor to make aggregation substance (AS) → AS binds binding substance (BS) → cells clump → plasmid transfers. IcA prevents donor self-clumping."],
+  ["Walk through the E. faecalis pheromone conjugation system.", "1) Recipient makes cA pheromone. 2) cA activates plasmid pA in donor → makes AS. 3) AS binds BS on recipients → cells clump. 4) IcA inhibits cA in donor (prevents self-clumping). 5) Plasmid transfers while clumped."],
+  // Transduction
+  ["What is transduction?", "Phage accidentally packages HOST DNA instead of its own. When it infects a new cell, it delivers the previous host's DNA. That DNA can recombine into the new host's genome. Like a letter in an envelope."],
+  ["What limits transduction?", "1) Phage host range — phage must infect both donor and recipient species. 2) Packaging capacity — limited by size of phage head. 3) It's an accident — low frequency event."],
+  // Compare all 3
+  ["Compare transformation, transduction, and conjugation.", "Transformation: naked DNA, needs competent recipient, donor is dead. Transduction: DNA in phage, needs shared phage, limited by head size. Conjugation: direct transfer, needs F plasmid + contact, can transfer large DNA."],
+  ["What is Horizontal Gene Transfer and why does it matter?", "HGT = transfer of genes between organisms (not parent to offspring). Includes transformation, transduction, conjugation. Allows rapid spread of traits like antibiotic resistance. Major driver of bacterial evolution."],
+];
+
+let fcIndex = 0;
+function renderCard() {
+  document.getElementById('fc-front').textContent = flashcards[fcIndex][0];
+  document.getElementById('fc-back').textContent = flashcards[fcIndex][1];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-counter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0; renderCard();
+}
+renderCard();
+
+// FRQ - all focused on exam topics
+const frqQuestions = [
+  { q: "List and define the 4 types of point mutations. For each, explain the effect on the resulting protein.", hint: "Silent, missense, nonsense, frameshift. Think about what happens to amino acids.", hy: true,
+    a: "<strong>1. Silent:</strong> A base change but the codon still codes for the <strong>same amino acid</strong> (due to genetic code degeneracy). No effect on protein. <strong>2. Missense:</strong> A base change that results in a <strong>different amino acid</strong>. May or may not affect protein function depending on the change. <strong>3. Nonsense:</strong> A base change that creates a <strong>premature stop codon</strong>. Produces a <strong>truncated protein</strong> — usually complete loss of function. <strong>4. Frameshift:</strong> Insertion or deletion of bases <strong>not a multiple of 3</strong>. Shifts the entire reading frame downstream — every codon after is wrong. Typically results in complete loss of function." },
+  { q: "Explain WHY a silent mutation produces no change in the protein. What molecular features of the genetic code make this possible?", hint: "Think about degeneracy, wobble, and the 3rd codon position.", hy: true,
+    a: "The genetic code is <strong>degenerate</strong> — there are 64 codons but only 22 amino acids, so multiple codons specify the same amino acid. This is possible because of <strong>wobble</strong>: tRNAs can recognize more than one codon through irregular base pairing between the <strong>3' nucleotide of the codon</strong> and the <strong>5' nucleotide of the anticodon</strong>. Codons for the same amino acid typically differ only at the <strong>3rd position</strong>, which wobble accommodates. So a mutation at the 3rd position often doesn't change the amino acid = silent mutation." },
+  { q: "Explain why an insertion of 2 bases is devastating but an insertion of 3 bases is much less harmful.", hint: "Think about how codons are read and what 'reading frame' means.", hy: true,
+    a: "Codons are read in <strong>non-overlapping groups of 3</strong> from a fixed start point. An insertion of 2 bases <strong>shifts the reading frame</strong> — every codon downstream is now read differently, producing a completely wrong amino acid sequence (frameshift). An insertion of 3 bases <strong>adds one extra amino acid</strong> but the reading frame is maintained — all codons downstream are still read correctly. The protein has one extra amino acid, which may or may not affect function, but is far less catastrophic than scrambling the entire downstream sequence." },
+  { q: "List and describe the 4 types of large DNA rearrangements.", hint: "Inversion, translocation, duplication, insertion.", hy: true,
+    a: "<strong>1. Inversion:</strong> A DNA segment is <strong>reversed in orientation</strong> (flipped 180°). Genes in the inverted region are now in the opposite direction; genes at breakpoints may be disrupted. <strong>2. Translocation:</strong> A DNA segment <strong>moves to a different location</strong> in the genome. May place gene under different regulatory control. <strong>3. Duplication:</strong> A DNA segment is <strong>copied</strong>, creating two copies. One copy can evolve new functions. <strong>4. Insertion:</strong> New DNA is <strong>added</strong> to the genome (e.g., transposon or foreign DNA). Disrupts the gene at the insertion site." },
+  { q: "How do large DNA rearrangements differ from point mutations in terms of scale and impact?", hint: "Single bases vs. segments. How many genes affected?", hy: true,
+    a: "<strong>Point mutations</strong> affect <strong>single base pairs</strong> and typically only alter one codon/amino acid (or cause a frameshift). <strong>Large rearrangements</strong> affect <strong>entire DNA segments</strong> (hundreds to thousands of bases) and can affect <strong>multiple genes simultaneously</strong>. An inversion can disrupt genes at both breakpoints. A translocation can move a gene away from its promoter. A duplication creates redundancy. An insertion (e.g., transposon) disrupts the target gene and adds new DNA. Large rearrangements can have much broader effects on cell function." },
+  { q: "What structural features do all transposable elements share? List and describe the 3 types.", hint: "IRs, transposase, then IS vs. non-composite vs. composite.", hy: true,
+    a: "<strong>All transposable elements share:</strong> (1) <strong>Terminal inverted repeats (IRs)</strong> at both ends, and (2) at least one <strong>transposase gene</strong>. Transposase recognizes the IRs and catalyzes cut-and-paste movement. <strong>3 Types:</strong> (1) <strong>IS (Insertion Sequence):</strong> Simplest — just IRs + transposase. No extra genes. (2) <strong>Non-composite transposon:</strong> IRs flanking transposase + extra genes (e.g., antibiotic resistance). Moves as one unit. (3) <strong>Composite transposon:</strong> Two IS elements flanking additional central genes. IS elements can initially move independently." },
+  { q: "Explain why composite transposons stabilize over time to move as a single unit. What role does natural selection play?", hint: "Useful gene, selection against loss, IR inactivation.", hy: true,
+    a: "Initially, the two IS elements in a composite transposon can <strong>move independently</strong>, potentially leaving the central genes behind. However: (1) The central genes are typically <strong>useful</strong> (e.g., antibiotic resistance) — losing them is <strong>selected against</strong>. (2) Over time, mutations <strong>inactivate the internal IR</strong> (between IS and central genes). (3) Mutations may also <strong>knock out one of the two transposases</strong>. (4) Now the composite can only <strong>move as a single unit</strong>. Natural selection favors these stabilizing mutations because organisms that keep the useful gene as a mobile unit have a <strong>fitness advantage</strong>." },
+  { q: "Describe Griffith's transformation experiment. Include all 4 conditions, results, and the conclusion.", hint: "Live S, Live R, Heat-killed S, Heat-killed S + Live R.", hy: true,
+    a: "<strong>1.</strong> Live <strong>S (smooth, capsule)</strong> → mouse <strong>dies</strong> (S is virulent). <strong>2.</strong> Live <strong>R (rough, no capsule)</strong> → mouse <strong>lives</strong> (R is avirulent). <strong>3.</strong> <strong>Heat-killed S</strong> → mouse <strong>lives</strong> (dead cells non-virulent; capsule alone is innocuous). <strong>4.</strong> <strong>Heat-killed S + Live R</strong> → mouse <strong>dies!</strong> R cells recovered from blood had become S cells. <strong>Conclusion:</strong> R cells acquired capsule genes from the dead S cells = <strong>transformation</strong>. This led to the discovery that <strong>genes are made of DNA</strong>." },
+  { q: "Describe the 5-step mechanism of natural transformation.", hint: "Binding, fragmentation, strand degradation, RecA, recombination.", hy: true,
+    a: "<strong>1.</strong> Exogenous dsDNA <strong>binds to competence system proteins</strong> on the cell membrane. <strong>2.</strong> DNA is <strong>fragmented</strong> into smaller pieces. <strong>3.</strong> One strand is <strong>degraded by nuclease</strong>; the other strand enters the cell as ssDNA. <strong>4.</strong> The entering strand is coated with <strong>RecA protein</strong>, which protects it from cytoplasmic exonucleases. <strong>5.</strong> If the DNA is <strong>homologous</strong> to resident chromosomal DNA, RecA facilitates <strong>integration by homologous recombination</strong>. Only <strong>competent</strong> cells can perform transformation." },
+  { q: "Compare chemical transformation and electroporation as methods of artificial transformation.", hint: "How does each increase membrane permeability?", hy: true,
+    a: "<strong>Chemical transformation:</strong> Bacteria are exposed to <strong>high concentrations of calcium (CaCl₂)</strong> at <strong>cold temperature</strong>, then subjected to a <strong>heat shock</strong>. This increases membrane permeability, allowing DNA to enter. <strong>Electroporation:</strong> Short, <strong>high-voltage electrical jolts</strong> create <strong>tiny, transient holes</strong> in the cell membrane through which DNA can pass. Both methods make non-naturally-competent prokaryotes <strong>artificially competent</strong>. Both are critical for <strong>recombinant DNA methods</strong>." },
+  { q: "Describe the step-by-step mechanism of F plasmid conjugation in Gram-negative bacteria.", hint: "Pilus, rolling circle, nick, single strand, F- becomes F+.", hy: true,
+    a: "<strong>1.</strong> The <strong>conjugative pilus on the F+ cell</strong> extends to an F- cell and <strong>retracts</strong>, bringing the cells into close contact. <strong>2.</strong> The F plasmid begins replicating by the <strong>rolling circle mechanism</strong> in the donor cell. <strong>3.</strong> A <strong>nick</strong> (single-strand break) is made in the dsDNA of the F plasmid. <strong>4.</strong> A <strong>single strand</strong> of the F plasmid enters the F- cell through the T4SS. <strong>5.</strong> In the F- cell, the single strand is <strong>duplicated and circularized</strong>, creating a complete F plasmid. <strong>Result:</strong> The F- cell becomes <strong>F+</strong> and can now conjugate with other F- cells." },
+  { q: "What are Hfr strains? How do they form and why are they significant?", hint: "F integration, IS elements, chromosome transfer.", hy: true,
+    a: "<strong>Hfr (high frequency of recombination)</strong> strains form when the F plasmid <strong>integrates into the bacterial chromosome</strong>. This happens rarely, via <strong>homologous recombination between IS elements</strong> on the F plasmid and matching IS elements on the chromosome. <strong>Significance:</strong> When Hfr strains conjugate, they start transferring the F plasmid but <strong>drag chromosomal DNA along</strong>. The recipient gets chromosomal genes from the donor, which can <strong>integrate by recombination</strong>. This was historically used for <strong>genetic mapping</strong> (interrupted mating experiments). In molecular cloning, this principle is used for <strong>gene knock-out/knock-in strategies</strong>." },
+  { q: "Describe the complete pheromone-mediated conjugation system in E. faecalis (Gram-positive).", hint: "cA, pA, AS, BS, IcA — walk through each step.", hy: true,
+    a: "<strong>1.</strong> Recipient cell produces chromosomally-encoded pheromone <strong>cA</strong>. <strong>2.</strong> cA diffuses to donor cell and interacts with <strong>plasmid pA</strong>. <strong>3.</strong> pA triggers production of <strong>aggregation substance (AS)</strong> on the donor's surface. <strong>4.</strong> AS binds to <strong>binding substance (BS)</strong> on recipient cells, <strong>clumping them together</strong>. <strong>5.</strong> Once clumped, the plasmid is transferred. <strong>Anti-self mechanism:</strong> The donor produces <strong>IcA</strong>, which inhibits cA production in the donor cell. This ensures clumping only occurs with <strong>genuine recipients</strong>, not with other donors or with itself." },
+  { q: "Explain the mechanism of transduction. What makes it different from transformation?", hint: "Phage packaging mistake. Protected vs. naked DNA.", hy: true,
+    a: "<strong>Transduction:</strong> During phage replication, the phage occasionally makes a <strong>packaging mistake</strong> and accidentally packages <strong>host bacterial DNA</strong> instead of phage DNA. When this defective phage infects a new cell, it injects the <strong>previous host's DNA</strong>. This DNA can <strong>recombine into the new host's genome</strong> by homologous recombination, potentially giving the recipient a new phenotype. <strong>Key differences from transformation:</strong> (1) DNA is <strong>protected inside the phage coat</strong> (transformation uses naked DNA). (2) Requires a <strong>phage</strong> that can infect both donor and recipient. (3) Donor doesn't need to be dead. (4) DNA size is limited by the <strong>phage head capacity</strong>." },
+];
+
+const hardFRQ = [
+  { q: "You observe a bacterium that produces a non-functional version of an essential enzyme. Given only the DNA sequence of the mutant gene and the wild-type gene, describe how you would determine which type of point mutation occurred.", hint: "Align sequences, find the change, check the reading frame and resulting codons.", hy: true,
+    a: "<strong>Step 1:</strong> Align the mutant and wild-type DNA sequences to find the exact nucleotide change(s). <strong>Step 2: Check if bases were inserted/deleted.</strong> If yes, count how many. If not a multiple of 3 → <strong>frameshift</strong>. If no insertion/deletion → it's a substitution. <strong>Step 3: Translate both codons</strong> (wild-type and mutant) using the genetic code table. (a) If both codons encode the <strong>same amino acid</strong> → <strong>silent mutation</strong> (but wait — the protein is non-functional, so there must be additional changes, or rare cases where silent mutations affect splicing/mRNA structure). (b) If mutant codon encodes a <strong>different amino acid</strong> → <strong>missense mutation</strong>. (c) If mutant codon is a <strong>stop codon (UAA, UAG, UGA)</strong> → <strong>nonsense mutation</strong>." },
+  { q: "A transposon carrying an antibiotic resistance gene inserts into the middle of gene X. Predict ALL the consequences, considering gene X is in the middle of a 5-gene operon.", hint: "Think about the inserted gene, gene X, and ALL downstream genes in the operon.", hy: true,
+    a: "<strong>1. Gene X is disrupted:</strong> The transposon insertion breaks the coding sequence of gene X → <strong>loss of gene X function</strong>. <strong>2. Insertion = frameshift:</strong> If the transposon size is not a multiple of 3 relative to gene X's reading frame, everything downstream within gene X is frameshifted. <strong>3. Polar effects on downstream genes:</strong> Since gene X is in an operon, the transposon insertion can <strong>block transcription/translation of ALL downstream genes</strong> (genes 4 and 5 if gene X is gene 3). The operon's polycistronic mRNA may be terminated early or ribosomes may fall off. <strong>4. Upstream genes unaffected:</strong> Genes 1 and 2 (upstream of gene X) should still be expressed normally. <strong>5. Antibiotic resistance gained:</strong> The transposon carries a resistance gene, so the cell gains <strong>resistance to that antibiotic</strong>. <strong>6. The insertion is heritable</strong> — passed to all daughter cells." },
+  { q: "Compare ALL 3 methods of horizontal gene transfer. For each, explain the mechanism, what is required, the advantages, and the limitations.", hint: "Transformation, transduction, conjugation — be thorough and systematic.", hy: true,
+    a: "<strong>Transformation:</strong> Mechanism: uptake of naked DNA from environment, RecA-mediated recombination. Requires: competent recipient. Advantage: donor can be dead (DNA released from lysed cells). Limitations: DNA is unprotected (degraded easily), requires homology for integration, small fragments only. <strong>Transduction:</strong> Mechanism: phage accidentally packages host DNA, delivers to new cell. Requires: phage that infects both donor and recipient. Advantage: DNA is protected inside phage coat. Limitations: limited by phage host range and packaging capacity, low frequency event. <strong>Conjugation:</strong> Mechanism: direct cell contact via pilus (Gram⁻) or pheromone-mediated aggregation (Gram⁺), plasmid transfer by rolling circle. Requires: F plasmid + cell contact. Advantage: can transfer very large DNA segments (entire plasmid or chromosome via Hfr), very efficient. Limitations: requires living donor, needs physical proximity." },
+  { q: "In a hospital, bacteria on ward A carry antibiotic resistance on a composite transposon within a conjugative plasmid. Explain step by step how this resistance could spread to a completely different species of bacteria on ward B.", hint: "Trace the DNA: transposon → plasmid → conjugation → new species → possible chromosome integration.", hy: true,
+    a: "<strong>Step 1:</strong> The resistance gene is on a <strong>composite transposon</strong> that has inserted into a <strong>conjugative plasmid</strong>. <strong>Step 2:</strong> Through <strong>conjugation</strong>, the F+ donor extends its pilus to an F- cell (same or different species) and transfers the conjugative plasmid (carrying the transposon) via rolling circle replication. <strong>Step 3:</strong> The recipient now has the plasmid with the resistance transposon. It becomes F+ and can <strong>conjugate with more cells</strong>. <strong>Step 4:</strong> If the transposon's transposase is active, it can <strong>jump from the plasmid into the new host's chromosome</strong>, making the resistance permanent even if the plasmid is lost. <strong>Step 5:</strong> Bacteria transferred between wards (via healthcare workers, equipment) carry the resistance to ward B. <strong>Step 6:</strong> Antibiotic use provides <strong>selection pressure</strong> — resistant bacteria outcompete susceptible ones. <strong>Two-tier mobility:</strong> Transposons move genes within a cell (plasmid ↔ chromosome), conjugation moves genes between cells." },
+  { q: "Design a complete experiment using Griffith's approach to determine if a newly discovered gene can be transferred by transformation. Include all conditions and controls.", hint: "Model it on the 4 conditions of Griffith's experiment, adapted to your gene.", hy: true,
+    a: "Testing if gene X (which confers phenotype P) can be transferred by transformation: <strong>Condition 1 (positive control):</strong> Donor strain (has gene X, shows phenotype P) → confirm P is present. <strong>Condition 2 (negative control):</strong> Recipient strain (lacks gene X, no phenotype P) → confirm P is absent. <strong>Condition 3 (DNA control):</strong> Purified DNA from donor alone → no cells to show phenotype. <strong>Condition 4 (transformation test):</strong> Purified DNA from donor + competent recipient → plate and screen for phenotype P. <strong>Additional controls:</strong> (5) DNase-treated donor DNA + recipient → should NOT show P (confirms DNA is the transforming agent, not protein/other). (6) Non-competent recipient + donor DNA → should NOT show P (confirms competence is required). (7) Heat-killed donor + live recipient → tests if lysis releases transforming DNA naturally. <strong>If condition 4 shows P and controls 5-6 don't:</strong> Gene X can be transferred by transformation." },
+  { q: "Explain the difference between an Hfr strain and a normal F+ strain during conjugation. What does the recipient receive in each case, and what is the result?", hint: "Where is the F plasmid? What gets transferred? Does the recipient become F+?", hy: true,
+    a: "<strong>F+ strain:</strong> F plasmid is <strong>free in the cytoplasm</strong> (episomal). During conjugation: the <strong>entire F plasmid</strong> is transferred to F-. Result: recipient becomes <strong>F+</strong> (gains F plasmid). <strong>No chromosomal genes</strong> are transferred. <strong>Hfr strain:</strong> F plasmid is <strong>integrated into the chromosome</strong>. During conjugation: transfer begins at the F origin but <strong>drags chromosomal DNA</strong> along. Transfer usually breaks off before completion, so the recipient gets <strong>part of the chromosome but often NOT the complete F plasmid</strong>. Result: recipient usually stays <strong>F-</strong> (doesn't get complete F) but gains <strong>chromosomal genes from the donor</strong> that can recombine into its genome. <strong>Key distinction:</strong> F+ transfers plasmid genes, Hfr transfers chromosomal genes." },
+  { q: "A composite transposon carries gene R (antibiotic resistance) flanked by two IS elements. One IS element has its transposase mutated. Predict what happens to the mobility of: (a) each IS element individually, (b) gene R, and (c) the composite transposon as a whole.", hint: "Think about which transposase is needed for each movement.", hy: true,
+    a: "<strong>(a) IS element with functional transposase:</strong> Can still potentially move on its own, but only if it retains both of its own IRs. <strong>IS element with mutated transposase:</strong> Cannot move independently — it has no functional transposase to catalyze its excision. <strong>(b) Gene R:</strong> Cannot move independently (it's not a transposable element itself — it has no IRs or transposase). Its mobility depends entirely on the transposon. <strong>(c) The composite transposon as a whole:</strong> The remaining functional transposase can recognize the <strong>outermost IRs</strong> of both IS elements and move the <strong>entire composite as a single unit</strong>. This is actually the <strong>stabilization mechanism</strong> — by losing one transposase, the composite can no longer break apart and must move as one unit. Gene R now reliably travels with the transposon, which is why this configuration is <strong>selected for</strong> when gene R provides a fitness advantage." },
+  { q: "A bacterium acquires a gene by transduction that makes it resistant to an antibiotic. Explain every step from the original host to the new resistant phenotype.", hint: "Phage infection of donor, packaging mistake, infection of recipient, recombination.", hy: true,
+    a: "<strong>Step 1:</strong> A phage infects the <strong>original host bacterium</strong> (which carries the resistance gene on its chromosome). <strong>Step 2:</strong> During phage replication, the phage <strong>degrades the host chromosome</strong> into fragments for packaging. <strong>Step 3:</strong> The phage accidentally <strong>packages a fragment of host DNA</strong> (containing the resistance gene) into a phage head instead of phage DNA = <strong>transducing particle</strong>. <strong>Step 4:</strong> The transducing particle is released during cell lysis and <strong>infects a new recipient cell</strong>. <strong>Step 5:</strong> The phage injects the <strong>donor's DNA</strong> into the recipient. Since it's host DNA (not phage DNA), the recipient is not killed. <strong>Step 6:</strong> If the donor DNA has <strong>homology</strong> to the recipient's chromosome, it integrates by <strong>homologous recombination</strong>. <strong>Step 7:</strong> The recipient now has the resistance gene in its chromosome, expresses it, and is <strong>resistant to the antibiotic</strong>. The trait is inherited by all progeny." },
+  { q: "Explain why Gram-positive bacteria cannot use a pilus for conjugation and describe how their alternative system (E. faecalis) ensures specificity — that donors only clump with recipients, not other donors.", hint: "Cell envelope differences. The IcA mechanism.", hy: true,
+    a: "<strong>Why no pilus:</strong> Gram-positive bacteria have a <strong>thick peptidoglycan layer</strong> but <strong>no outer membrane</strong>. The complex pilus assembly machinery (T4SS) used by Gram-negatives requires the outer membrane for anchoring and assembly. Without it, Gram-positives evolved an alternative: <strong>pheromone-mediated aggregation</strong>. <strong>Specificity mechanism:</strong> (1) Only <strong>recipient cells (F-)</strong> produce the pheromone <strong>cA</strong> (chromosomally encoded). (2) When cA reaches a donor, it activates plasmid gene <strong>pA</strong>, which triggers production of <strong>aggregation substance (AS)</strong>. (3) AS binds <strong>binding substance (BS)</strong> on nearby cells. <strong>Critical specificity step:</strong> The donor also produces <strong>IcA</strong>, an <strong>inhibitor of cA</strong>. IcA shuts down cA production within the donor cell itself. This means: donors don't produce cA → donors don't trigger AS production in other donors → <strong>donors only clump with recipients that are actively producing cA</strong>. This prevents wasteful donor-donor clumping." },
+  { q: "If you had to transfer a gene from Species A to Species B and both are Gram-negative, explain which HGT method you would use and why. Then explain how your approach would change if Species B were Gram-positive.", hint: "Consider what each method requires and how cell envelope affects the choice.", hy: true,
+    a: "<strong>Both Gram-negative:</strong> Best option is <strong>conjugation</strong>. Clone the gene onto a <strong>conjugative plasmid</strong>, transform it into Species A, then mix A (F+) with B (F-). The pilus will mediate direct transfer. Advantages: efficient, can transfer large DNA, DNA is protected during transfer. Alternative: <strong>transduction</strong> if a phage infects both species. Or <strong>artificial transformation</strong> (electroporation/chemical) of purified DNA into B if B can be made competent. <strong>If B is Gram-positive:</strong> Conjugation changes completely — <strong>no pilus works</strong>. Options: (1) <strong>Artificial transformation</strong> (electroporation) — works across Gram types since you're bypassing natural transfer. (2) If B has a pheromone-mediated system, you'd need to use a <strong>Gram-positive compatible conjugative plasmid</strong>. (3) <strong>Electroporation is usually the simplest cross-species method</strong> — purify DNA from A and electroporate directly into B. The Gram-positive thick peptidoglycan doesn't block electroporation." },
+  { q: "You find two mutant strains: Mutant 1 has a missense mutation in gene Y, and Mutant 2 has a nonsense mutation in gene Y. Both show loss of function. Predict which mutant is more likely to have its function partially restored by a SECOND mutation elsewhere in the genome, and explain why.", hint: "Think about suppressor mutations and what each mutation type does to the protein.",
+    a: "<strong>Mutant 2 (nonsense mutation) is more likely to be rescued by a second mutation.</strong> Here's why: A nonsense mutation creates a <strong>premature stop codon</strong>. A second mutation in a <strong>tRNA gene</strong> could create a <strong>suppressor tRNA</strong> that reads the stop codon as an amino acid, allowing translation to continue and produce a <strong>full-length protein</strong>. This is a well-known phenomenon called <strong>nonsense suppression</strong>. For Mutant 1 (missense): the protein is full-length but has the <strong>wrong amino acid</strong>. A second mutation would need to either: (a) change the amino acid back (extremely unlikely), (b) create a <strong>compensatory change elsewhere in the protein</strong> that restores the structure (rare), or (c) activate an alternative pathway. These are all less probable than nonsense suppression. <strong>Key insight:</strong> Nonsense mutations are paradoxically more 'fixable' by suppressor mutations than missense mutations, even though nonsense mutations are initially more severe." },
+  { q: "Bacteria in your lab have become resistant to an antibiotic. Design experiments to determine whether the resistance was acquired by transformation, transduction, or conjugation.", hint: "Think about what you can block or remove to distinguish each method.", hy: true,
+    a: "<strong>Experiment 1 — Test for conjugation:</strong> Mix resistant and sensitive cells separated by a <strong>membrane filter</strong> (allows media/molecules to pass but not cells). If resistance still transfers → NOT conjugation (doesn't need cell contact). If no transfer → conjugation requires cell contact. <strong>Experiment 2 — Test for transduction:</strong> Filter the media from resistant cells through a <strong>0.22 µm filter</strong> (removes bacteria, retains phages) and add to sensitive cells. If resistance transfers → <strong>transduction</strong> (phages passed through). Then confirm by treating filtrate with <strong>DNase</strong> — if still transfers, it's transduction (DNA is protected inside phage). <strong>Experiment 3 — Test for transformation:</strong> Take cell-free supernatant from dead/lysed resistant cells and add to competent sensitive cells. If resistance transfers AND is <strong>blocked by DNase treatment</strong> → <strong>transformation</strong> (naked DNA was the agent). <strong>Controls:</strong> Sensitive cells alone (no spontaneous resistance). DNase treatment distinguishes transformation (sensitive to DNase) from transduction (resistant to DNase)." },
+];
+
+function buildFRQ(questions, containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'frq-card' + (q.hy ? ' hy-frq' : '');
+    div.innerHTML = `
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy ? ' <span class="hy-badge">EXAM TOPIC</span>' : ''}</div>
+      <div class="frq-hint">${q.hint}</div>
+      <textarea placeholder="Write your answer here..." id="ta-${containerId}-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ(this, ${i}, '${containerId}', '${scoreId}')">Show Model Answer</button>
+      <div class="frq-answer" id="ans-${containerId}-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="grade-${containerId}-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ(this, 'got-it', '${containerId}', '${scoreId}')">Got It</button>
+        <button class="grade-btn partial" onclick="gradeFRQ(this, 'partial', '${containerId}', '${scoreId}')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ(this, 'missed', '${containerId}', '${scoreId}')">Missed It</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFRQ(btn, idx, containerId, scoreId) {
+  document.getElementById('ans-' + containerId + '-' + idx).classList.add('show');
+  document.getElementById('grade-' + containerId + '-' + idx).classList.add('show');
+  btn.style.display = 'none';
+}
+
+function gradeFRQ(btn, grade, containerId, scoreId) {
+  btn.parentElement.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected-grade'));
+  btn.classList.add('selected-grade');
+  updateFRQScore(containerId, scoreId);
+}
+
+function updateFRQScore(containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  const graded = container.querySelectorAll('.grade-btn.selected-grade');
+  let gotIt = 0;
+  graded.forEach(b => { if (b.classList.contains('got-it')) gotIt++; });
+  document.getElementById(scoreId).textContent = gotIt + ' / ' + graded.length;
+}
+
+function resetFRQ(type) {
+  const containerId = type + '-container';
+  const scoreId = type + '-score';
+  const questions = type === 'frq' ? frqQuestions : hardFRQ;
+  buildFRQ(questions, containerId, scoreId);
+  document.getElementById(scoreId).textContent = '0 / 0';
+}
+
+buildFRQ(frqQuestions, 'frq-container', 'frq-score');
+buildFRQ(hardFRQ, 'hardfrq-container', 'hardfrq-score');
+
+// MATCHING - focused on exam topics
+const matchPairs = [
+  ["Silent mutation", "Base change, same amino acid (due to degeneracy)"],
+  ["Missense mutation", "Base change, different amino acid"],
+  ["Nonsense mutation", "Creates premature stop codon; truncated protein"],
+  ["Frameshift mutation", "Insertion/deletion not a multiple of 3; shifts reading frame"],
+  ["Inversion", "DNA segment reversed in orientation (flipped 180\u00b0)"],
+  ["Translocation", "DNA segment moves to a different genomic location"],
+  ["Duplication", "DNA segment copied, creating two copies"],
+  ["IS element", "Simplest transposon: just inverted repeats + transposase"],
+  ["Composite transposon", "Two IS elements flanking additional central genes"],
+  ["Transformation", "Uptake of naked DNA from environment by competent cell"],
+  ["Transduction", "Phage accidentally packages and delivers host DNA"],
+  ["Conjugation (Gram\u2212)", "F+ pilus extends to F-, rolling circle transfers plasmid"],
+  ["Hfr strain", "F plasmid integrated into chromosome; transfers chromosomal DNA"],
+  ["IcA", "Inhibits pheromone production in donor; prevents self-clumping"],
+];
+
+let matchSelected = { left: null, right: null };
+let matchedCount = 0;
+
+function resetMatching() {
+  matchSelected = { left: null, right: null };
+  matchedCount = 0;
+  document.getElementById('match-score').textContent = '0 / ' + matchPairs.length;
+  renderMatching();
+}
+
+function renderMatching() {
+  const leftArr = matchPairs.map((p, i) => ({ text: p[0], idx: i }));
+  const rightArr = matchPairs.map((p, i) => ({ text: p[1], idx: i }));
+  for (let i = rightArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rightArr[i], rightArr[j]] = [rightArr[j], rightArr[i]];
+  }
+  document.getElementById('match-left').innerHTML = leftArr.map(item =>
+    `<div class="match-item" data-side="left" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+  document.getElementById('match-right').innerHTML = rightArr.map(item =>
+    `<div class="match-item" data-side="right" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  document.querySelectorAll(`.match-item[data-side="${side}"]`).forEach(e => {
+    if (!e.classList.contains('matched')) e.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  matchSelected[side] = { el, idx: parseInt(el.dataset.idx) };
+  if (matchSelected.left && matchSelected.right) {
+    if (matchSelected.left.idx === matchSelected.right.idx) {
+      matchSelected.left.el.classList.remove('selected');
+      matchSelected.right.el.classList.remove('selected');
+      matchSelected.left.el.classList.add('matched');
+      matchSelected.right.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('match-score').textContent = matchedCount + ' / ' + matchPairs.length;
+    } else {
+      matchSelected.left.el.classList.add('wrong-match');
+      matchSelected.right.el.classList.add('wrong-match');
+      setTimeout(() => {
+        matchSelected.left.el.classList.remove('selected', 'wrong-match');
+        matchSelected.right.el.classList.remove('selected', 'wrong-match');
+        matchSelected = { left: null, right: null };
+      }, 600);
+      return;
+    }
+    matchSelected = { left: null, right: null };
+  }
+}
+
+renderMatching();
+</script>
+
+</body>
+</html>

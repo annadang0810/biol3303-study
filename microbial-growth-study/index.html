@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microbial Growth & Division - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .organism {
+    color: var(--orange);
+    font-weight: 600;
+  }
+  .warn {
+    color: var(--red);
+    font-weight: 600;
+  }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* HIGH YIELD */
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  /* HERO */
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* TABS */
+  .tab-row {
+    display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TABLES */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th {
+    background: var(--surface2);
+    color: var(--accent-light);
+    font-weight: 600;
+  }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  /* FLASHCARD */
+  .fc-container {
+    perspective: 1000px;
+    margin-bottom: 16px;
+  }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav {
+    display: flex; gap: 10px; justify-content: center; align-items: center;
+  }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+
+  /* MATCHING */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  /* FRQ */
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  .frq-card .frq-hint {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .frq-card textarea::placeholder {
+    color: #4a4e63;
+  }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade {
+    display: none;
+    margin-top: 12px;
+    gap: 8px;
+  }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ Practice</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hardfrq')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Microbial Growth &amp; Division</h1>
+    <p>BIOL 3303 &middot; Lecture 8 &mdash; How microbes grow, divide, and are measured</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">22</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">FRQ Qs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>Cell division and mechanisms</li>
+        <li>Z-ring (FtsZ, ZipA, FtsA, FtsK)</li>
+        <li>Min system (MinC, MinD, MinE)</li>
+        <li>Cell division regulation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li><span class="highlight">Learn</span> &mdash; Read through all lecture material organized by topic</li>
+      <li><span class="highlight">Flashcards</span> &mdash; Click to flip, test your recall of key terms</li>
+      <li><span class="highlight">FRQ Practice</span> &mdash; Write out free response answers, then check against model answers</li>
+      <li><span class="highlight">Matching</span> &mdash; Match terms to their definitions</li>
+      <li><span class="highlight">Hard FRQ</span> &mdash; Application and experimental design questions</li>
+      <li style="color: var(--yellow); font-weight: 700;">Gold-highlighted = CONFIRMED exam topics. Start with these.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('learn',0)">Growth Basics</button>
+    <button class="tab-btn" onclick="showTab('learn',1)">Requirements</button>
+    <button class="tab-btn" onclick="showTab('learn',2)">Temp &amp; pH</button>
+    <button class="tab-btn" onclick="showTab('learn',3)">Oxygen</button>
+    <button class="tab-btn" onclick="showTab('learn',4)">Growth Phases</button>
+    <button class="tab-btn" onclick="showTab('learn',5)">Measuring Growth</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',6)">Cell Division</button>
+  </div>
+
+  <!-- Growth Basics -->
+  <div class="tab-content active" id="learn-0">
+    <div class="card">
+      <h2>What Is Microbial Growth?</h2>
+      <ul>
+        <li>In microbiology, growth = <span class="highlight">increase in cell number</span>, NOT increase in cell size</li>
+        <li>Cells grow to a critical mass &rarr; divide &rarr; repeat</li>
+        <li>Growth is <span class="highlight">exponential</span>: 2<sup>0</sup> = 1, 2<sup>1</sup> = 2, 2<sup>2</sup> = 4, 2<sup>3</sup> = 8...</li>
+      </ul>
+      <h3>Factors Regulating Growth</h3>
+      <ul>
+        <li><span class="highlight">Nutrient availability</span></li>
+        <li>Environmental conditions: <span class="highlight">temperature, pH, osmotic pressure</span></li>
+        <li><span class="highlight">Generation time</span> (time to double)</li>
+        <li>Speed demon: <span class="organism">Vibrio natriegans</span> doubles in less than 10 minutes!</li>
+        <li><span class="warn">Without extrinsic and intrinsic checks</span>, in less than a day a single bacterium could multiply to a volume greater than Earth!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Requirements -->
+  <div class="tab-content" id="learn-1">
+    <div class="card">
+      <h2>Chemical Requirements for Growth</h2>
+      <ul>
+        <li><span class="warn">#1 = Water!</span></li>
+      </ul>
+      <h3>Elements</h3>
+      <ul>
+        <li><span class="highlight">Carbon</span> &mdash; 50% of cell's dry weight</li>
+        <li>Hydrogen, Oxygen, Nitrogen, Phosphorus, Sulfur</li>
+        <li>Trace elements</li>
+      </ul>
+      <h3>Organic Requirements</h3>
+      <ul>
+        <li>Source of energy (e.g., <span class="highlight">glucose</span>)</li>
+        <li>Vitamins (function as <span class="highlight">coenzymes</span>)</li>
+        <li>Some amino acids, purines and pyrimidines</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Temp & pH -->
+  <div class="tab-content" id="learn-2">
+    <div class="card">
+      <h2>Temperature &amp; Microbial Growth</h2>
+      <p>Each microbe has a <span class="highlight">minimum, optimum, and maximum</span> growth temperature &mdash; called the <span class="warn">"cardinal temperatures"</span>.</p>
+      <table class="data-table">
+        <tr><th>Category</th><th>Temperature Preference</th><th>Notes</th></tr>
+        <tr><td><span class="highlight">Psychrophiles</span></td><td>Cold-loving</td><td>Grow at low temperatures</td></tr>
+        <tr><td><span class="highlight">Mesophiles</span></td><td>Moderate temperature</td><td>Most common group of organisms</td></tr>
+        <tr><td><span class="highlight">Thermophiles</span></td><td>Heat-loving</td><td>Extremophiles; ancient lineages</td></tr>
+      </table>
+      <ul>
+        <li>Optimum growth temperature is usually <span class="highlight">near the top</span> of the growth range</li>
+        <li>Death above max temperature = <span class="warn">enzyme inactivation</span> (proteins unstable at high temps)</li>
+        <li>40&deg;F (5&deg;C) slows or stops growth of most microbes</li>
+        <li><span class="highlight">Extremophiles are ancient</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>pH &amp; Microbial Growth</h2>
+      <ul>
+        <li>Most bacteria grow between <span class="highlight">pH 6.5 and 7.5</span></li>
+        <li>Acid (below pH 4) is a good preservative &mdash; pickles, sauerkraut, cheeses</li>
+        <li><span class="highlight">Acidophiles</span> can live at low pH</li>
+        <li><span class="organism">Helicobacter pylori</span> can live in stomach acid (pH ~2) &mdash; causes <span class="warn">stomach ulcers</span></li>
+        <li><span class="organism">Lactobacilli</span> help maintain low vaginal pH (&lt;4) to <span class="highlight">protect against infection</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Oxygen -->
+  <div class="tab-content" id="learn-3">
+    <div class="card">
+      <h2>Oxygen Requirements</h2>
+      <table class="data-table">
+        <tr><th>Type</th><th>O&#8322; Relationship</th><th>Example</th></tr>
+        <tr><td><span class="highlight">Obligate aerobes</span></td><td>Require O&#8322;</td><td><span class="organism">Mycobacterium tuberculosis</span> &mdash; colonizes the lung, causes TB</td></tr>
+        <tr><td><span class="highlight">Facultative anaerobes</span></td><td>Use O&#8322; but can grow without it</td><td><span class="organism">Lactobacillus crispatus</span> &mdash; colonizes vagina and urinary tract</td></tr>
+        <tr><td><span class="highlight">Obligate anaerobes</span></td><td>Die in presence of O&#8322;</td><td><span class="organism">Clostridium difficile</span> &mdash; colonizes gut (potentially fatal GI pathogen)</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Body Site Environments</h2>
+      <table class="data-table">
+        <tr><th>Site</th><th>pH</th><th>Temp</th><th>O&#8322;</th></tr>
+        <tr><td>Oral</td><td>6.2&ndash;7.6</td><td>35.7&ndash;37.4&deg;C</td><td>17.4&ndash;23.7 mmHg</td></tr>
+        <tr><td>Skin</td><td>5.3&ndash;6.5</td><td>33.5&ndash;36.9&deg;C</td><td>Ambient</td></tr>
+        <tr><td>Stomach</td><td>1.0&ndash;2.5</td><td>37&deg;C</td><td>77 mmHg</td></tr>
+        <tr><td>Colon</td><td>5.7&ndash;7.4</td><td>37&deg;C</td><td>&lt;10 mmHg</td></tr>
+        <tr><td>Vagina</td><td>4.2&ndash;5.0</td><td>37&deg;C</td><td>5 mmHg</td></tr>
+        <tr><td>Nasal</td><td>5.5&ndash;6.5</td><td>34&deg;C</td><td>Ambient</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Growth Phases -->
+  <div class="tab-content" id="learn-4">
+    <div class="card">
+      <h2>Phases of Microbial Growth</h2>
+      <table class="data-table">
+        <tr><th>Phase</th><th>What's Happening</th><th>Key Details</th></tr>
+        <tr><td><span class="highlight">Lag phase</span></td><td>Making new enzymes in response to new medium</td><td>"LOOK! FOOD!" &mdash; cells are adapting, not yet dividing</td></tr>
+        <tr><td><span class="highlight">Log phase</span></td><td>Exponential growth</td><td>"EAT ALL THE FOOD" &mdash; desired for production; <span class="warn">most sensitive to drugs and radiation</span></td></tr>
+        <tr><td><span class="highlight">Stationary phase</span></td><td>Growth plateaus</td><td>Nutrients limiting or waste toxic; <span class="highlight">death rate = division rate</span></td></tr>
+        <tr><td><span class="highlight">Death phase</span></td><td>Death exceeds division</td><td>Population declines</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Measuring Growth -->
+  <div class="tab-content" id="learn-5">
+    <div class="card">
+      <h2>Growing Microbes in the Lab</h2>
+      <ul>
+        <li>Fill flask with growth media</li>
+        <li><span class="highlight">Sterilize</span> to kill any contaminating microbes</li>
+        <li><span class="highlight">Aseptically</span> add a small amount of bacteria</li>
+        <li>Place flask in <span class="highlight">shaking incubator at 37&deg;C</span> (if aerobic)</li>
+        <li>Return next day &rarr; culture is cloudy!</li>
+      </ul>
+      <h3>Turbidity / Optical Density (OD)</h3>
+      <ul>
+        <li>Common way to measure bacterial growth</li>
+        <li>Light (600 nm) passes through sample; detector measures how much light gets through</li>
+        <li><span class="highlight">Higher OD = less light through = more bacteria</span></li>
+        <li><span class="warn">OD is NOT a measure of viability!</span></li>
+        <li>OD can only measure growth rate, not viable cells</li>
+        <li>A dead bacterial corpse still scatters light (unless it lyses)</li>
+      </ul>
+      <h3>Colony Forming Units (CFUs)</h3>
+      <ul>
+        <li>Samples taken at each time point and <span class="highlight">plated on agar plates</span></li>
+        <li>Plates incubated until visible colonies form</li>
+        <li>Each colony was founded by a <span class="highlight">single live bacterium</span></li>
+        <li><span class="highlight">Only live bacteria can form colonies</span> &mdash; measures viability!</li>
+      </ul>
+      <h3>Flow Cytometry</h3>
+      <ul>
+        <li>Uses a <span class="highlight">flow cytometer</span> to count and sort live vs. dead cells</li>
+        <li>Cells treated with live/dead stain:</li>
+        <li><span class="warn">Propidium iodide (red)</span> &mdash; taken up by dead cells</li>
+        <li><span class="highlight">SYTO 9 (green)</span> &mdash; binds to live cells</li>
+        <li>Samples pass one at a time through a laser beam</li>
+        <li>Wavelength of emitted light reveals live (green) or dead (red)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Effects of Growth Rate on Physiology</h2>
+      <ul>
+        <li>Fast-growing cells <span class="highlight">increase in size and mass</span> to accommodate extra molecules</li>
+        <li>Quickly dividing cells are <span class="highlight">visibly distinguishable</span> from slowly dividing ones</li>
+        <li>Fast growth requires more protein synthesis &rarr; <span class="highlight">ribosomes and RNA increase drastically</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Cell Division -->
+  <div class="tab-content" id="learn-6">
+    <div class="card hy-card">
+      <h2>Binary Fission <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li><span class="highlight">Binary fission</span>: cell division after a cell enlarges to <span class="highlight">twice its minimum size</span></li>
+        <li><span class="highlight">Generation time</span>: time required for cells to double in number</li>
+        <li>Each daughter cell receives a chromosome and sufficient copies of all cell constituents</li>
+      </ul>
+      <h3>Fts Proteins &amp; the Divisome</h3>
+      <ul>
+        <li><span class="highlight">Fts</span> (filamentous temperature-sensitive) proteins are <span class="warn">essential for cell division in ALL prokaryotes</span></li>
+        <li>Interact to form the <span class="highlight">divisome</span> (cell division apparatus)</li>
+      </ul>
+      <table class="data-table hy-table">
+        <tr><th>Protein</th><th>Function</th></tr>
+        <tr><td><span class="highlight">FtsZ</span></td><td>Forms a ring around center of cell (<span class="highlight">Z-ring</span>); closely related to eukaryotic tubulin; self-assembles into filament</td></tr>
+        <tr><td><span class="highlight">ZipA</span></td><td>Anchors FtsZ ring to the cytoplasmic membrane</td></tr>
+        <tr><td><span class="highlight">FtsA</span></td><td>Connects FtsZ ring to membrane and recruits other proteins</td></tr>
+        <tr><td><span class="highlight">FtsK</span></td><td>Mediates separation of chromosomes to daughter cells</td></tr>
+      </table>
+      <ul>
+        <li><span class="warn">DNA replicates BEFORE the FtsZ ring forms</span></li>
+        <li>Z-ring constricts gradually as the cell divides</li>
+      </ul>
+      <h3>How Were Fts Proteins Discovered?</h3>
+      <ul>
+        <li>Researchers identified <span class="organism">E. coli</span> mutants that could divide at 30&deg;C but <span class="warn">NOT at 42&deg;C</span></li>
+        <li>At 42&deg;C, mutants grew as <span class="highlight">filaments</span> rather than individual cells (couldn't divide)</li>
+        <li>Named <span class="highlight">f</span>ilamentous <span class="highlight">t</span>emperature-<span class="highlight">s</span>ensitive (fts)</li>
+      </ul>
+    </div>
+    <div class="card hy-card">
+      <h2>The Min System <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p>Rod-shaped bacteria must divide <span class="highlight">precisely at the middle</span>. The Min system controls where the septum forms.</p>
+      <table class="data-table hy-table">
+        <tr><th>Protein</th><th>Function</th></tr>
+        <tr><td><span class="highlight">MinD</span></td><td>Binds to cytoplasmic membrane at the pole; recruits MinC</td></tr>
+        <tr><td><span class="warn">MinC</span></td><td><span class="warn">Depolymerizes FtsZ filaments</span> (division inhibitor)</td></tr>
+        <tr><td><span class="highlight">MinE</span></td><td>Ring travels between &frac14; and &frac34; position; depolymerizes MinCD not at poles</td></tr>
+      </table>
+      <ul>
+        <li><span class="highlight">MinCD complex oscillates</span> between cell poles due to MinE</li>
+        <li>MinE keeps the <span class="highlight">center of the cell free of MinCD</span></li>
+        <li>This allows FtsZ to polymerize only at the <span class="highlight">midline</span></li>
+      </ul>
+      <h3>How Was the Min System Discovered?</h3>
+      <ul>
+        <li>Researchers made mutant <span class="organism">E. coli</span> strains</li>
+        <li>Some divided abnormally <span class="warn">at the ends, not the middle</span></li>
+        <li>Produced <span class="highlight">"minicells"</span> devoid of chromosomes</li>
+        <li>Named <span class="highlight">min</span> for <span class="highlight">minicell</span> formers</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <div class="card" style="text-align:center; padding: 16px 28px;">
+    <p style="font-size:13px; color: var(--text-dim);">Click the card to flip. Use arrows to navigate.</p>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&#8592;</button>
+    <span class="fc-counter" id="fc-counter">1 / 22</span>
+    <button class="fc-btn" onclick="nextCard()">&#8594;</button>
+    <button class="fc-btn" onclick="shuffleCards()" title="Shuffle" style="font-size:14px;">&#x1f500;</button>
+  </div>
+</div>
+
+<!-- FRQ PRACTICE -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Self-Assessment</div>
+      <div class="score-pct" id="frq-score">0 / 0</div>
+    </div>
+    <button class="reset-btn" onclick="resetFRQ('frq')">Reset</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- MATCHING -->
+<div class="section" id="sec-matching">
+  <div class="card" style="padding: 16px 28px;">
+    <p style="font-size:14px; font-weight:600;">Match the term on the left with its description on the right. Click one from each side.</p>
+  </div>
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Matched</div>
+      <div class="score-pct" id="match-score">0 / 12</div>
+    </div>
+    <button class="reset-btn" onclick="resetMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div>
+      <div class="match-col-header">Term</div>
+      <div id="match-left"></div>
+    </div>
+    <div>
+      <div class="match-col-header">Description</div>
+      <div id="match-right"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HARD FRQ -->
+<div class="section" id="sec-hardfrq">
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Self-Assessment</div>
+      <div class="score-pct" id="hardfrq-score">0 / 0</div>
+    </div>
+    <button class="reset-btn" onclick="resetFRQ('hardfrq')">Reset</button>
+  </div>
+  <div id="hardfrq-container"></div>
+</div>
+
+</main>
+
+<script>
+// === NAVIGATION ===
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// === TABS ===
+function showTab(section, idx) {
+  const parent = document.getElementById('sec-' + section);
+  parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(section + '-' + idx).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// === FLASHCARDS ===
+const flashcards = [
+  ["What does 'growth' mean in microbiology?", "An increase in cell NUMBER, not cell size. Cells grow to critical mass, divide, and repeat exponentially."],
+  ["What is generation time?", "The time required for microbial cells to double in number."],
+  ["What is the fastest-growing known bacterium?", "Vibrio natriegans — doubles in less than 10 minutes."],
+  ["What is the #1 chemical requirement for microbial growth?", "Water. Also need carbon (50% dry weight), H, O, N, P, S, trace elements, glucose, vitamins."],
+  ["What are psychrophiles, mesophiles, and thermophiles?", "Psychrophiles = cold-loving. Mesophiles = moderate temp (most common). Thermophiles = heat-loving."],
+  ["What are the three cardinal temperatures?", "Minimum, optimum, and maximum growth temperature. Optimum is usually near the top of the range."],
+  ["Why do microbes die above their maximum temperature?", "Enzyme inactivation — proteins are unstable at high temperatures."],
+  ["What is an obligate aerobe?", "A microbe that requires O₂ to grow. Example: Mycobacterium tuberculosis (colonizes the lung)."],
+  ["What is a facultative anaerobe?", "A microbe that can use O₂ but can also grow without it. Example: Lactobacillus crispatus."],
+  ["What is an obligate anaerobe?", "A microbe that dies in the presence of O₂. Example: Clostridium difficile (gut pathogen)."],
+  ["What happens during lag phase?", "Cells make new enzymes in response to new medium. Adapting, not yet dividing."],
+  ["What happens during log phase?", "Exponential growth. Desired for production. Most sensitive to drugs and radiation."],
+  ["What happens during stationary phase?", "Growth plateaus. Nutrients becoming limiting or waste toxic. Death rate equals division rate."],
+  ["What is OD (optical density)?", "A turbidity measurement using a spectrophotometer (600 nm). Higher OD = more bacteria. Does NOT measure viability."],
+  ["Why is OD not a measure of viability?", "Dead bacterial corpses still scatter light unless they lyse. OD only measures growth rate, not live cell count."],
+  ["What is a CFU assay?", "Colony forming unit assay. Samples are plated on agar; only live bacteria form colonies. Measures viability."],
+  ["How does flow cytometry count live/dead cells?", "Uses live/dead stains: SYTO 9 (green) binds live cells, propidium iodide (red) enters dead cells. Laser detects color."],
+  ["What is binary fission?", "Cell division after a cell enlarges to twice its minimum size. Each daughter gets a chromosome and all constituents."],
+  ["What is FtsZ and what does it do?", "Forms the Z-ring at cell center. Related to eukaryotic tubulin. Self-assembles into filaments. Essential for division."],
+  ["What are ZipA, FtsA, and FtsK?", "ZipA anchors Z-ring to membrane. FtsA connects Z-ring to membrane and recruits proteins. FtsK separates chromosomes."],
+  ["What does MinC do?", "MinC depolymerizes FtsZ filaments — it is a division inhibitor. It is recruited by MinD at the poles."],
+  ["How does the Min system ensure midcell division?", "MinCD oscillates between poles (driven by MinE). MinE keeps center free of MinCD, so FtsZ polymerizes only at the midline."],
+];
+
+let fcIndex = 0;
+function renderCard() {
+  document.getElementById('fc-front').textContent = flashcards[fcIndex][0];
+  document.getElementById('fc-back').textContent = flashcards[fcIndex][1];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-counter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0; renderCard();
+}
+renderCard();
+
+// === FRQ ENGINE ===
+const frqQuestions = [
+  { q: "Define microbial growth and explain why it is described as exponential.", hint: "Think about what 'growth' means in microbiology specifically.",
+    a: "<strong>Microbial growth</strong> refers to an increase in <strong>cell number</strong>, not cell size. Cells grow to a critical mass, divide via binary fission, and repeat. It is exponential because each cell divides into two: 1 → 2 → 4 → 8 → 16 (2ⁿ). Without any checks, a single bacterium could theoretically exceed the volume of Earth in less than a day." },
+  { q: "List the major chemical requirements for microbial growth.", hint: "Start with the most essential, then elements, then organic.",
+    a: "<strong>#1 = Water.</strong> Elements: carbon (50% of cell's dry weight), hydrogen, oxygen, nitrogen, phosphorus, sulfur, and trace elements. Organic requirements: energy source (glucose), vitamins (coenzymes), and some amino acids, purines, and pyrimidines." },
+  { q: "Compare and contrast psychrophiles, mesophiles, and thermophiles.", hint: "Describe temperature preferences and which is most common.",
+    a: "<strong>Psychrophiles</strong> are cold-loving. <strong>Mesophiles</strong> prefer moderate temperatures and are the <strong>most common group</strong>. <strong>Thermophiles</strong> are heat-loving. Each has minimum, optimum, and maximum growth temperatures (cardinal temperatures). Optimum is usually near the top of the range. Death above maximum is due to enzyme/protein inactivation." },
+  { q: "Why does death occur above the maximum growth temperature?", hint: "Think about what happens to proteins at high temps.",
+    a: "Death above the maximum temperature is due to <strong>enzyme inactivation</strong>. Proteins are unstable at high temperatures — they denature, losing their 3D structure and function. Since enzymes catalyze all essential metabolic reactions, their inactivation is lethal." },
+  { q: "Describe the three categories of microbes based on oxygen requirements and give an example of each.", hint: "Obligate aerobe, facultative anaerobe, obligate anaerobe.",
+    a: "<strong>Obligate aerobes</strong> require O₂ (e.g., <em>Mycobacterium tuberculosis</em> — lung colonizer, causes TB). <strong>Facultative anaerobes</strong> use O₂ but can grow without it (e.g., <em>Lactobacillus crispatus</em> — vagina/urinary tract). <strong>Obligate anaerobes</strong> die in the presence of O₂ (e.g., <em>Clostridium difficile</em> — gut pathogen)." },
+  { q: "Describe all four phases of the microbial growth curve and what is happening in each.", hint: "Lag, log, stationary, death — describe the biology of each.",
+    a: "<strong>Lag phase:</strong> Cells adapt to new medium by synthesizing new enzymes; no division yet. <strong>Log (exponential) phase:</strong> Rapid exponential growth; cells are most sensitive to drugs/radiation; desired for product production. <strong>Stationary phase:</strong> Growth plateaus because nutrients are limiting or waste products become toxic; death rate equals division rate. <strong>Death phase:</strong> Death exceeds division; population declines." },
+  { q: "Explain why cells are most sensitive to drugs and radiation during log phase.", hint: "Think about what the cells are actively doing during this phase.",
+    a: "During log phase, cells are <strong>actively dividing and replicating DNA</strong>. Many antibiotics target processes active during growth (cell wall synthesis, DNA replication, protein synthesis). Radiation damages DNA, and rapidly dividing cells have less time to repair DNA damage before the next round of replication, making errors more likely to be lethal." },
+  { q: "Describe how you would set up a bacterial culture in the lab.", hint: "Think about sterility, inoculation, and incubation.",
+    a: "Fill a flask with <strong>growth media</strong>. <strong>Sterilize</strong> (typically by autoclaving) to kill contaminating microbes. <strong>Aseptically</strong> add a small amount of bacteria (near a flame, using sterile technique). Place in a <strong>shaking incubator at 37°C</strong> (shaking for aeration if aerobic). Return next day — culture should be cloudy (turbid)." },
+  { q: "How does optical density (OD) measurement work, and what is its major limitation?", hint: "Think about what OD actually measures vs. what it doesn't.",
+    a: "A spectrophotometer passes <strong>600 nm light</strong> through a bacterial sample. A detector measures how much light passes through (not scattered by bacteria). <strong>Higher OD = less light through = more bacteria.</strong> Major limitation: <strong>OD does not measure viability.</strong> Dead bacterial corpses still scatter light (unless they lyse). In stationary phase, cells die but OD doesn't decrease. OD measures growth rate, not live cell count." },
+  { q: "Compare the CFU assay to OD measurement. When would you use each?", hint: "Think about what each actually measures — growth rate vs. viability.",
+    a: "<strong>OD</strong> is quick and measures total bacterial mass/growth rate, but cannot distinguish live from dead cells. <strong>CFU assay</strong> plates samples on agar; only live bacteria form colonies, so it measures <strong>viability</strong>. Use OD for rapid growth monitoring during log phase. Use CFU when you need to know <strong>how many cells are actually alive</strong> (e.g., during stationary/death phase, or to assess antibiotic killing)." },
+  { q: "Explain how flow cytometry distinguishes live from dead bacteria.", hint: "Think about the stains used and how the instrument works.",
+    a: "Cells are treated with <strong>live/dead stains</strong>: <strong>SYTO 9 (green)</strong> binds to live cells, and <strong>propidium iodide (red)</strong> is taken up by dead cells (enters through compromised membranes). Samples pass <strong>one at a time</strong> through a laser beam in the cytometer. The wavelength of emitted light reveals if the cell is stained green (live) or red (dead), allowing counting and sorting." },
+  { q: "Why do rapidly growing cells look different from slowly growing cells?", hint: "Think about what fast growth requires at the molecular level.",
+    a: "Rapidly growing cells <strong>increase in size and mass</strong> to accommodate the extra molecules needed for fast division. Fast growth requires more <strong>protein synthesis</strong>, so <strong>ribosomes and RNA increase drastically</strong>. This makes quickly dividing cells visibly distinguishable from slowly dividing ones under a microscope." },
+];
+
+const hardFRQ = [
+  { q: "Describe the complete process of binary fission, including the roles of FtsZ, ZipA, FtsA, and FtsK.", hint: "Walk through the entire division process step by step.", hy: true,
+    a: "The cell enlarges to <strong>twice its minimum size</strong>. <strong>DNA replicates first</strong> (before Z-ring forms). <strong>FtsZ</strong> self-assembles into filaments and forms the <strong>Z-ring</strong> at the cell center. <strong>ZipA</strong> anchors the Z-ring to the cytoplasmic membrane. <strong>FtsA</strong> also connects the Z-ring to the membrane and recruits other division proteins, forming the <strong>divisome</strong>. The Z-ring constricts gradually. <strong>FtsK</strong> mediates separation of chromosomes to daughter cells. Each daughter receives a chromosome and sufficient copies of all constituents to exist independently." },
+  { q: "Explain how Fts proteins were discovered. Why are they called 'fts'?", hint: "Think about the mutant phenotype at different temperatures.", hy: true,
+    a: "Researchers identified <strong>E. coli mutants</strong> that could divide normally at <strong>30°C but not at 42°C</strong> (normal E. coli divides fine at both). At the restrictive temperature (42°C), the mutants were unable to divide and instead grew as <strong>long filaments</strong> rather than individual cells. Because of their <strong>f</strong>ilamentous <strong>t</strong>emperature-<strong>s</strong>ensitive phenotype, the disrupted genes were named <strong>fts</strong>." },
+  { q: "Explain how the Min system ensures that cell division occurs precisely at midcell. Describe the role of each Min protein.", hint: "Address MinC, MinD, MinE, and the oscillation pattern.", hy: true,
+    a: "<strong>MinD</strong> binds to the cytoplasmic membrane at the <strong>cell pole</strong> and recruits <strong>MinC</strong>. <strong>MinC is a division inhibitor</strong> that <strong>depolymerizes FtsZ filaments</strong>, preventing Z-ring formation at the poles. The MinCD complex <strong>oscillates between cell poles</strong> driven by <strong>MinE</strong>. MinE forms a ring that travels between the ¼ and ¾ positions and depolymerizes any MinCD that is not at the poles. This keeps the <strong>center of the cell free of MinCD</strong>, allowing FtsZ to polymerize <strong>only at the midline</strong>, ensuring precise midcell division." },
+  { q: "How was the Min system discovered? What phenotype led to its identification?", hint: "Think about what happens when division occurs at the wrong place.", hy: true,
+    a: "Researchers created <strong>mutant E. coli strains</strong> and found that some divided abnormally — <strong>at the ends instead of the middle</strong>. This produced <strong>'minicells'</strong> that were <strong>devoid of chromosomes</strong> (tiny cells pinched off from the pole without DNA). The genes disrupted in these mutants were named <strong>min</strong> for <strong>minicell</strong> formers." },
+  { q: "Which protein directly inhibits FtsZ polymerization? Explain the full mechanism by which this inhibition is spatially regulated.", hint: "Start with which protein and work through the whole regulatory cascade.", hy: true,
+    a: "<strong>MinC</strong> directly inhibits FtsZ polymerization (depolymerizes FtsZ filaments). Spatial regulation: <strong>MinD</strong> binds at cell poles and recruits MinC there, creating MinCD complexes that block division at the poles. <strong>MinE</strong> forms a ring between ¼ and ¾ positions, displacing MinCD from non-polar locations. The MinCD complex oscillates pole-to-pole. On time average, the cell center has the <strong>lowest concentration of MinC</strong>, so FtsZ can only polymerize at the midline." },
+  { q: "What would happen if you overexpressed FtsZ in E. coli? Explain your reasoning.", hint: "Think about what normally limits where and when FtsZ polymerizes.", hy: true,
+    a: "Overexpressing FtsZ would overwhelm the Min system's ability to prevent Z-ring formation at non-midcell locations. With excess FtsZ, the cell might form <strong>multiple Z-rings</strong> and attempt division at <strong>multiple sites</strong>, potentially producing <strong>minicells</strong> (like Min mutants). The MinC inhibitor would be insufficient to depolymerize all the excess FtsZ at the poles. Cells might also divide <strong>before reaching proper size</strong>, producing smaller daughter cells." },
+  { q: "A researcher cultures bacteria in fresh media. After 6 hours, OD shows high turbidity but a CFU assay shows declining colony counts. Explain what is happening.", hint: "Think about which growth phase this represents and what each assay measures.",
+    a: "The culture has entered <strong>stationary or death phase</strong>. OD remains high because it measures total bacterial mass — <strong>dead cells still scatter light</strong> unless they lyse. The CFU assay declines because <strong>only live bacteria form colonies</strong>. Cells are dying (nutrients depleted, waste toxic) but their corpses remain intact in suspension, maintaining turbidity. This illustrates exactly why <strong>OD is not a measure of viability</strong> — the two assays diverge in late growth phases." },
+  { q: "Explain why Helicobacter pylori can survive in the stomach while most bacteria cannot. How does Lactobacillus use pH as a defense mechanism?", hint: "Think about acidophiles and the role of vaginal pH.",
+    a: "<strong>H. pylori</strong> is an <strong>acidophile</strong> that can survive at pH ~2 (stomach acid). Most bacteria grow only between pH 6.5–7.5 and are killed by such acidity. H. pylori has adaptations (like urease production) that allow it to neutralize acid in its immediate environment, causing <strong>stomach ulcers</strong>. <strong>Lactobacilli</strong> in the vagina produce lactic acid, maintaining pH <4. This low pH <strong>inhibits growth of most pathogenic bacteria</strong>, serving as a natural defense against infection. Acid below pH 4 is an effective microbial growth inhibitor (same principle as food preservation with pickles/sauerkraut)." },
+  { q: "Explain why DNA must replicate BEFORE the FtsZ ring forms during binary fission. What would happen if this order were reversed?", hint: "Think about what each daughter cell needs.", hy: true,
+    a: "DNA must replicate first because each daughter cell needs a <strong>complete copy of the chromosome</strong>. If the Z-ring formed and constriction began before replication was complete, the septum could <strong>bisect the chromosome</strong>, producing one daughter with a partial genome and one with no complete genome — both would be non-viable. The timing ensures that two complete chromosomes are separated (aided by FtsK) before the cell physically divides. This coordination is fundamental to producing two <strong>viable, independent daughter cells</strong>." },
+  { q: "Explain why log phase cells are ideal for industrial production of a desired protein product.", hint: "Think about growth rate, protein synthesis machinery, and sensitivity.",
+    a: "During log phase, cells are dividing <strong>exponentially</strong> with maximum metabolic activity. They have <strong>dramatically increased ribosomes and RNA</strong> levels to support rapid protein synthesis. This means they are producing proteins (including any recombinant product) at the <strong>highest possible rate</strong>. The population is also increasing rapidly, so total yield increases exponentially. Additionally, the culture is most <strong>uniform and predictable</strong> during log phase, important for consistent production. In stationary/death phase, metabolism slows and cells begin dying, reducing yield." },
+  { q: "Design an experiment to determine whether a newly discovered bacterium is an obligate aerobe, facultative anaerobe, or obligate anaerobe.", hint: "Think about culturing under different oxygen conditions and comparing growth.",
+    a: "Prepare two sets of <strong>identical growth media</strong>. Incubate one set <strong>aerobically</strong> (with O₂, in a shaking incubator) and the other <strong>anaerobically</strong> (in an anaerobic chamber or jar with O₂ removed). Inoculate both with the bacterium. Monitor growth by <strong>OD and/or CFU assay</strong>. Results: If growth occurs <strong>only aerobically</strong> → obligate aerobe. If growth occurs <strong>under both conditions</strong> → facultative anaerobe. If growth occurs <strong>only anaerobically</strong> (and cells die aerobically) → obligate anaerobe." },
+  { q: "A student measures OD at multiple time points and plots a growth curve. They notice the curve never enters a death phase. Propose two explanations.", hint: "Think about what OD actually measures and its limitations.",
+    a: "1) <strong>OD cannot detect death phase</strong> — dead cells that don't lyse still scatter light, so OD remains high even as viable cell counts decline. The death phase may be occurring but is invisible to OD measurement. A parallel CFU assay would reveal it. 2) The culture may be in <strong>extended stationary phase</strong> where death rate equals division rate, maintaining a stable population. Some bacteria can persist in stationary phase for extended periods by entering a dormant state." },
+];
+
+function buildFRQ(questions, containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'frq-card' + (q.hy ? ' hy-frq' : '');
+    div.innerHTML = `
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy ? ' <span class="hy-badge">EXAM TOPIC</span>' : ''}</div>
+      <div class="frq-hint">${q.hint}</div>
+      <textarea placeholder="Write your answer here..." id="ta-${containerId}-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ(this, ${i}, '${containerId}', '${scoreId}')">Show Model Answer</button>
+      <div class="frq-answer" id="ans-${containerId}-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="grade-${containerId}-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ(this, 'got-it', '${containerId}', '${scoreId}')">Got It</button>
+        <button class="grade-btn partial" onclick="gradeFRQ(this, 'partial', '${containerId}', '${scoreId}')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ(this, 'missed', '${containerId}', '${scoreId}')">Missed It</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFRQ(btn, idx, containerId, scoreId) {
+  const ans = document.getElementById('ans-' + containerId + '-' + idx);
+  const grade = document.getElementById('grade-' + containerId + '-' + idx);
+  ans.classList.add('show');
+  grade.classList.add('show');
+  btn.style.display = 'none';
+}
+
+function gradeFRQ(btn, grade, containerId, scoreId) {
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected-grade'));
+  btn.classList.add('selected-grade');
+  updateFRQScore(containerId, scoreId);
+}
+
+function updateFRQScore(containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  const graded = container.querySelectorAll('.grade-btn.selected-grade');
+  let gotIt = 0, total = graded.length;
+  graded.forEach(b => { if (b.classList.contains('got-it')) gotIt++; });
+  document.getElementById(scoreId).textContent = gotIt + ' / ' + total;
+}
+
+function resetFRQ(type) {
+  const containerId = type + '-container';
+  const scoreId = type + '-score';
+  const questions = type === 'frq' ? frqQuestions : hardFRQ;
+  buildFRQ(questions, containerId, scoreId);
+  document.getElementById(scoreId).textContent = '0 / 0';
+}
+
+buildFRQ(frqQuestions, 'frq-container', 'frq-score');
+buildFRQ(hardFRQ, 'hardfrq-container', 'hardfrq-score');
+
+// === MATCHING ===
+const matchPairs = [
+  ["Lag phase", "Cells adapt to new medium; making enzymes, not dividing"],
+  ["Log phase", "Exponential growth; most sensitive to drugs/radiation"],
+  ["Stationary phase", "Death rate equals division rate; nutrients limiting"],
+  ["Death phase", "Death exceeds division; population declines"],
+  ["OD / Turbidity", "Measures bacterial mass via light scattering; not viability"],
+  ["CFU assay", "Plates on agar; only live bacteria form colonies"],
+  ["FtsZ", "Forms the Z-ring at cell center; related to tubulin"],
+  ["MinC", "Division inhibitor; depolymerizes FtsZ filaments"],
+  ["MinE", "Keeps center free of MinCD; enables midcell division"],
+  ["Obligate aerobe", "Requires O₂ (e.g. M. tuberculosis)"],
+  ["Obligate anaerobe", "Dies in presence of O₂ (e.g. C. difficile)"],
+  ["Cardinal temperatures", "Minimum, optimum, and maximum growth temps"],
+];
+
+let matchSelected = { left: null, right: null };
+let matchedCount = 0;
+
+function resetMatching() {
+  matchSelected = { left: null, right: null };
+  matchedCount = 0;
+  document.getElementById('match-score').textContent = '0 / ' + matchPairs.length;
+  renderMatching();
+}
+
+function renderMatching() {
+  const leftArr = matchPairs.map((p, i) => ({ text: p[0], idx: i }));
+  const rightArr = matchPairs.map((p, i) => ({ text: p[1], idx: i }));
+  for (let i = rightArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rightArr[i], rightArr[j]] = [rightArr[j], rightArr[i]];
+  }
+  document.getElementById('match-left').innerHTML = leftArr.map(item =>
+    `<div class="match-item" data-side="left" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+  document.getElementById('match-right').innerHTML = rightArr.map(item =>
+    `<div class="match-item" data-side="right" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  document.querySelectorAll(`.match-item[data-side="${side}"]`).forEach(e => {
+    if (!e.classList.contains('matched')) e.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  matchSelected[side] = { el, idx: parseInt(el.dataset.idx) };
+  if (matchSelected.left && matchSelected.right) {
+    if (matchSelected.left.idx === matchSelected.right.idx) {
+      matchSelected.left.el.classList.remove('selected');
+      matchSelected.right.el.classList.remove('selected');
+      matchSelected.left.el.classList.add('matched');
+      matchSelected.right.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('match-score').textContent = matchedCount + ' / ' + matchPairs.length;
+    } else {
+      matchSelected.left.el.classList.add('wrong-match');
+      matchSelected.right.el.classList.add('wrong-match');
+      setTimeout(() => {
+        matchSelected.left.el.classList.remove('selected', 'wrong-match');
+        matchSelected.right.el.classList.remove('selected', 'wrong-match');
+        matchSelected = { left: null, right: null };
+      }, 600);
+      return;
+    }
+    matchSelected = { left: null, right: null };
+  }
+}
+
+renderMatching();
+</script>
+
+</body>
+</html>

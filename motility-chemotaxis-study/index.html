@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motility & Chemotaxis - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .organism {
+    color: var(--orange);
+    font-weight: 600;
+  }
+  .warn {
+    color: var(--red);
+    font-weight: 600;
+  }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* HIGH YIELD */
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  /* HERO */
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* TABS */
+  .tab-row {
+    display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TABLES */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th {
+    background: var(--surface2);
+    color: var(--accent-light);
+    font-weight: 600;
+  }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  /* FLASHCARD */
+  .fc-container {
+    perspective: 1000px;
+    margin-bottom: 16px;
+  }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav {
+    display: flex; gap: 10px; justify-content: center; align-items: center;
+  }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+  .fc-hint { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 10px; }
+
+  /* MATCHING */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  /* FRQ */
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #4a4e63; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hard')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Motility &amp; Chemotaxis</h1>
+    <p>BIOL 3303 &middot; Lecture 13 &mdash; How bacteria move and find their way</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">20</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">FRQs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>Random walk vs directed movement</li>
+        <li>Chemotaxis</li>
+        <li>Attraction vs accommodation vs repellent</li>
+        <li>4 methods of motility (gliding, twitching, swimming, swarming)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li><span class="highlight">Learn</span> &mdash; Read through all lecture material organized by topic</li>
+      <li><span class="highlight">Flashcards</span> &mdash; Click to flip, test your recall of key terms</li>
+      <li><span class="highlight">FRQ</span> &mdash; Free response questions with model answers</li>
+      <li><span class="highlight">Matching</span> &mdash; Match terms to their definitions</li>
+      <li><span class="highlight">Hard FRQ</span> &mdash; Application-based and case study questions</li>
+      <li style="color: var(--yellow); font-weight: 700;">Gold-highlighted = CONFIRMED exam topics. Start with these.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('learn',0)">Flagellar Motility</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',1)">Random Walk vs Directed</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',2)">Chemotaxis</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',3)">Attractant &amp; Accommodation</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',4)">Repellent Sensing</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',5)">4 Methods of Motility</button>
+    <button class="tab-btn" onclick="showTab('learn',6)">Myxococcus</button>
+  </div>
+
+  <!-- Flagellar Motility -->
+  <div class="tab-content active" id="learn-0">
+    <div class="card">
+      <h2>Flagellar Motility</h2>
+      <ul>
+        <li>Bacteria can have <span class="highlight">polar flagella</span> and/or <span class="highlight">peritrichous flagella</span></li>
+        <li>Flagella rotate using energy from the <span class="highlight">flow of protons</span> (proton motive force)</li>
+        <li>Can rotate either <span class="highlight">clockwise (CW)</span> or <span class="highlight">counterclockwise (CCW)</span></li>
+      </ul>
+      <h3>How Rotation Controls Movement</h3>
+      <ul>
+        <li><span class="highlight">Counterclockwise (CCW) rotation</span> &rarr; flagella entwine into bundles &rarr; <span class="highlight">forward motion (run)</span></li>
+        <li>All flagella are <span class="highlight">synchronized</span> to rotate in the same direction</li>
+        <li><span class="warn">Clockwise (CW) rotation</span> &rarr; bundles dissociate &rarr; cell <span class="warn">tumbles</span> in place</li>
+        <li>Bacteria alternate between CCW and CW rotation to <span class="highlight">change direction</span></li>
+      </ul>
+      <h3>Proton Turbine Mechanism</h3>
+      <ul>
+        <li>Protons translocated through the <span class="highlight">Mot complex</span> (~1200 protons per flagellum rotation)</li>
+        <li>Protons exert <span class="highlight">electrostatic forces</span> on helically arranged charges on rotor proteins</li>
+        <li>Alternating attractions between positive and negative charges on the rotor cause the <span class="highlight">basal body to rotate</span></li>
+        <li>Speed is set by the <span class="highlight">proton flow rate</span></li>
+      </ul>
+      <h3>How Fast?</h3>
+      <ul>
+        <li>Flagella are long, thin appendages (<span class="highlight">15&ndash;20 nm wide</span>) that act as tiny rotating machines</li>
+        <li>Rotational speed adjusts relative to the strength of the <span class="highlight">proton motive force</span></li>
+        <li>Can rotate up to <span class="warn">1,000 revolutions per second</span></li>
+        <li>Speeds up to <span class="warn">60 cell lengths/second</span> (a cheetah only does 25 body lengths/second!)</li>
+        <li>Scaled to a 6 ft human, that would be <span class="warn">~245 MPH</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Random Walk vs Directed -->
+  <div class="tab-content" id="learn-1">
+    <div class="card hy-card">
+      <h2>Random Walk vs Directed Movement <span class="hy-badge">EXAM TOPIC</span></h2>
+      <h3>Random Walk</h3>
+      <ul>
+        <li>Without any signal to direct it, a bacterium will move in <span class="highlight">whatever direction it happens to be facing</span> when CCW rotation starts again</li>
+        <li>This is called a <span class="highlight">random walk</span> &mdash; alternating runs and tumbles with no net directionality</li>
+        <li>Tumbles reorient the cell <span class="highlight">randomly</span>, so the next run goes in a random new direction</li>
+      </ul>
+      <h3>Directed Movement (Biased Random Walk)</h3>
+      <ul>
+        <li>However, <span class="warn">purposeful swimming does occur</span></li>
+        <li>Bacteria can move <span class="highlight">towards growth-promoting chemicals</span> and <span class="highlight">away from toxic chemicals</span></li>
+        <li>This process is called <span class="highlight">chemotaxis</span></li>
+        <li>Chemotaxis directs movement by <span class="warn">controlling the frequency of runs and tumbles</span></li>
+        <li><span class="highlight">Productive runs</span> towards an attractant are <span class="highlight">prolonged</span></li>
+        <li><span class="warn">Neutral and counterproductive runs</span> are <span class="warn">shortened</span></li>
+        <li>Result: net movement towards the chemical attractant via a <span class="highlight">biased random walk</span></li>
+      </ul>
+      <h3>Key Distinction</h3>
+      <table class="data-table hy-table">
+        <tr><th>Feature</th><th>Random Walk</th><th>Directed (Biased Random Walk)</th></tr>
+        <tr><td>Signal present?</td><td>No</td><td>Yes (chemical gradient)</td></tr>
+        <tr><td>Run length</td><td>Equal in all directions</td><td>Longer toward attractant</td></tr>
+        <tr><td>Tumble frequency</td><td>Constant</td><td>Reduced when moving toward attractant</td></tr>
+        <tr><td>Net movement</td><td>None &mdash; stays in same area</td><td>Up the concentration gradient</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Chemotaxis -->
+  <div class="tab-content" id="learn-2">
+    <div class="card hy-card">
+      <h2>Chemotaxis &amp; Chemosensing <span class="hy-badge">EXAM TOPIC</span></h2>
+      <h3>Chemoreceptors (MCPs)</h3>
+      <ul>
+        <li>Chemosensing bacteria have arrays of <span class="highlight">chemoreceptors</span> along <span class="highlight">one cell pole</span></li>
+        <li>These receptors are called <span class="highlight">methyl-accepting chemotaxis proteins (MCPs)</span></li>
+        <li>MCPs are in <span class="highlight">hexameric complexes</span> aligned on the membrane</li>
+        <li>Held together by adapter protein <span class="highlight">CheW</span> and histidine kinase <span class="highlight">CheA</span></li>
+        <li>MCPs <span class="warn">continuously measure</span> concentrations of chemicals in the environment</li>
+        <li>Transmit signals to control <span class="highlight">flagellar rotation</span></li>
+      </ul>
+      <h3>How MCPs Work</h3>
+      <ul>
+        <li>Chemicals diffusing into the <span class="highlight">periplasm</span> are recognized and bound by transmembrane receptors within the MCP array (<span class="organism">Tsr, Tar, Trg</span>, etc.)</li>
+        <li>Each MCP receptor detects a <span class="highlight">different attractant or repellent</span></li>
+        <li>Binding causes <span class="highlight">conformational changes</span> that change the activity of histidine kinase <span class="highlight">CheA</span></li>
+      </ul>
+      <h3>CheA&ndash;CheY Two-Component System</h3>
+      <ul>
+        <li><span class="highlight">CheA</span> = histidine kinase</li>
+        <li><span class="highlight">CheY</span> = response regulator</li>
+      </ul>
+      <p style="margin-top:12px; font-weight:600; color: var(--text);">In the ABSENCE of attractant:</p>
+      <ul>
+        <li><span class="key">1</span> MCP receptor is <span class="warn">unbound</span></li>
+        <li><span class="key">2</span> CheA <span class="highlight">auto-phosphorylates</span></li>
+        <li><span class="key">3</span> Phosphate is passed to CheY &rarr; <span class="highlight">P-CheY</span></li>
+        <li><span class="key">4</span> P-CheY induces <span class="warn">clockwise rotation</span> of the flagellar motor</li>
+        <li><span class="key">5</span> Bacterium <span class="warn">tumbles</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Attractant & Accommodation -->
+  <div class="tab-content" id="learn-3">
+    <div class="card hy-card">
+      <h2>Sensing an Attractant &amp; Accommodation <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p style="font-weight:600; color: var(--text);">In the PRESENCE of attractant:</p>
+      <ul>
+        <li><span class="key">1</span> MCP receptor <span class="highlight">binds the attractant</span></li>
+        <li><span class="key">2</span> Conformational change <span class="highlight">inhibits CheA kinase activity</span> &rarr; flagellar motor free to rotate in default <span class="highlight">CCW direction (run)</span></li>
+        <li><span class="key">3</span> At the same time, <span class="highlight">CheR methylates</span> the MCP receptor, giving it <span class="warn">"chemical memory"</span></li>
+        <li><span class="key">4</span> This <span class="highlight">resets MCP</span> so it can only activate again at <span class="warn">higher concentrations</span> of attractant</li>
+      </ul>
+      <h3>Accommodation</h3>
+      <ul>
+        <li>The process of resetting the MCP so it can only be activated at <span class="warn">higher concentrations</span> is called <span class="highlight">accommodation</span></li>
+        <li>This concept is conserved in humans &mdash; e.g., getting <span class="highlight">"used to" smells</span></li>
+        <li>Methylation of MCP means only a <span class="highlight">higher concentration of chemoattractant</span> will trigger a run</li>
+        <li>Bacteria only move to <span class="highlight">"greener pastures"</span></li>
+        <li>Allows the bacterium to <span class="highlight">move up concentration gradients</span> and <span class="highlight">stay put</span> when it has found the maximum &mdash; <span class="warn">all without a synapse!</span></li>
+      </ul>
+      <div style="margin-top:16px; padding:14px 18px; background:var(--red-dim); border:1px solid #fd727240; border-radius:10px;">
+        <p style="font-size:14px; color:var(--red); font-weight:700;">KEY DISTINCTION: Accommodation does NOT occur with repellents!</p>
+        <p style="font-size:13px; color:var(--text-dim); margin-top:4px;">With repellents, the sensitivity of the MCP receptors is maintained &mdash; bacteria always remain sensitive to danger.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repellent Sensing -->
+  <div class="tab-content" id="learn-4">
+    <div class="card hy-card">
+      <h2>Sensing a Repellent <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p style="font-weight:600; color: var(--text);">In the PRESENCE of a repellent:</p>
+      <ul>
+        <li><span class="key">1</span> MCP receptor <span class="warn">binds the repellent</span></li>
+        <li><span class="key">2</span> Conformational change <span class="warn">stimulates CheA histidine kinase activity</span> &rarr; more P-CheY</li>
+        <li><span class="key">3</span> More P-CheY increases the frequency of <span class="warn">CW rotation</span> and <span class="warn">tumbles</span></li>
+        <li><span class="key">4</span> Increased CheA activity also phosphorylates <span class="highlight">CheB</span></li>
+        <li><span class="key">5</span> <span class="highlight">P-CheB counteracts methylation</span> so that the <span class="warn">sensitivity of MCP receptors is maintained</span></li>
+      </ul>
+      <h3>Attractant vs Repellent &mdash; Comparison</h3>
+      <table class="data-table hy-table">
+        <tr><th>Feature</th><th>Attractant</th><th>Repellent</th></tr>
+        <tr><td>Effect on CheA</td><td><span class="highlight">Inhibits</span> kinase activity</td><td><span class="warn">Stimulates</span> kinase activity</td></tr>
+        <tr><td>P-CheY levels</td><td>Decrease</td><td>Increase</td></tr>
+        <tr><td>Flagellar rotation</td><td>CCW (run)</td><td>CW (tumble)</td></tr>
+        <tr><td>Methylation</td><td>CheR methylates MCP</td><td>P-CheB demethylates MCP</td></tr>
+        <tr><td>Accommodation?</td><td><span class="highlight">Yes</span> &mdash; sensitivity decreases</td><td><span class="warn">No</span> &mdash; sensitivity maintained</td></tr>
+        <tr><td>Net effect</td><td>Move toward attractant</td><td>Move away from repellent</td></tr>
+      </table>
+      <h3>Why Chemotaxis Matters</h3>
+      <ul>
+        <li><span class="highlight">Survival mechanism</span> &mdash; escape toxic substances</li>
+        <li><span class="highlight">Growth-promoting</span> &mdash; helps bacteria find food</li>
+        <li><span class="warn">Virulence factor</span> &mdash; helps bacteria colonize a host (e.g., <span class="organism">Helicobacter pylori</span> chemotaxes toward the stomach wall)</li>
+        <li><span class="highlight">Persistence factor</span> &mdash; helps colonize surfaces to form <span class="highlight">biofilms</span>, making bacteria resistant to environmental stress</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 4 Methods of Motility -->
+  <div class="tab-content" id="learn-5">
+    <div class="card hy-card">
+      <h2>4 Methods of Bacterial Motility <span class="hy-badge">EXAM TOPIC</span></h2>
+      <table class="data-table hy-table">
+        <tr><th>Method</th><th>Definition</th><th>Mechanism</th><th>Speed</th><th>Surface</th></tr>
+        <tr>
+          <td><span class="highlight">Gliding</span></td>
+          <td>Rod-shaped bacteria translocate on surfaces <span class="warn">without flagella, cilia, or pili</span></td>
+          <td>Motor moves cell adhesions on surface; exact mechanism not fully understood</td>
+          <td>~2 &micro;m/s</td>
+          <td>Surfaces</td>
+        </tr>
+        <tr>
+          <td><span class="highlight">Twitching</span></td>
+          <td>Flagella-independent translocation using <span class="highlight">type IV pili</span></td>
+          <td>Pili act like a grappling hook: extend, tether, retract</td>
+          <td>~0.5&ndash;1 &micro;m/s</td>
+          <td>Moist surfaces</td>
+        </tr>
+        <tr>
+          <td><span class="highlight">Swimming</span></td>
+          <td>Individual cell movement powered by <span class="highlight">rotating flagella</span></td>
+          <td>Flagella rotate CW (tumble) and CCW (forward)</td>
+          <td>Up to 100 &micro;m/s</td>
+          <td>Liquid</td>
+        </tr>
+        <tr>
+          <td><span class="highlight">Swarming</span></td>
+          <td>Rapid <span class="warn">multicellular</span> surface movement powered by rotating flagella</td>
+          <td>Cells collectively "decide" to swarm; involves specific gene regulation</td>
+          <td>Rapid</td>
+          <td>Surface (needs some liquid)</td>
+        </tr>
+      </table>
+
+      <h3>Gliding Motility</h3>
+      <ul>
+        <li>Uses a motor to move <span class="highlight">cell adhesions</span> on the cell surface</li>
+        <li><span class="organism">Flavobacterium johnsoniae</span> (0.4 &micro;m wide, 5 &micro;m long) moves at 2 &micro;m/s</li>
+        <li><span class="organism">Bacteroidetes</span>, <span class="organism">Myxococcus</span>, <span class="organism">Mycoplasma</span>, and <span class="organism">Cyanobacteria</span> all use gliding BUT their machineries are <span class="warn">not all the same</span></li>
+        <li>Gliding is a <span class="highlight">catch-all term</span> for moving on a surface along the long axis without flagella or pili</li>
+      </ul>
+
+      <h3>Twitching Motility</h3>
+      <ul>
+        <li>Polar <span class="highlight">type IV pili</span> act like a <span class="highlight">grappling hook</span>: extend, tether to surface, retract</li>
+        <li>Slower at ~0.5&ndash;1 &micro;m/s</li>
+        <li>Multiple pili can be used to <span class="highlight">alter direction</span></li>
+        <li>Used by <span class="organism">Pseudomonas aeruginosa</span>, <span class="organism">Neisseria gonorrhoeae</span>, <span class="organism">Myxococcus</span></li>
+      </ul>
+
+      <h3>Swimming Motility</h3>
+      <ul>
+        <li>Requires flagella that rotate <span class="highlight">CW (tumble)</span> and <span class="highlight">CCW (forward)</span></li>
+        <li><span class="organism">Bdellovibrio bacteriovorus</span> (0.5 &micro;m &times; 2.5 &micro;m) moves at <span class="warn">100 &micro;m/s</span> &mdash; Guinness World Record holder!</li>
+      </ul>
+
+      <h3>Swarming Motility</h3>
+      <ul>
+        <li>Rapid <span class="warn">multicellular</span> surface movement &mdash; rod-shaped flagellated bacteria migrate <span class="warn">en masse</span></li>
+        <li>Swarming is <span class="warn">NOT group swimming</span> &mdash; cells collectively "decide" to swarm</li>
+        <li>Involves regulation of <span class="highlight">chemo-sensory mechanisms</span>, <span class="highlight">flagella synthesis</span>, and <span class="highlight">depression of cell division</span></li>
+      </ul>
+
+      <h3>Best Environments</h3>
+      <table class="data-table hy-table">
+        <tr><th>Motility Type</th><th>Best Surface/Environment</th></tr>
+        <tr><td>Gliding</td><td>Solid surfaces</td></tr>
+        <tr><td>Twitching</td><td>Moist surfaces</td></tr>
+        <tr><td>Swimming</td><td>Liquid environments</td></tr>
+        <tr><td>Swarming</td><td>Surfaces with some liquid</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Myxococcus -->
+  <div class="tab-content" id="learn-6">
+    <div class="card">
+      <h2>Myxococcus xanthus &mdash; The "Wolfpack" Bacterium</h2>
+      <ul>
+        <li>Uses <span class="highlight">both gliding and twitching motility</span> with two separate engines</li>
+        <li>Gliding engine secretes <span class="highlight">"slime"</span> for following bacteria to track</li>
+        <li>Slime is an <span class="highlight">extracellular matrix (ECM)</span> composed of polysaccharides, proteins, and DNA</li>
+        <li>Preys on other bacteria through swarming using <span class="warn">lytic enzymes and antibiotics</span></li>
+        <li>Known as the <span class="warn">"wolfpack" bacteria</span> because they hunt collectively</li>
+      </ul>
+      <h3>Unique Life Cycle</h3>
+      <ul>
+        <li>Can go from <span class="highlight">vegetative growth</span> &rarr; <span class="highlight">swarming</span> &rarr; attacking other cells</li>
+        <li>When <span class="warn">starved</span>, they build <span class="highlight">millimeter-long fruiting bodies</span> filled with differentiated, reproductive, and environmentally resistant cells called <span class="highlight">myxospores</span></li>
+        <li>Two additional subpopulations:
+          <ul>
+            <li>Monolayer of aligned non-reproductive <span class="highlight">peripheral rods</span></li>
+            <li>Cells that undergo <span class="warn">altruistic obligatory autolysis</span> (programmed cell death)</li>
+          </ul>
+        </li>
+      </ul>
+      <h3>Multiple Modes of Motility</h3>
+      <ul>
+        <li>Many organisms have <span class="highlight">multiple forms of motility</span></li>
+        <li><span class="organism">Myxococcus</span> uses both gliding and twitching</li>
+        <li>Some forms of motility are better for particular surfaces</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <div class="card" style="text-align:center; padding: 16px 28px;">
+    <p style="font-size:13px; color: var(--text-dim);">Click the card to flip. Use arrows to navigate.</p>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&#8592;</button>
+    <span class="fc-counter" id="fc-counter">1 / 20</span>
+    <button class="fc-btn" onclick="nextCard()">&#8594;</button>
+    <button class="fc-btn" onclick="shuffleCards()" title="Shuffle" style="font-size:14px;">&#x1f500;</button>
+  </div>
+</div>
+
+<!-- FRQ -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Self-Grade</div>
+      <div class="score-pct" id="frq-score">0 / 0</div>
+    </div>
+    <button class="reset-btn" onclick="resetFRQ('frq')">Reset</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- MATCHING -->
+<div class="section" id="sec-matching">
+  <div class="card" style="padding: 16px 28px;">
+    <p style="font-size:14px; font-weight:600;">Match the term on the left with its description on the right. Click one from each side.</p>
+  </div>
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Matched</div>
+      <div class="score-pct" id="match-score">0 / 12</div>
+    </div>
+    <button class="reset-btn" onclick="resetMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div>
+      <div class="match-col-header">Term</div>
+      <div id="match-left"></div>
+    </div>
+    <div>
+      <div class="match-col-header">Description</div>
+      <div id="match-right"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HARD FRQ -->
+<div class="section" id="sec-hard">
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Self-Grade</div>
+      <div class="score-pct" id="hardfrq-score">0 / 0</div>
+    </div>
+    <button class="reset-btn" onclick="resetFRQ('hardfrq')">Reset</button>
+  </div>
+  <div id="hardfrq-container"></div>
+</div>
+
+</main>
+
+<script>
+// === NAVIGATION ===
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// === TABS ===
+function showTab(section, idx) {
+  const parent = document.getElementById('sec-' + section);
+  parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(section + '-' + idx).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// === FLASHCARDS ===
+const flashcards = [
+  ["What is a random walk?", "Movement without a chemical signal — the bacterium alternates between runs and tumbles with no net directionality, moving in whatever direction it happens to face after each tumble."],
+  ["What is a biased random walk?", "Directed movement during chemotaxis — runs toward an attractant are prolonged while neutral/counterproductive runs are shortened, creating net movement up the concentration gradient."],
+  ["What is chemotaxis?", "The process by which bacteria move towards growth-promoting chemicals (attractants) and away from toxic chemicals (repellents) by controlling the frequency of runs and tumbles."],
+  ["What are MCPs?", "Methyl-accepting chemotaxis proteins — chemoreceptors arranged in hexameric complexes at one cell pole that continuously measure chemical concentrations and control flagellar rotation."],
+  ["What does CheA do?", "CheA is a histidine kinase in the two-component system. It auto-phosphorylates when MCPs are unbound and passes phosphate to CheY, which induces clockwise (tumble) rotation."],
+  ["What does P-CheY do?", "Phosphorylated CheY induces clockwise rotation of the flagellar motor, causing the bacterium to tumble."],
+  ["What happens when an attractant binds an MCP?", "The conformational change inhibits CheA kinase activity, reducing P-CheY levels. The flagellar motor rotates CCW (run). CheR methylates the MCP to create chemical memory."],
+  ["What is accommodation?", "The process of resetting MCPs via methylation so they can only be activated at higher concentrations of the chemoattractant. This lets bacteria move up concentration gradients. Does NOT occur with repellents."],
+  ["Why doesn't accommodation occur with repellents?", "P-CheB counteracts methylation of MCPs during repellent sensing, maintaining full sensitivity. Bacteria must always remain sensitive to danger."],
+  ["What happens when a repellent binds an MCP?", "Conformational change stimulates CheA kinase activity → more P-CheY → more CW rotation (tumbles). CheA also phosphorylates CheB, which counteracts methylation to maintain sensitivity."],
+  ["What is gliding motility?", "Rod-shaped bacteria translocate on surfaces without flagella, cilia, or pili. Uses a motor to move cell adhesions on the cell surface. Used by Bacteroidetes, Myxococcus, Mycoplasma, and Cyanobacteria."],
+  ["What is twitching motility?", "Flagella-independent translocation over moist surfaces using type IV pili. Pili act like grappling hooks: extend, tether, retract. ~0.5–1 µm/s. Used by Pseudomonas aeruginosa and Neisseria gonorrhoeae."],
+  ["What is swimming motility?", "Individual cell movement powered by rotating flagella. CW = tumble, CCW = forward run. Bdellovibrio bacteriovorus can swim at 100 µm/s."],
+  ["What is swarming motility?", "Rapid multicellular bacterial surface movement powered by rotating flagella. Cells collectively 'decide' to swarm — it is NOT group swimming. Involves specific gene regulation."],
+  ["How does swarming differ from swimming?", "Swimming = individual cells in liquid. Swarming = multicellular, coordinated surface movement. Swarming involves specific gene regulation of chemo-sensory mechanisms, flagella synthesis, and cell division."],
+  ["What are the 4 bacterial motility types and their best environments?", "Gliding = surfaces. Twitching = moist surfaces. Swimming = liquid. Swarming = surfaces with some liquid."],
+  ["What is the Mot complex?", "The proton channel complex in the flagellar motor. ~1200 protons flow through per flagellum rotation, exerting electrostatic forces on rotor proteins to spin the basal body."],
+  ["What is Myxococcus xanthus?", "The 'wolfpack' bacterium that uses both gliding and twitching motility. Preys on other bacteria using lytic enzymes and antibiotics. When starved, builds fruiting bodies with myxospores."],
+  ["How fast can flagella rotate?", "Up to 1,000 revolutions per second, propelling bacteria at up to 60 cell lengths/second (equivalent to ~245 MPH for a 6 ft human). Speed depends on proton motive force strength."],
+  ["List 4 functions of chemotaxis.", "1) Survival — escape toxic substances. 2) Growth — find food. 3) Virulence — colonize hosts (e.g., H. pylori → stomach wall). 4) Persistence — form biofilms for stress resistance."],
+];
+
+let fcIndex = 0;
+function renderCard() {
+  document.getElementById('fc-front').textContent = flashcards[fcIndex][0];
+  document.getElementById('fc-back').textContent = flashcards[fcIndex][1];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-counter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0; renderCard();
+}
+renderCard();
+
+// === FRQ DATA ===
+const frqQuestions = [
+  { q: "Compare and contrast random walk vs directed movement in bacteria. What determines which type of movement occurs?", hint: "Signal presence, run/tumble frequency, net direction.", hy: true,
+    a: "<strong>Random walk:</strong> Occurs in the <strong>absence of a chemical signal</strong>. The bacterium alternates between runs (CCW flagella rotation) and tumbles (CW rotation) with <strong>equal run lengths in all directions</strong>. Tumbles randomly reorient the cell. There is <strong>no net movement</strong> — the cell stays in roughly the same area. <strong>Directed movement (biased random walk):</strong> Occurs when a <strong>chemical gradient is present</strong>. Chemotaxis controls the <strong>frequency of runs and tumbles</strong>. Runs toward the attractant are <strong>prolonged</strong>, while neutral and counterproductive runs are <strong>shortened</strong>. This creates <strong>net movement up the concentration gradient</strong>. The determining factor is whether <strong>chemoreceptors (MCPs) detect a chemical signal</strong> that modulates CheA kinase activity and P-CheY levels." },
+  { q: "Describe the CheA-CheY two-component system. What happens in the absence of an attractant?", hint: "Histidine kinase, response regulator, auto-phosphorylation, CW rotation.", hy: true,
+    a: "<strong>CheA</strong> is a <strong>histidine kinase</strong> associated with the MCP chemoreceptor array. <strong>CheY</strong> is the <strong>response regulator</strong>. In the <strong>absence of an attractant:</strong> <strong>1.</strong> MCP receptors are <strong>unbound</strong>. <strong>2.</strong> CheA <strong>auto-phosphorylates</strong> (adds a phosphate group to itself). <strong>3.</strong> CheA transfers the phosphate to CheY, creating <strong>P-CheY</strong>. <strong>4.</strong> P-CheY diffuses to the flagellar motor and induces <strong>clockwise (CW) rotation</strong>. <strong>5.</strong> CW rotation causes the flagella to <strong>dissociate from the bundle</strong>, and the bacterium <strong>tumbles</strong>. This is the default tumbling state — the system must be <strong>actively inhibited by attractant binding</strong> to allow sustained runs." },
+  { q: "Explain what happens at the molecular level when a bacterium senses an attractant. Include the role of CheR.", hint: "MCP binding, CheA inhibition, CCW rotation, methylation, chemical memory.", hy: true,
+    a: "<strong>1.</strong> The attractant diffuses into the periplasm and <strong>binds to a transmembrane MCP receptor</strong> (e.g., Tsr, Tar). <strong>2.</strong> Binding causes a <strong>conformational change</strong> in the MCP that <strong>inhibits CheA kinase activity</strong>. <strong>3.</strong> With CheA inhibited, <strong>less P-CheY</strong> is produced. <strong>4.</strong> Without P-CheY at the motor, the flagella rotate in the <strong>default CCW direction</strong>, producing a <strong>sustained run</strong>. <strong>5.</strong> Simultaneously, the methyltransferase <strong>CheR methylates the MCP receptor</strong>. <strong>6.</strong> This methylation gives the receptor <strong>'chemical memory'</strong> — it resets the MCP so that it can only be activated again at a <strong>higher concentration</strong> of attractant. This is called <strong>accommodation</strong>." },
+  { q: "Define accommodation. Why is it important for chemotaxis? Why doesn't it occur with repellents?", hint: "MCP methylation, concentration gradient sensing, CheB with repellents.", hy: true,
+    a: "<strong>Accommodation</strong> is the process of <strong>resetting MCPs via methylation</strong> (by CheR) so they can only respond to <strong>higher concentrations</strong> of a chemoattractant. <strong>Importance:</strong> It allows bacteria to <strong>sense concentration gradients</strong> rather than just absolute concentrations. The bacterium keeps moving toward higher concentrations ('greener pastures') and <strong>stays put when it reaches the maximum</strong> — all without a synapse. It's conceptually similar to humans getting 'used to' smells. <strong>Why not with repellents:</strong> When a repellent is sensed, increased CheA activity phosphorylates <strong>CheB</strong>. <strong>P-CheB demethylates MCPs</strong>, counteracting CheR's methylation. This <strong>maintains full receptor sensitivity</strong>. Bacteria must <strong>always remain sensitive to danger</strong> — it would be dangerous to become 'used to' a toxin." },
+  { q: "Describe the molecular events when a bacterium senses a repellent. How does the response differ from sensing an attractant?", hint: "CheA stimulation, P-CheY increase, CW rotation, CheB phosphorylation, no accommodation.", hy: true,
+    a: "<strong>Repellent sensing:</strong> <strong>1.</strong> MCP receptor <strong>binds the repellent</strong>. <strong>2.</strong> Conformational change <strong>stimulates CheA kinase activity</strong> (opposite of attractant). <strong>3.</strong> More CheA activity → more <strong>P-CheY</strong>. <strong>4.</strong> P-CheY increases <strong>CW rotation frequency → more tumbles</strong>. <strong>5.</strong> CheA also phosphorylates <strong>CheB</strong>. <strong>6.</strong> <strong>P-CheB demethylates MCPs</strong>, counteracting CheR methylation → <strong>sensitivity is maintained</strong>. <strong>Key differences from attractant:</strong> Attractant <strong>inhibits</strong> CheA → fewer tumbles (runs prolonged). Repellent <strong>stimulates</strong> CheA → more tumbles. Attractant causes <strong>accommodation</strong> (methylation → decreased sensitivity). Repellent causes <strong>no accommodation</strong> (P-CheB maintains sensitivity)." },
+  { q: "List and describe the 4 methods of bacterial motility. For each, give the mechanism and an example organism.", hint: "Gliding, twitching, swimming, swarming. Appendages? Surface type?", hy: true,
+    a: "<strong>1. Gliding:</strong> Rod-shaped bacteria translocate on surfaces <strong>without flagella, cilia, or pili</strong>. Uses a motor to move cell adhesions on the surface. Example: <strong>Flavobacterium johnsoniae</strong> (~2 µm/s). <strong>2. Twitching:</strong> Flagella-independent movement over moist surfaces using <strong>type IV pili</strong>. Pili act like grappling hooks — extend, tether, retract. Example: <strong>Pseudomonas aeruginosa</strong> (~0.5–1 µm/s). <strong>3. Swimming:</strong> Individual cell movement powered by <strong>rotating flagella</strong>. CW = tumble, CCW = run. Example: <strong>Bdellovibrio bacteriovorus</strong> (100 µm/s). <strong>4. Swarming:</strong> Rapid <strong>multicellular</strong> surface movement powered by flagella. Not group swimming — involves specific gene regulation. Example: many rod-shaped flagellated bacteria move <strong>en masse</strong>." },
+  { q: "What are MCPs? Describe their structure, location, and function in chemotaxis.", hint: "Methyl-accepting chemotaxis proteins, hexameric complexes, cell pole, CheW, CheA.", hy: true,
+    a: "<strong>MCPs (methyl-accepting chemotaxis proteins)</strong> are <strong>transmembrane chemoreceptors</strong> that sense chemicals in the environment. <strong>Structure:</strong> MCPs are arranged in <strong>hexameric complexes</strong> aligned on the cell membrane. They are held together by a baseplate of <strong>adapter protein CheW</strong> and <strong>histidine kinase CheA</strong>. <strong>Location:</strong> Concentrated at <strong>one cell pole</strong> in chemosensing bacteria. <strong>Function:</strong> MCPs <strong>continuously measure</strong> the concentration of chemicals in the environment. Different MCP receptors (Tsr, Tar, Trg, etc.) detect <strong>different attractants or repellents</strong>. When bound, they undergo <strong>conformational changes</strong> that alter CheA kinase activity, transmitting signals that control <strong>flagellar rotation direction</strong>." },
+  { q: "Explain how the proton motive force powers flagellar rotation. Include the role of the Mot complex and rotor proteins.", hint: "Proton translocation, electrostatic forces, basal body rotation, ~1200 protons.", hy: false,
+    a: "Flagellar rotation is powered by the <strong>proton motive force (PMF)</strong> — the electrochemical gradient of protons across the membrane. <strong>1.</strong> Protons are translocated through the <strong>Mot complex</strong>, which serves as a proton channel. <strong>2.</strong> Approximately <strong>~1200 protons</strong> flow through per flagellum rotation. <strong>3.</strong> As protons pass through, they exert <strong>electrostatic forces</strong> on <strong>helically arranged charges</strong> on the rotor proteins. <strong>4.</strong> The <strong>alternating attractions between positive and negative charges</strong> on the rotor cause the <strong>basal body to rotate</strong>. <strong>5.</strong> The rotational speed is set by the <strong>proton flow rate</strong> — stronger PMF = faster rotation. <strong>6.</strong> The motor can rotate up to <strong>1,000 revolutions/second</strong>, propelling bacteria at up to 60 cell lengths/second." },
+  { q: "Compare swarming and swimming motility. Why is swarming not just 'group swimming'?", hint: "Individual vs multicellular, gene regulation, surface vs liquid.", hy: true,
+    a: "<strong>Swimming:</strong> Movement of <strong>individual cells</strong> through <strong>liquid</strong> powered by rotating flagella. CW = tumble, CCW = run. Each cell moves independently. <strong>Swarming:</strong> <strong>Multicellular</strong> surface movement where rod-shaped flagellated bacteria migrate <strong>en masse</strong>. Occurs on <strong>surfaces</strong> (with some liquid). <strong>Why swarming ≠ group swimming:</strong> Swarming involves <strong>specific gene regulation</strong> that is distinct from swimming. Cells collectively 'decide' to swarm — it requires coordinated regulation of: <strong>1.</strong> Chemo-sensory mechanisms. <strong>2.</strong> Flagella synthesis and assembly. <strong>3.</strong> Depression of cell division. This regulatory program means swarming is a <strong>distinct developmental state</strong>, not just many cells happening to swim together in the same direction." },
+  { q: "Explain why chemotaxis is considered both a survival mechanism and a virulence factor. Give specific examples.", hint: "Escape toxins, find food, H. pylori, biofilms.", hy: true,
+    a: "<strong>Survival mechanism:</strong> Chemotaxis helps bacteria <strong>escape toxic substances</strong> and stressful areas. It also helps bacteria <strong>find food</strong> by moving toward growth-promoting chemicals. <strong>Virulence factor:</strong> Chemotaxis helps pathogenic bacteria <strong>colonize hosts</strong>. Example: <strong>Helicobacter pylori</strong> uses chemotaxis to navigate toward the <strong>stomach wall</strong>, its preferred attachment site, enabling colonization and causing gastric ulcers. <strong>Persistence factor:</strong> Chemotaxis helps bacteria <strong>colonize surfaces to form biofilms</strong>. Biofilms make bacteria especially <strong>resistant to environmental stress</strong>, antibiotics, and immune responses. Thus chemotaxis is essential for both <strong>free-living survival</strong> (finding nutrients, avoiding danger) and <strong>pathogenesis</strong> (host colonization, biofilm formation)." },
+  { q: "Describe the structure of Myxococcus xanthus's motility system. How does it use multiple forms of motility?", hint: "Two engines, gliding + twitching, slime secretion, wolfpack hunting.", hy: false,
+    a: "<strong>Myxococcus xanthus</strong> uses <strong>two separate motility engines</strong>: <strong>1. Gliding engine:</strong> Powers surface translocation and <strong>secretes 'slime'</strong> — an extracellular matrix (ECM) of polysaccharides, proteins, and DNA. The slime trail helps <strong>following bacteria</strong> track the same path. <strong>2. Twitching engine:</strong> Uses type IV pili for surface movement. <strong>Combined function:</strong> These two engines allow Myxococcus to be a <strong>predatory 'wolfpack' bacterium</strong>. It preys on other bacteria through coordinated swarming, using <strong>lytic enzymes and antibiotics</strong> to kill prey. When starved, it can build <strong>fruiting bodies</strong> with resistant myxospores. Some cells undergo <strong>altruistic programmed cell death</strong> to support the community." },
+  { q: "A bacterium is swimming and encounters an increasing gradient of glucose. Trace the molecular events from MCP binding to the change in swimming behavior.", hint: "MCP → CheA inhibited → less P-CheY → CCW → run → CheR methylation → accommodation.", hy: true,
+    a: "<strong>1.</strong> Glucose (or a glucose-binding protein) binds to a specific <strong>MCP receptor</strong> (e.g., Trg) in the periplasm. <strong>2.</strong> Binding induces a <strong>conformational change</strong> in the MCP. <strong>3.</strong> This conformation <strong>inhibits CheA histidine kinase</strong> activity. <strong>4.</strong> Less CheA auto-phosphorylation → <strong>less P-CheY</strong> produced. <strong>5.</strong> Without P-CheY at the motor, flagella rotate in the <strong>default CCW direction</strong>. <strong>6.</strong> CCW rotation = flagella bundle → <strong>sustained run</strong> (toward higher glucose). <strong>7.</strong> Meanwhile, <strong>CheR methylates</strong> the MCP receptor. <strong>8.</strong> Methylation <strong>resets</strong> the receptor (accommodation) — it will only respond to <strong>even higher</strong> glucose concentrations. <strong>9.</strong> Net result: bacterium runs longer toward glucose and keeps moving up the gradient." },
+];
+
+const hardFRQ = [
+  { q: "A mutant bacterium has a defective CheR enzyme that cannot methylate MCPs. Predict the consequences for the bacterium's ability to perform chemotaxis toward an attractant.", hint: "No accommodation, response to initial attractant but then what?", hy: true,
+    a: "Without functional CheR, the bacterium <strong>cannot methylate MCPs</strong>, so <strong>accommodation cannot occur</strong>. <strong>Initial response:</strong> The bacterium would still respond to the <strong>first encounter</strong> with an attractant — MCP binding would inhibit CheA, reduce P-CheY, and cause a run. <strong>Problem:</strong> Without methylation, the MCP <strong>cannot be reset</strong> to require higher concentrations. The receptor would remain in the 'attractant-bound' conformation indefinitely, keeping CheA inhibited. The bacterium would <strong>run continuously</strong> rather than alternating between runs and tumbles. It <strong>cannot sense increasing concentration gradients</strong> — it has no 'chemical memory.' <strong>Result:</strong> The bacterium would detect attractant but <strong>could not follow a gradient</strong>. It would not move toward the source. Essentially, it loses the ability to perform <strong>biased random walk</strong> and reverts to behavior similar to a <strong>constitutive run</strong>." },
+  { q: "A researcher finds a mutant E. coli that tumbles continuously, even in the presence of attractants. Identify TWO possible mutations that could cause this phenotype and explain the molecular mechanism for each.", hint: "Think about what keeps P-CheY levels high. CheA? CheY? MCP conformation?", hy: true,
+    a: "<strong>Mutation 1: Constitutively active CheA.</strong> If CheA is mutated so it <strong>auto-phosphorylates regardless of MCP conformation</strong>, it will continuously produce P-CheY even when attractant is bound to MCPs. The conformational signal from MCPs cannot inhibit the mutant CheA. P-CheY stays high → <strong>constant CW rotation → continuous tumbling</strong>. <strong>Mutation 2: CheY that cannot be dephosphorylated.</strong> If CheY is mutated so it <strong>retains its phosphate group</strong> (cannot be dephosphorylated by CheZ), P-CheY accumulates at the flagellar motor. Even if CheA activity is properly inhibited by attractant, the <strong>already-phosphorylated CheY persists</strong> and continues to induce CW rotation → <strong>continuous tumbling</strong>. <strong>Other possibilities:</strong> MCP mutation that constitutively activates CheA; loss-of-function mutation in CheZ (phosphatase that removes phosphate from P-CheY)." },
+  { q: "Explain why accommodation with attractants but NOT repellents gives bacteria an evolutionary advantage. What would happen if accommodation occurred with both?", hint: "Gradient sensing vs danger avoidance. Consequences of becoming 'used to' a toxin.", hy: true,
+    a: "<strong>Attractant accommodation advantage:</strong> By becoming desensitized to the current concentration, bacteria can <strong>sense increasing gradients</strong> and keep moving toward the <strong>richest nutrient source</strong>. They don't stop at the first sign of food — they seek the maximum. Once at the maximum, they <strong>stay put</strong> rather than wandering away. <strong>No repellent accommodation advantage:</strong> Bacteria must <strong>always remain fully sensitive to toxins</strong>. If they became 'used to' a repellent (like humans getting used to a smell), they might <strong>stop fleeing and stay in a toxic environment</strong>, which could be lethal. <strong>If accommodation occurred with both:</strong> Bacteria would initially flee a toxin but then <strong>become desensitized</strong> and stop tumbling. They would <strong>remain in the toxic area</strong>, potentially dying. Evolutionary pressure would <strong>strongly select against</strong> any mutation that allowed repellent accommodation — those bacteria would be killed by the toxins they became 'used to.'" },
+  { q: "A newly discovered bacterium can move on solid surfaces but has no flagella, cilia, or pili. What type of motility does it likely use? Design an experiment to confirm this.", hint: "Elimination of twitching and swimming. Surface adhesion movement.", hy: true,
+    a: "This bacterium likely uses <strong>gliding motility</strong>. Gliding is defined as translocation on surfaces by rod-shaped bacteria <strong>without flagella, cilia, or pili</strong>. <strong>Experimental confirmation:</strong> <strong>1. Microscopy:</strong> Use <strong>electron microscopy</strong> to confirm the absence of external appendages (flagella, pili). <strong>2. Surface movement assay:</strong> Place bacteria on <strong>agar plates</strong> and observe spreading colonies. Gliding bacteria form characteristic <strong>spreading edges</strong>. <strong>3. Fluorescent bead tracking:</strong> Attach <strong>fluorescent beads</strong> to the cell surface. In gliding bacteria, beads will move along the cell body as the <strong>surface adhesion complexes are transported</strong> by the internal motor. <strong>4. Gene knockout:</strong> Identify and knock out genes homologous to known gliding genes (e.g., <strong>gld genes</strong> in Flavobacterium). Loss of surface motility confirms gliding. <strong>5. Controls:</strong> Test motility in <strong>liquid</strong> (gliders typically don't swim) and on <strong>dry surfaces</strong> (gliding requires some moisture)." },
+  { q: "Compare the molecular basis of how bacteria sense attractants vs repellents. Include the roles of CheA, CheY, CheR, CheB, and CheW in your answer.", hint: "Walk through the complete signaling pathway for each.", hy: true,
+    a: "<strong>Shared components:</strong> Both pathways use <strong>MCPs</strong> held in arrays by <strong>CheW</strong> (adapter protein) and <strong>CheA</strong> (histidine kinase). <strong>Attractant pathway:</strong> Attractant binds MCP → conformational change → <strong>CheA kinase activity INHIBITED</strong> → less auto-phosphorylation → <strong>less P-CheY</strong> → flagellar motor defaults to <strong>CCW (run)</strong>. Meanwhile, <strong>CheR methylates MCP</strong> → accommodation → receptor now requires higher concentration to respond again. <strong>Repellent pathway:</strong> Repellent binds MCP → conformational change → <strong>CheA kinase activity STIMULATED</strong> → more auto-phosphorylation → <strong>more P-CheY</strong> → more <strong>CW rotation (tumbles)</strong>. Increased CheA also phosphorylates <strong>CheB</strong>. <strong>P-CheB demethylates MCPs</strong>, counteracting CheR → <strong>no accommodation</strong> → sensitivity maintained. <strong>CheW role:</strong> Structural adapter that holds MCPs and CheA in the correct orientation within the receptor array. Essential for signal transduction from MCPs to CheA in both pathways." },
+  { q: "Explain why swarming motility is considered a distinct developmental state rather than simply 'many bacteria swimming together.' What evidence supports this?", hint: "Gene regulation, cell morphology changes, collective decision-making.", hy: true,
+    a: "<strong>Evidence that swarming is a distinct state:</strong> <strong>1. Specific gene regulation:</strong> Swarming involves coordinated changes in expression of genes related to <strong>chemo-sensory mechanisms</strong>, <strong>flagella synthesis and assembly</strong>, and <strong>depression of cell division</strong>. This is a complex regulatory program, not just independent cells swimming. <strong>2. Collective decision-making:</strong> Cells must collectively 'decide' to swarm — it requires <strong>quorum sensing</strong> and cell-density-dependent signals. <strong>3. Cell morphology changes:</strong> Many swarming bacteria become <strong>hyperflagellated</strong> and <strong>elongated</strong> compared to their swimming state. <strong>4. Surface-specific:</strong> Swarming occurs on surfaces (with some liquid), while swimming occurs in bulk liquid — different environmental triggers activate different programs. <strong>5. Narrowly conserved:</strong> Swarming by flagella is a specific adaptation, not a universal behavior of all flagellated bacteria. If it were just 'group swimming,' all flagellated bacteria would do it." },
+  { q: "H. pylori uses chemotaxis to colonize the stomach wall. Explain how this makes chemotaxis a virulence factor. If you could block chemotaxis in H. pylori, would it still cause disease?", hint: "Navigation to attachment site, colonization, gastric ulcers.", hy: true,
+    a: "<strong>Chemotaxis as virulence factor:</strong> <strong>H. pylori</strong> must navigate through the <strong>harsh stomach environment</strong> to reach its preferred <strong>attachment site on the stomach wall</strong>. Chemotaxis allows it to sense and swim toward specific chemical signals from the gastric epithelium. Without this directed movement, the bacterium would be <strong>swept away by stomach contents</strong> or remain in unfavorable locations. <strong>If chemotaxis were blocked:</strong> H. pylori would likely have <strong>severely reduced virulence</strong>. Without the ability to navigate to the stomach wall, the bacterium would: <strong>1.</strong> Fail to <strong>efficiently colonize</strong> its preferred niche. <strong>2.</strong> Be more susceptible to <strong>clearance</strong> by stomach acid and peristalsis. <strong>3.</strong> Have reduced ability to <strong>form biofilms</strong> on the gastric surface. However, if bacteria <strong>randomly reached</strong> the stomach wall, they could still attach and potentially cause limited disease. Chemotaxis <strong>dramatically increases</strong> colonization efficiency but may not be absolutely required if enough bacteria are present." },
+  { q: "A student claims: 'Bacteria with flagella can only swim, and bacteria without flagella cannot move.' Refute both parts of this claim with specific examples.", hint: "Flagellated bacteria that swarm. Non-flagellated bacteria that glide and twitch.", hy: true,
+    a: "<strong>Refuting Part 1 — 'Flagellated bacteria can only swim':</strong> Flagellated bacteria can also <strong>swarm</strong>. Swarming is a distinct form of motility where flagellated bacteria migrate <strong>en masse on surfaces</strong>. Swarming involves specific gene regulation and is fundamentally different from swimming. Many bacteria switch between swimming (in liquid) and swarming (on surfaces) depending on conditions. <strong>Refuting Part 2 — 'Non-flagellated bacteria cannot move':</strong> <strong>Gliding motility:</strong> Bacteria like <strong>Flavobacterium johnsoniae</strong> move on surfaces without any external appendages. They use internal motors to transport cell surface adhesions. <strong>Twitching motility:</strong> Bacteria like <strong>Pseudomonas aeruginosa</strong> and <strong>Neisseria gonorrhoeae</strong> use <strong>type IV pili</strong> (not flagella) to move on moist surfaces. Pili extend, tether, and retract like grappling hooks. <strong>Myxococcus xanthus</strong> uses both gliding AND twitching — no flagella involved." },
+  { q: "Trace the complete signal transduction pathway from a bacterium detecting an attractant gradient to successfully moving up that gradient. Include accommodation and explain how the bacterium knows it's moving in the right direction.", hint: "MCP → CheA → CheY → motor → run/tumble → CheR methylation → reset → repeat at higher concentration.", hy: true,
+    a: "<strong>Step 1 — Detection:</strong> Attractant molecules bind to specific <strong>MCP receptors</strong> (Tsr, Tar, Trg) in the periplasm. <strong>Step 2 — Signal transduction:</strong> MCP conformational change <strong>inhibits CheA</strong> kinase → less <strong>P-CheY</strong> → flagellar motor rotates <strong>CCW → sustained run</strong>. <strong>Step 3 — Accommodation:</strong> <strong>CheR methylates</strong> the MCP → receptor is <strong>reset</strong> to only respond at <strong>higher concentrations</strong>. <strong>Step 4 — Gradient sensing:</strong> As the bacterium runs forward, if concentration <strong>increases</strong>, the newly encountered attractant activates the (now methylated) MCPs again → another sustained run. If concentration <strong>decreases or stays the same</strong>, MCPs are not activated → CheA resumes activity → P-CheY → <strong>tumble</strong>. <strong>Step 5 — Biased walk:</strong> Runs toward <strong>higher concentration are prolonged</strong>. Runs toward lower concentration are <strong>terminated by tumbles</strong>. Over time, net movement is <strong>up the gradient</strong>. <strong>How it 'knows' the right direction:</strong> It doesn't 'know' — it <strong>compares current concentration to recent past</strong> (via methylation state). This temporal comparison, not spatial sensing, creates the biased random walk." },
+  { q: "Compare all 4 bacterial motility types in terms of: appendages used, surface requirements, individual vs collective, speed, and organisms that use them.", hint: "Build a comprehensive comparison table in your answer.", hy: true,
+    a: "<strong>Gliding:</strong> No external appendages. Solid surfaces. Individual movement. ~2 µm/s. <strong>Flavobacterium, Bacteroidetes, Myxococcus, Mycoplasma, Cyanobacteria</strong>. Catch-all term — different organisms use different machineries. <strong>Twitching:</strong> Type IV pili (grappling hook mechanism). Moist surfaces. Individual. ~0.5–1 µm/s (slowest). <strong>Pseudomonas aeruginosa, Neisseria gonorrhoeae, Myxococcus</strong>. Multiple pili can alter direction. <strong>Swimming:</strong> Rotating flagella (CW/CCW). Liquid environments. Individual. Up to 100 µm/s (fastest). <strong>Bdellovibrio bacteriovorus</strong> (record holder). Powered by proton motive force. <strong>Swarming:</strong> Rotating flagella. Surfaces with some liquid. <strong>Collective/multicellular</strong> (unique among the four). Rapid but variable. Many rod-shaped flagellated species. Requires specific gene regulation and is NOT group swimming. <strong>Key patterns:</strong> Gliding and twitching = surface motility without flagella. Swimming and swarming = flagella-dependent. Only swarming is multicellular." },
+  { q: "Explain the concept of 'chemical memory' in bacterial chemotaxis. How does methylation of MCPs create a temporal comparison mechanism?", hint: "CheR methylation records past concentrations. Current vs past comparison.", hy: true,
+    a: "<strong>Chemical memory</strong> refers to the <strong>methylation state of MCPs</strong>, which records information about <strong>past chemical concentrations</strong>. <strong>Mechanism:</strong> When an attractant binds, <strong>CheR methylates</strong> the MCP. This methylation <strong>desensitizes</strong> the receptor — it now requires a <strong>higher concentration</strong> to be activated again. The methylation state effectively encodes <strong>'what concentration was here before.'</strong> <strong>Temporal comparison:</strong> The bacterium doesn't sense the gradient spatially (it's too small). Instead, it compares <strong>current concentration</strong> (what's binding MCPs now) to <strong>past concentration</strong> (encoded by the methylation level). If current > past: MCPs are activated → <strong>run is prolonged</strong> (moving in the right direction). If current ≤ past: MCPs are not activated → CheA resumes → <strong>tumble</strong> (wrong direction, re-randomize). After each comparison, CheR <strong>updates the memory</strong> by adding more methyl groups. This creates a continuously updating <strong>rolling record</strong> that lets bacteria navigate gradients despite being too small to sense spatial differences across their body." },
+];
+
+// === FRQ ENGINE ===
+function buildFRQ(questions, containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'frq-card' + (q.hy ? ' hy-frq' : '');
+    div.innerHTML = `
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy ? ' <span class="hy-badge">EXAM TOPIC</span>' : ''}</div>
+      <div class="frq-hint">${q.hint}</div>
+      <textarea placeholder="Write your answer here..." id="ta-${containerId}-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ(this, ${i}, '${containerId}', '${scoreId}')">Show Model Answer</button>
+      <div class="frq-answer" id="ans-${containerId}-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="grade-${containerId}-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ(this, 'got-it', '${containerId}', '${scoreId}')">Got It</button>
+        <button class="grade-btn partial" onclick="gradeFRQ(this, 'partial', '${containerId}', '${scoreId}')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ(this, 'missed', '${containerId}', '${scoreId}')">Missed It</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFRQ(btn, idx, containerId, scoreId) {
+  document.getElementById('ans-' + containerId + '-' + idx).classList.add('show');
+  document.getElementById('grade-' + containerId + '-' + idx).classList.add('show');
+  btn.style.display = 'none';
+}
+
+function gradeFRQ(btn, grade, containerId, scoreId) {
+  btn.parentElement.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected-grade'));
+  btn.classList.add('selected-grade');
+  updateFRQScore(containerId, scoreId);
+}
+
+function updateFRQScore(containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  const graded = container.querySelectorAll('.grade-btn.selected-grade');
+  let gotIt = 0;
+  graded.forEach(b => { if (b.classList.contains('got-it')) gotIt++; });
+  document.getElementById(scoreId).textContent = gotIt + ' / ' + graded.length;
+}
+
+function resetFRQ(type) {
+  const containerId = type + '-container';
+  const scoreId = type + '-score';
+  const questions = type === 'frq' ? frqQuestions : hardFRQ;
+  buildFRQ(questions, containerId, scoreId);
+  document.getElementById(scoreId).textContent = '0 / 0';
+}
+
+buildFRQ(frqQuestions, 'frq-container', 'frq-score');
+buildFRQ(hardFRQ, 'hardfrq-container', 'hardfrq-score');
+
+// === MATCHING ===
+const matchPairs = [
+  ["Random Walk", "Movement without chemical signal — no net directionality"],
+  ["Biased Random Walk", "Directed movement with prolonged runs toward attractant"],
+  ["MCPs", "Methyl-accepting chemotaxis proteins that sense chemicals"],
+  ["CheA", "Histidine kinase that auto-phosphorylates and activates CheY"],
+  ["P-CheY", "Induces clockwise flagellar rotation causing tumbles"],
+  ["Accommodation", "Resetting MCPs via methylation to require higher attractant concentration"],
+  ["CheR", "Methyltransferase that methylates MCPs creating chemical memory"],
+  ["CheB", "Phosphorylated by CheA during repellent sensing; demethylates MCPs"],
+  ["Gliding", "Surface motility without flagella, cilia, or pili"],
+  ["Twitching", "Movement using type IV pili as grappling hooks"],
+  ["Swarming", "Multicellular surface movement — NOT group swimming"],
+  ["Myxococcus xanthus", "Wolfpack bacterium using both gliding and twitching"],
+];
+
+let matchSelected = { left: null, right: null };
+let matchedCount = 0;
+
+function resetMatching() {
+  matchSelected = { left: null, right: null };
+  matchedCount = 0;
+  document.getElementById('match-score').textContent = '0 / ' + matchPairs.length;
+  renderMatching();
+}
+
+function renderMatching() {
+  const leftArr = matchPairs.map((p, i) => ({ text: p[0], idx: i }));
+  const rightArr = matchPairs.map((p, i) => ({ text: p[1], idx: i }));
+  for (let i = rightArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rightArr[i], rightArr[j]] = [rightArr[j], rightArr[i]];
+  }
+  const leftDiv = document.getElementById('match-left');
+  const rightDiv = document.getElementById('match-right');
+  leftDiv.innerHTML = leftArr.map(item =>
+    `<div class="match-item" data-side="left" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+  rightDiv.innerHTML = rightArr.map(item =>
+    `<div class="match-item" data-side="right" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  const idx = parseInt(el.dataset.idx);
+  document.querySelectorAll(`.match-item[data-side="${side}"]`).forEach(e => {
+    if (!e.classList.contains('matched')) e.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  matchSelected[side] = { el, idx };
+  if (matchSelected.left && matchSelected.right) {
+    if (matchSelected.left.idx === matchSelected.right.idx) {
+      matchSelected.left.el.classList.remove('selected');
+      matchSelected.right.el.classList.remove('selected');
+      matchSelected.left.el.classList.add('matched');
+      matchSelected.right.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('match-score').textContent = matchedCount + ' / ' + matchPairs.length;
+    } else {
+      matchSelected.left.el.classList.add('wrong-match');
+      matchSelected.right.el.classList.add('wrong-match');
+      setTimeout(() => {
+        matchSelected.left.el.classList.remove('selected', 'wrong-match');
+        matchSelected.right.el.classList.remove('selected', 'wrong-match');
+        matchSelected = { left: null, right: null };
+      }, 600);
+      return;
+    }
+    matchSelected = { left: null, right: null };
+  }
+}
+
+renderMatching();
+</script>
+
+</body>
+</html>

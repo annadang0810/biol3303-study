@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protists - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight {
+    color: var(--green);
+    font-weight: 600;
+  }
+  .organism {
+    color: var(--orange);
+    font-weight: 600;
+  }
+  .warn {
+    color: var(--red);
+    font-weight: 600;
+  }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* HIGH YIELD */
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  /* HERO */
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* TABS */
+  .tab-row {
+    display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TABLES */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th {
+    background: var(--surface2);
+    color: var(--accent-light);
+    font-weight: 600;
+  }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  /* FLASHCARD */
+  .fc-container {
+    perspective: 1000px;
+    margin-bottom: 16px;
+  }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav {
+    display: flex; gap: 10px; justify-content: center; align-items: center;
+  }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+  .fc-hint { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 10px; }
+
+  /* MATCHING */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  /* FRQ */
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #4a4e63; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hard')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Protists</h1>
+    <p>BIOL 3303 &middot; Lecture 7 &mdash; The most complex single cells on Earth</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">20</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">FRQs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>Protist classification</li>
+        <li>Modes of protist motility and nutrition</li>
+        <li>Paramecia: lifestyle, genetic content, reproduction</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li><span class="highlight">Learn</span> &mdash; Read through all lecture material organized by topic</li>
+      <li><span class="highlight">Flashcards</span> &mdash; Click to flip, test your recall of key terms</li>
+      <li><span class="highlight">FRQ</span> &mdash; Free response questions with model answers</li>
+      <li><span class="highlight">Matching</span> &mdash; Match terms to their definitions</li>
+      <li><span class="highlight">Hard FRQ</span> &mdash; Application-based and case study questions</li>
+      <li style="color: var(--yellow); font-weight: 700;">Gold-highlighted = CONFIRMED exam topics. Start with these.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('learn',0)">Overview</button>
+    <button class="tab-btn" onclick="showTab('learn',1)">Geology</button>
+    <button class="tab-btn" onclick="showTab('learn',2)">Cell Structure</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',3)">Classification</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',4)">Paramecium</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',5)">Reproduction</button>
+    <button class="tab-btn" onclick="showTab('learn',6)">Plasmodium</button>
+    <button class="tab-btn" onclick="showTab('learn',7)">Case Study</button>
+  </div>
+
+  <!-- Overview -->
+  <div class="tab-content active" id="learn-0">
+    <div class="card">
+      <h2>What Are Protists?</h2>
+      <ul>
+        <li><span class="highlight">Eukaryotic</span>, mostly <span class="highlight">unicellular</span> organisms</li>
+        <li>Wide variety of morphology and size</li>
+        <li>Approximately <span class="highlight">~50,000 different species</span></li>
+        <li><span class="highlight">Metabolically diverse</span></li>
+        <li>Abundant, especially in aquatic environments</li>
+      </ul>
+      <h3>Functions of Protists</h3>
+      <ul>
+        <li>Together with <span class="highlight">cyanobacteria</span>, protists carry out about <span class="warn">half of all photosynthesis</span> on Earth</li>
+        <li>Single-cell free-living protists comprise the <span class="highlight">most complex cells in the world</span></li>
+        <li>Unlike prokaryotes, they possess intracellular complexity of <span class="highlight">membrane-bound organelles</span></li>
+        <li>Dinoflagellates can have up to <span class="warn">3,000,000 genes</span> &mdash; ~100x more than a human cell!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Geology -->
+  <div class="tab-content" id="learn-1">
+    <div class="card">
+      <h2>Protists Shape Earth's Geology</h2>
+      <ul>
+        <li>Certain protists make insoluble shells of <span class="highlight">silica</span> (diatoms) or <span class="highlight">calcium carbonate</span> (other algae)</li>
+        <li>These accumulate in huge deposits over time</li>
+      </ul>
+      <h3>The White Cliffs of Dover</h3>
+      <ul>
+        <li>Formed by shells of an alga called <span class="organism">coccolithophore</span> (<span class="organism">Emiliania huxleyi</span>)</li>
+        <li>These algae divert significant CO&#8322; to their carbonaceous shells</li>
+        <li>Form enormous blooms covering up to <span class="highlight">100,000 km&sup2;</span> (size of Ohio)</li>
+        <li>Eventually divide into motile cells or get killed by viruses, leaving empty shells</li>
+        <li>Shells sink to the ocean floor and become buried in sediment</li>
+      </ul>
+      <h3>Diatomaceous Earth</h3>
+      <ul>
+        <li>Powder derived from <span class="highlight">diatom corpses</span></li>
+        <li>Used as a <span class="highlight">non-toxic insecticide</span> &mdash; dries out ants and shreds up their bodies</li>
+        <li>"Food grade" version thought to have potential health benefits (GI-cleansing, cholesterol lowering, skin/joint/nail improvements)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Cell Structure -->
+  <div class="tab-content" id="learn-2">
+    <div class="card">
+      <h2>Protist Cell Organization</h2>
+      <p>Most protists have a typical eukaryotic organization with single or many nuclei and various organelles.</p>
+      <h3>Key Organelles</h3>
+      <table class="data-table">
+        <tr><th>Organelle</th><th>Description</th></tr>
+        <tr><td><span class="highlight">Mitochondria</span></td><td>Standard energy-producing organelles in aerobic protists</td></tr>
+        <tr><td><span class="highlight">Hydrogenosomes</span></td><td>Anaerobic alternative to mitochondria; produce hydrogen</td></tr>
+        <tr><td><span class="highlight">Mitosomes</span></td><td>Reduced mitochondria-related organelles in some parasitic protists</td></tr>
+        <tr><td><span class="highlight">Plastids</span></td><td>Photosynthetic organelles found in algal protists</td></tr>
+      </table>
+      <h3>Outer Covering</h3>
+      <ul>
+        <li><span class="highlight">Animal-like cell membranes</span> or <span class="highlight">plant-like cell walls</span></li>
+        <li>Some encased in glassy <span class="highlight">silica-based shells</span></li>
+        <li>Others wound with <span class="highlight">protein pellicles</span></li>
+      </ul>
+      <h3>Complexity of Ciliates</h3>
+      <ul>
+        <li>Ciliate cells are especially complex, containing structural analogs of: mouth, stomach, bladder, anus</li>
+        <li>Some dinoflagellates even have an <span class="warn">eye-like structure (ocelloid)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Classification -->
+  <div class="tab-content" id="learn-3">
+    <div class="card hy-card">
+      <h2>How Are Protists Classified? <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p>Protists are extraordinarily diverse. Members in each subgroup can belong to very distant lineages. They are commonly classified by their <span class="highlight">method of locomotion</span>:</p>
+      <table class="data-table hy-table">
+        <tr><th>Locomotion</th><th>Description</th><th>Example</th></tr>
+        <tr><td><span class="highlight">Flagella</span></td><td>Whip-like structures for swimming</td><td><span class="organism">Anisonema</span></td></tr>
+        <tr><td><span class="highlight">Pseudopodia</span></td><td>Cytoplasmic extensions for crawling</td><td><span class="organism">Amoeba</span></td></tr>
+        <tr><td><span class="highlight">Cilia</span></td><td>Short, hair-like structures beating in waves</td><td><span class="organism">Euplotes</span></td></tr>
+        <tr><td><span class="highlight">Non-motile</span></td><td>No active locomotion</td><td><span class="organism">Plasmodium</span> sporozoites</td></tr>
+      </table>
+      <h3>Nutritional Classification</h3>
+      <ul>
+        <li><span class="highlight">Photoautotrophs</span> &mdash; use light for energy and CO&#8322; for carbon (e.g., algae)</li>
+        <li><span class="highlight">Chemoheterotrophs</span> &mdash; use organic compounds for both energy and carbon (e.g., Paramecium, Amoeba)</li>
+        <li><span class="highlight">Mixotrophs</span> &mdash; combine photosynthesis and heterotrophy depending on conditions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Paramecium -->
+  <div class="tab-content" id="learn-4">
+    <div class="card hy-card">
+      <h2>Paramecium: Giant of the Microworld <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li>Among the <span class="highlight">largest and most complex single-celled organisms</span></li>
+        <li>Inhabit pond water, oceans, lakes, rivers, and soils</li>
+        <li>Grazers: ingest organic particles, bacteria, yeast, other protists</li>
+        <li>Can also get eaten by other protists (e.g., <span class="organism">Didinium</span> swallows Paramecium)</li>
+      </ul>
+      <h3>Feeding Mechanism</h3>
+      <ul>
+        <li><span class="highlight">Cilia</span> beat in coordinated waves &mdash; propel cell and drag nutrients inward</li>
+        <li>Food swept into the <span class="highlight">gullet</span> (functions as a mouth)</li>
+        <li>Digested in the <span class="highlight">food vacuole</span></li>
+        <li>Digested nutrients excreted into the <span class="highlight">cytoplasm</span></li>
+        <li>Undigested material expelled through the <span class="highlight">anal pore</span></li>
+      </ul>
+      <h3>Toxins &amp; Symbionts</h3>
+      <ul>
+        <li>Sometimes eat <span class="warn">toxin-secreting bacteria</span> &mdash; kills them unless they develop immunity</li>
+        <li>Immune paramecia carry the bacteria and become <span class="warn">toxic themselves</span>, protecting from predation</li>
+        <li>When nutrients are scarce, associate with <span class="highlight">endosymbiotic algae</span> &mdash; algae produce energy from light, paramecia provide motility</li>
+      </ul>
+      <h3>Virivores</h3>
+      <ul>
+        <li><span class="organism">P. bursaria</span> evolved to <span class="warn">eat viruses</span> (discovered 1993)</li>
+        <li>Virivores reintroduce viral amino acids, nucleic acids, and lipids to the food chain</li>
+        <li>Viruses make up a huge amount of biomass</li>
+      </ul>
+      <h3>Dual Nuclei</h3>
+      <table class="data-table hy-table">
+        <tr><th>Nucleus</th><th>Contents</th><th>Function</th></tr>
+        <tr><td><span class="highlight">Micronucleus</span></td><td>DNA with copies of ALL genes</td><td>Regular nucleus used in reproduction</td></tr>
+        <tr><td><span class="highlight">Macronucleus</span></td><td>40&ndash;1,000 copies of selected genes</td><td>RNA factory for rapid growth &amp; protein production</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Reproduction -->
+  <div class="tab-content" id="learn-5">
+    <div class="card hy-card">
+      <h2>How Do Paramecia Reproduce? <span class="hy-badge">EXAM TOPIC</span></h2>
+      <h3>The Rate-Limiting Problem</h3>
+      <ul>
+        <li>Paramecia divide rapidly by <span class="highlight">asexual binary fission</span> (as fast as every 2 hours)</li>
+        <li>Must double every organelle-like component quickly &mdash; requires massive amounts of mRNA</li>
+        <li>The <span class="highlight">macronucleus</span> solves this: with 50 copies of a gene, 50 mRNAs can be made simultaneously</li>
+        <li><span class="warn">Cannot divide asexually indefinitely</span> &mdash; cells become senescent and die</li>
+      </ul>
+      <h3>Asexual Reproduction (Binary Fission)</h3>
+      <ul>
+        <li>Uses <span class="highlight">mitosis</span> to divide the micronucleus</li>
+        <li>After several cycles, cells will die unless they engage in sex</li>
+      </ul>
+      <h3>Sexual Reproduction (Conjugation)</h3>
+      <ul>
+        <li><span class="key">1</span> Two cells attach through their <span class="highlight">gullets</span> and connect cytoplasms</li>
+        <li><span class="key">2</span> The <span class="highlight">macronucleus disintegrates</span></li>
+        <li><span class="key">3</span> The <span class="highlight">micronucleus divides by meiosis</span> twice &rarr; 4 haploid nuclei (3 disintegrate)</li>
+        <li><span class="key">4</span> Remaining nucleus <span class="highlight">divides by mitosis</span> (2N)</li>
+        <li><span class="key">5</span> Each cell <span class="highlight">exchanges 1 copy</span> with their mate</li>
+        <li><span class="key">6</span> Cells separate, 2 nuclei <span class="highlight">fuse</span> and develop into new micro- and macronucleus</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Plasmodium -->
+  <div class="tab-content" id="learn-6">
+    <div class="card">
+      <h2>Plasmodium &amp; Malaria</h2>
+      <ul>
+        <li><span class="organism">Plasmodium</span> is the parasite that causes <span class="warn">malaria</span></li>
+        <li>One of the most devastating diseases worldwide</li>
+        <li>Affects <span class="warn">~300 million people</span> and causes <span class="warn">1.5 million deaths</span> per year</li>
+        <li>Transmitted by <span class="highlight">biting mosquitoes</span>, found mainly in tropical regions</li>
+        <li>Life cycle starts in mosquitoes and requires humans for completion</li>
+        <li>Complex life cycle with many changes in cellular morphology and a mandatory sexual phase</li>
+      </ul>
+      <h3>Life Cycle of Plasmodium</h3>
+      <ul>
+        <li><span class="key">1</span> <span class="highlight">Sporozoites</span> released from mosquito salivary gland into human host</li>
+        <li><span class="key">2</span> Enter the <span class="highlight">liver</span></li>
+        <li><span class="key">3</span> Mature into <span class="highlight">schizonts</span> in liver</li>
+        <li><span class="key">4</span> Released into bloodstream as <span class="highlight">merozoites</span></li>
+        <li><span class="key">5</span> Invade <span class="highlight">red blood cells (RBCs)</span></li>
+        <li><span class="key">6-8</span> Complex maturation stages in RBCs</li>
+        <li><span class="key">9</span> <span class="warn">Lyse RBCs</span> and invade new ones (causes cyclical fever)</li>
+        <li><span class="key">10</span> Within RBCs, differentiate into sexual form (<span class="highlight">gametocytes</span>)</li>
+        <li><span class="key">11-14</span> Finish <span class="highlight">sexual life cycle in mosquitoes</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Case Study -->
+  <div class="tab-content" id="learn-7">
+    <div class="card">
+      <h2>Case Study: Malaria Diagnosis</h2>
+      <h3>Patient Presentation</h3>
+      <ul>
+        <li>22-year-old female with flu-like symptoms: headache, muscle aches, high temperature</li>
+        <li>Recently travelled to <span class="warn">East Africa</span></li>
+        <li>Doctor takes blood sample for microscopic evaluation</li>
+        <li>Immediately prescribes <span class="highlight">antimalarial drugs</span></li>
+      </ul>
+      <h3>Progression</h3>
+      <ul>
+        <li>Next day: feels <span class="warn">worse</span>, suffers from chills followed by fever</li>
+        <li>Symptoms <span class="warn">recur two days later</span></li>
+      </ul>
+      <h3>Was the doctor correct? Why?</h3>
+      <ul>
+        <li><span class="highlight">Yes.</span> The combination of flu-like symptoms + recent travel to a tropical region (East Africa) + <span class="warn">cyclical pattern of chills and fever recurring every ~48 hours</span> are hallmarks of malaria</li>
+        <li>The blood smear would show <span class="organism">Plasmodium</span> parasites inside red blood cells</li>
+        <li>The cyclical symptoms correspond to the <span class="highlight">synchronized lysis of infected RBCs</span> releasing merozoites, which then invade new RBCs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Single-cell free-living protists = <span class="highlight">most complex cells in the world</span></li>
+        <li>Like prokaryotes, they need all machinery in one cell &mdash; but with <span class="highlight">membrane-bound organelle</span> complexity</li>
+        <li>Dinoflagellates: up to <span class="warn">3,000,000 genes</span> (~100x more than humans)</li>
+        <li>Tardigrades are <span class="organism">microanimals</span>, NOT protists</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <div class="card" style="text-align:center; padding: 16px 28px;">
+    <p style="font-size:13px; color: var(--text-dim);">Click the card to flip. Use arrows to navigate.</p>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&#8592;</button>
+    <span class="fc-counter" id="fc-counter">1 / 20</span>
+    <button class="fc-btn" onclick="nextCard()">&#8594;</button>
+    <button class="fc-btn" onclick="shuffleCards()" title="Shuffle" style="font-size:14px;">&#x1f500;</button>
+  </div>
+</div>
+
+<!-- FRQ -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Self-Grade</div>
+      <div class="score-pct" id="frq-score">0 / 0</div>
+    </div>
+    <button class="reset-btn" onclick="resetFRQ('frq')">Reset</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- MATCHING -->
+<div class="section" id="sec-matching">
+  <div class="card" style="padding: 16px 28px;">
+    <p style="font-size:14px; font-weight:600;">Match the term on the left with its description on the right. Click one from each side.</p>
+  </div>
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Matched</div>
+      <div class="score-pct" id="match-score">0 / 12</div>
+    </div>
+    <button class="reset-btn" onclick="resetMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div>
+      <div class="match-col-header">Term</div>
+      <div id="match-left"></div>
+    </div>
+    <div>
+      <div class="match-col-header">Description</div>
+      <div id="match-right"></div>
+    </div>
+  </div>
+</div>
+
+<!-- HARD FRQ -->
+<div class="section" id="sec-hard">
+  <div class="score-bar">
+    <div>
+      <div class="score-text">Self-Grade</div>
+      <div class="score-pct" id="hardfrq-score">0 / 0</div>
+    </div>
+    <button class="reset-btn" onclick="resetFRQ('hardfrq')">Reset</button>
+  </div>
+  <div id="hardfrq-container"></div>
+</div>
+
+</main>
+
+<script>
+// === NAVIGATION ===
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// === TABS ===
+function showTab(section, idx) {
+  const parent = document.getElementById('sec-' + section);
+  parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(section + '-' + idx).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// === FLASHCARDS ===
+const flashcards = [
+  ["What are protists?", "Eukaryotic, mostly unicellular organisms with ~50,000 species. Metabolically diverse, abundant in aquatic environments."],
+  ["What percentage of Earth's photosynthesis do protists carry out?", "About 50% (together with cyanobacteria)."],
+  ["What formed the White Cliffs of Dover?", "Shells of coccolithophore algae (Emiliania huxleyi) accumulated over 100,000+ years."],
+  ["What is diatomaceous earth?", "Powder from diatom corpses. Used as non-toxic insecticide that dries out and shreds insects."],
+  ["What are the 4 methods of protist locomotion?", "Flagella, pseudopodia, cilia, and non-motile."],
+  ["What is an ocelloid?", "An eye-like structure found in some dinoflagellates."],
+  ["What organelles can protists have?", "Mitochondria, hydrogenosomes, mitosomes, and plastids (varies by species)."],
+  ["How does Paramecium feed?", "Cilia sweep food into the gullet (mouth). Digested in food vacuole, nutrients enter cytoplasm, waste exits anal pore."],
+  ["What happens when Paramecium eats toxin-secreting bacteria?", "If immune, they carry the bacteria and become toxic themselves, gaining protection from predation."],
+  ["What are virivores?", "Organisms like P. bursaria that eat viruses (discovered 1993). They reintroduce viral biomolecules into the food chain."],
+  ["What is the micronucleus?", "Contains DNA with copies of ALL genes. The 'regular' nucleus used in reproduction."],
+  ["What is the macronucleus?", "Contains 40-1,000 copies of selected genes needed for growth. An RNA factory for rapid protein production."],
+  ["Why does Paramecium need a macronucleus?", "Binary fission requires doubling all components quickly. With 50 gene copies, 50 mRNAs can be transcribed simultaneously."],
+  ["What happens if Paramecium only reproduces asexually?", "After several cycles, cells become senescent and die. Sexual reproduction (conjugation) is required."],
+  ["Describe conjugation in Paramecium.", "Two cells attach via gullets. Macronucleus disintegrates. Micronucleus undergoes meiosis then mitosis. Cells exchange one copy, separate, nuclei fuse into new micro- and macronuclei."],
+  ["What is Plasmodium?", "A parasitic protist causing malaria. Affects ~300 million, causes 1.5 million deaths/year. Transmitted by mosquitoes."],
+  ["What are sporozoites?", "The form of Plasmodium released from mosquito salivary glands into the human host."],
+  ["What are merozoites?", "The form released from liver schizonts into the bloodstream that invades red blood cells."],
+  ["What causes cyclical fever in malaria?", "Synchronized lysis of infected RBCs releasing merozoites, which then invade new RBCs."],
+  ["How many genes can dinoflagellates have?", "Up to 3,000,000 genes — approximately 100x more than a human cell."],
+];
+
+let fcIndex = 0;
+function renderCard() {
+  document.getElementById('fc-front').textContent = flashcards[fcIndex][0];
+  document.getElementById('fc-back').textContent = flashcards[fcIndex][1];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-counter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0; renderCard();
+}
+renderCard();
+
+// === FRQ DATA ===
+const frqQuestions = [
+  { q: "List and describe the 4 methods of protist locomotion. For each, give an example organism.", hint: "Flagella, pseudopodia, cilia, non-motile.", hy: true,
+    a: "<strong>1. Flagella:</strong> Whip-like structures used for swimming. Example: <strong>Anisonema</strong>. <strong>2. Pseudopodia:</strong> Cytoplasmic extensions that allow the cell to crawl. Example: <strong>Amoeba</strong>. <strong>3. Cilia:</strong> Short, hair-like structures that beat in coordinated waves for movement. Example: <strong>Euplotes</strong> and <strong>Paramecium</strong>. <strong>4. Non-motile:</strong> No active locomotion. Example: <strong>Plasmodium</strong> sporozoites (gliding motility only)." },
+  { q: "Explain how protists are classified and why traditional classification is challenging.", hint: "Locomotion-based grouping. Why is this problematic phylogenetically?", hy: true,
+    a: "Protists are commonly classified by their <strong>method of locomotion</strong> (flagella, pseudopodia, cilia, or non-motile). However, this is challenging because protists are <strong>extraordinarily diverse</strong> — members in each locomotion-based subgroup can belong to <strong>very distant evolutionary lineages</strong>. Locomotion type does not reflect true phylogenetic relationships. The group 'protist' itself is not a true taxonomic group but rather a <strong>catch-all for eukaryotes that are not animals, plants, or fungi</strong>." },
+  { q: "Describe the complete feeding mechanism of Paramecium, from food intake to waste elimination.", hint: "Cilia → gullet → food vacuole → cytoplasm → anal pore.", hy: true,
+    a: "<strong>1.</strong> <strong>Cilia</strong> beat in coordinated waves, propelling the cell and dragging nutrient particles inward. <strong>2.</strong> Food is swept into the <strong>gullet</strong>, which functions as a mouth-like groove. <strong>3.</strong> Food enters the <strong>food vacuole</strong> where it is digested by enzymes. <strong>4.</strong> Digested nutrients are excreted from the food vacuole into the <strong>cytoplasm</strong> for use by the cell. <strong>5.</strong> Undigested waste material is expelled through the <strong>anal pore</strong>." },
+  { q: "Compare the micronucleus and macronucleus of Paramecium. What does each contain and what is its function?", hint: "Think about gene copies, reproduction vs. growth.", hy: true,
+    a: "<strong>Micronucleus:</strong> Contains DNA with copies of <strong>ALL genes</strong>. It is the 'regular' nucleus used in <strong>reproduction</strong> (both mitosis during binary fission and meiosis during conjugation). It maintains the complete genetic blueprint. <strong>Macronucleus:</strong> Contains <strong>40–1,000 copies of selected genes</strong> needed for growth. It serves as an <strong>RNA factory</strong> — with so many gene copies, it can produce massive amounts of mRNA simultaneously, enabling the rapid protein production required for fast cell division (as fast as every 2 hours)." },
+  { q: "Explain why Paramecium needs a macronucleus. What problem does it solve?", hint: "Binary fission speed, mRNA production bottleneck.", hy: true,
+    a: "Paramecium divides by <strong>binary fission as fast as every 2 hours</strong>. To divide, it must <strong>double every organelle-like component</strong> rapidly, which requires <strong>massive amounts of mRNA</strong>. A single gene copy can only produce one mRNA at a time — this would be a <strong>rate-limiting bottleneck</strong>. The macronucleus solves this by having <strong>50+ copies of growth-related genes</strong>. With 50 copies, <strong>50 mRNAs can be transcribed simultaneously</strong>, providing enough protein production capacity for rapid division." },
+  { q: "Describe the complete process of conjugation in Paramecium, step by step.", hint: "Attachment, macronucleus fate, meiosis, mitosis, exchange, fusion.", hy: true,
+    a: "<strong>1.</strong> Two paramecia <strong>attach through their gullets</strong> and connect their cytoplasms. <strong>2.</strong> The <strong>macronucleus disintegrates</strong> in both cells. <strong>3.</strong> The <strong>micronucleus divides by meiosis</strong> twice, producing 4 haploid nuclei. Three of the four <strong>disintegrate</strong>. <strong>4.</strong> The remaining haploid nucleus <strong>divides by mitosis</strong>, producing 2 haploid copies. <strong>5.</strong> Each cell <strong>exchanges one copy</strong> with its mate through the cytoplasmic bridge. <strong>6.</strong> The cells <strong>separate</strong>. The two haploid nuclei <strong>fuse</strong> to form a diploid nucleus, which then develops into a new <strong>micronucleus and macronucleus</strong>." },
+  { q: "Explain why Paramecium cannot divide asexually indefinitely. What happens if it only uses binary fission?", hint: "Senescence, genetic deterioration, need for recombination.", hy: true,
+    a: "After many rounds of binary fission, paramecia <strong>become senescent and eventually die</strong>. Without sexual reproduction (conjugation), the cells accumulate genetic damage over time. Binary fission simply copies the existing genetic material via mitosis — there is <strong>no genetic recombination</strong> to restore function or fix mutations. Conjugation provides <strong>genetic recombination</strong> through meiosis and exchange of genetic material between mating partners, essentially <strong>resetting</strong> the organism's genetic health and restoring vitality." },
+  { q: "Describe the three modes of protist nutrition with examples.", hint: "Photoautotrophs, chemoheterotrophs, mixotrophs.", hy: true,
+    a: "<strong>1. Photoautotrophs:</strong> Use <strong>light energy</strong> and <strong>CO₂</strong> as carbon source. Example: algal protists like <strong>diatoms and dinoflagellates</strong>. They carry out photosynthesis using plastids. <strong>2. Chemoheterotrophs:</strong> Use <strong>organic compounds</strong> for both energy and carbon. Example: <strong>Paramecium</strong> (grazes on bacteria, yeast, other protists) and <strong>Amoeba</strong> (engulfs prey with pseudopodia). <strong>3. Mixotrophs:</strong> Can <strong>switch between</strong> photosynthesis and heterotrophy depending on conditions. Some protists photosynthesize when light is available but consume organic matter when it's not." },
+  { q: "Explain the endosymbiotic relationship between Paramecium and algae. When does it occur and how does it benefit both partners?", hint: "Nutrient scarcity, light energy, motility.", hy: true,
+    a: "When <strong>nutrients are scarce</strong>, paramecia can form an endosymbiotic relationship with <strong>algae</strong>. The algae live <strong>inside</strong> the paramecium cell. <strong>Benefits to Paramecium:</strong> The algae <strong>photosynthesize</strong>, converting light energy into organic compounds that the paramecium can use for energy. <strong>Benefits to algae:</strong> The paramecium provides <strong>motility</strong>, moving the algae toward light sources and providing a protected intracellular environment. This is a <strong>mutualistic relationship</strong> — both organisms gain a survival advantage they wouldn't have alone." },
+  { q: "Describe how Paramecium can become toxic to predators. What is the role of toxin-secreting bacteria?", hint: "Eating toxic bacteria, immunity, carrying bacteria.", hy: true,
+    a: "Some paramecia eat <strong>toxin-secreting bacteria</strong>. For most paramecia, this is <strong>lethal</strong> — the toxins kill them. However, some paramecia <strong>develop immunity</strong> to the bacterial toxins. These immune paramecia <strong>carry the toxin-producing bacteria inside their cells</strong> without harm. The result: the paramecium itself becomes <strong>toxic</strong>. This provides <strong>protection from predation</strong> — predators that try to eat these paramecia are killed or deterred by the toxins. This is an example of an <strong>acquired defense mechanism</strong>." },
+  { q: "What are virivores? Describe their ecological significance.", hint: "P. bursaria, eating viruses, biomass recycling.", hy: true,
+    a: "<strong>Virivores</strong> are organisms that <strong>eat viruses</strong>. <strong>P. bursaria</strong> (a species of Paramecium) was discovered in <strong>1993</strong> to be a virivore. <strong>Ecological significance:</strong> Viruses make up a <strong>huge amount of biomass</strong> in aquatic environments. Virivores <strong>reintroduce viral amino acids, nucleic acids, and lipids</strong> back into the food chain. Without virivores, this enormous biomass would remain locked in viral particles and unavailable to other organisms. Virivores thus play a critical role in <strong>nutrient recycling</strong> in aquatic ecosystems." },
+  { q: "Compare and contrast binary fission and conjugation in Paramecium. Include the role of each nucleus type in both processes.", hint: "Asexual vs. sexual. Which nucleus does what?", hy: true,
+    a: "<strong>Binary fission (asexual):</strong> The <strong>micronucleus divides by mitosis</strong>, ensuring each daughter cell gets a complete genome. The <strong>macronucleus</strong> splits roughly in half. The cell physically divides into two daughter cells. No genetic recombination occurs. Can happen as fast as <strong>every 2 hours</strong>. <strong>Conjugation (sexual):</strong> The <strong>macronucleus disintegrates</strong> entirely. The <strong>micronucleus undergoes meiosis</strong> (genetic recombination), then mitosis. Cells exchange haploid nuclei and fuse them. A <strong>new macronucleus</strong> is regenerated from the fused micronucleus. Provides genetic diversity and resets senescence. <strong>Key difference:</strong> Binary fission is for rapid growth; conjugation is for genetic renewal." },
+];
+
+const hardFRQ = [
+  { q: "A 22-year-old female recently returned from East Africa presents with flu-like symptoms and cyclical chills/fever every 48 hours. Explain the diagnosis, the causative organism, and the molecular mechanism behind the cyclical symptoms.", hint: "Travel history, Plasmodium life cycle, RBC lysis timing.",
+    a: "The diagnosis is <strong>malaria</strong>, caused by the parasitic protist <strong>Plasmodium</strong>. <strong>Mechanism:</strong> Sporozoites enter the human host from a mosquito bite, travel to the <strong>liver</strong>, mature into schizonts, then release <strong>merozoites</strong> into the bloodstream. Merozoites invade <strong>red blood cells (RBCs)</strong>, replicate inside them, and eventually <strong>lyse the RBCs</strong> to release new merozoites. This lysis is <strong>synchronized</strong> — many infected RBCs burst at the same time. The massive release of merozoites and cellular debris triggers an <strong>immune response</strong> causing the chills and fever. The cycle repeats every <strong>~48 hours</strong> as new RBCs are infected, parasites mature, and lyse again." },
+  { q: "If a Paramecium's macronucleus were destroyed but the micronucleus remained intact, predict the consequences for the cell's ability to grow, divide, and reproduce sexually.", hint: "Think about mRNA production rates, binary fission speed, and conjugation steps.", hy: true,
+    a: "<strong>Growth:</strong> Severely impaired. The macronucleus is the <strong>RNA factory</strong> with 40–1,000 copies of growth genes. Without it, the cell can only transcribe mRNA from the <strong>single copies</strong> in the micronucleus — far too slow to produce enough protein for normal cell function. <strong>Binary fission:</strong> Effectively impossible at normal rates. Binary fission requires <strong>massive mRNA production</strong> to double all cellular components in ~2 hours. A single gene copy cannot meet this demand. <strong>Sexual reproduction:</strong> Still theoretically possible. During conjugation, the <strong>macronucleus normally disintegrates anyway</strong>. If the micronucleus is intact, it can undergo meiosis and exchange. After conjugation, a <strong>new macronucleus would be regenerated</strong> from the fused micronuclei, potentially restoring normal function." },
+  { q: "Explain why a Paramecium that has undergone many rounds of binary fission is 'senescent.' What molecular mechanism causes this, and how does conjugation fix it?", hint: "Accumulation of damage, no recombination in mitosis, meiosis in conjugation.", hy: true,
+    a: "After many rounds of binary fission, the micronucleus is copied only by <strong>mitosis</strong> — which faithfully replicates DNA but provides <strong>no mechanism for repairing accumulated mutations</strong>. Over time, <strong>deleterious mutations accumulate</strong> in the genome. The macronucleus, which is split roughly in half each division, also degrades as it loses balance in its gene copies. The cell becomes <strong>senescent</strong> — unable to maintain normal function — and eventually dies. <strong>Conjugation fixes this</strong> by: (1) <strong>Meiosis</strong> provides genetic recombination, shuffling alleles and potentially replacing damaged copies with functional ones from the mating partner. (2) <strong>Exchange of genetic material</strong> introduces new, undamaged alleles. (3) A <strong>completely new macronucleus</strong> is built from the freshly recombined micronucleus, restoring the RNA factory to full function." },
+  { q: "A researcher discovers a protist with silica-based shells in ocean sediment. Another sample shows calcium carbonate shells. Identify each organism type and explain their geological significance.", hint: "Diatom vs. coccolithophore. White Cliffs, diatomaceous earth.",
+    a: "<strong>Silica shells = Diatoms.</strong> Diatoms produce shells made of <strong>silica (SiO₂)</strong>. When diatoms die, their shells accumulate in sediment and form <strong>diatomaceous earth</strong> — a powder used as a <strong>non-toxic insecticide</strong> (dries out and physically damages insects). <strong>Calcium carbonate shells = Coccolithophores</strong> (e.g., <strong>Emiliania huxleyi</strong>). These algae divert CO₂ to build <strong>calcium carbonate (CaCO₃) shells</strong>. They form enormous blooms up to <strong>100,000 km²</strong>. When they die, shells sink to the ocean floor and accumulate in sediment. Over geological time, these deposits formed structures like the <strong>White Cliffs of Dover</strong>. Coccolithophores are also significant for the <strong>carbon cycle</strong> — they sequester carbon in ocean sediment." },
+  { q: "Compare the structural complexity of a ciliate cell to that of a typical prokaryotic cell. What features make ciliates the 'most complex single cells'?", hint: "Structural analogs of organs, membrane-bound organelles, dual nuclei, ocelloid.",
+    a: "<strong>Prokaryotes</strong> lack membrane-bound organelles. All cellular processes occur in a single compartment. No nucleus — DNA is in a nucleoid region. <strong>Ciliates</strong> (like Paramecium) represent the pinnacle of single-cell complexity: (1) <strong>Membrane-bound organelles</strong> — mitochondria, food vacuoles, contractile vacuoles. (2) <strong>Structural analogs of multicellular organs:</strong> gullet (mouth), food vacuole (stomach), contractile vacuole (bladder), anal pore (anus). (3) <strong>Dual nuclear system:</strong> micronucleus for reproduction, macronucleus for growth — a division of labor unseen in any other single cell. (4) <strong>Coordinated cilia</strong> for movement and feeding. (5) Some dinoflagellates even have an <strong>ocelloid</strong> (eye-like structure). All this complexity exists in <strong>one cell</strong> that must perform every function of life." },
+  { q: "Why would blocking the sexual phase of Plasmodium's life cycle be an effective malaria control strategy? Trace the complete life cycle to explain.", hint: "Gametocytes, mosquito, sexual reproduction required for transmission.",
+    a: "Plasmodium has a <strong>mandatory sexual phase</strong> that occurs in mosquitoes. <strong>Life cycle:</strong> Sporozoites enter human → liver → schizonts → merozoites → invade RBCs → replicate → lyse RBCs (causes symptoms) → some differentiate into <strong>gametocytes</strong> (sexual form) → mosquito bites infected human, picks up gametocytes → <strong>sexual reproduction occurs in mosquito</strong> → produces sporozoites → mosquito bites new human. <strong>Blocking the sexual phase</strong> (gametocyte formation or fertilization in mosquito) would <strong>break the transmission cycle</strong>. Even if humans remain infected and symptomatic, the parasite <strong>cannot complete its life cycle</strong> and cannot be transmitted to new hosts via mosquitoes. Over time, this would <strong>eliminate the disease from the population</strong>." },
+  { q: "Explain the ecological role of virivores. If all virivores were eliminated from aquatic ecosystems, predict the consequences for the food web.", hint: "Viral biomass, nutrient recycling, amino acids/nucleic acids/lipids.", hy: true,
+    a: "Virivores like <strong>P. bursaria</strong> eat viruses and <strong>reintroduce viral amino acids, nucleic acids, and lipids</strong> back into the food chain. Viruses constitute a <strong>huge amount of biomass</strong> in aquatic environments. <strong>If virivores were eliminated:</strong> (1) <strong>Viral biomass would not be recycled</strong> — this enormous pool of organic molecules would be lost to the food web. (2) Other organisms that depend on virivores as prey would lose a food source. (3) <strong>Viral populations might increase</strong> without this predation pressure, potentially increasing lysis of bacterial and protist populations. (4) The overall <strong>nutrient cycling efficiency</strong> of aquatic ecosystems would decrease. (5) <strong>Primary and secondary productivity</strong> could decline as key nutrients remain locked in viral particles rather than being available to the food web." },
+  { q: "During conjugation, after meiosis produces 4 haploid nuclei, 3 disintegrate. Explain the biological significance of this step and what would happen if all 4 survived.", hint: "Controlled exchange, genetic diversity, energy cost.", hy: true,
+    a: "<strong>Significance:</strong> By retaining only <strong>one haploid nucleus</strong> that then divides by mitosis, each conjugating cell contributes <strong>exactly one haploid copy</strong> to exchange with its mate. This ensures <strong>controlled, predictable genetic recombination</strong> — each cell gets exactly one set of genes from each parent, maintaining <strong>diploidy</strong> after fusion. <strong>If all 4 survived:</strong> (1) The cell would have <strong>4 haploid nuclei</strong> instead of 1. (2) If all were exchanged or fused, the result could be <strong>polyploidy</strong> (more than 2 copies of each chromosome), which could disrupt gene dosage and cell function. (3) The cell would need to <strong>maintain and replicate 4x the nuclear material</strong>, a significant energy cost. (4) The <strong>specificity of genetic exchange</strong> would be lost — instead of a clean 50/50 contribution from each parent, the result would be chaotic." },
+  { q: "A protist is discovered that has cilia, two types of nuclei, and feeds by sweeping food into a groove-like structure. Identify the organism and predict its reproductive strategies.", hint: "What organism fits all three features? What are its two modes of reproduction?", hy: true,
+    a: "This organism is a <strong>Paramecium</strong> (or closely related ciliate). Evidence: <strong>Cilia</strong> for locomotion and feeding, <strong>two nuclei</strong> (micronucleus and macronucleus), and a <strong>gullet</strong> (groove-like feeding structure). <strong>Reproductive strategies:</strong> (1) <strong>Asexual: Binary fission</strong> — micronucleus divides by mitosis, macronucleus splits, cell divides in two. Can occur every ~2 hours. Used for rapid population growth. (2) <strong>Sexual: Conjugation</strong> — two cells attach at gullets, macronucleus disintegrates, micronucleus undergoes meiosis then mitosis, cells exchange haploid nuclei, nuclei fuse, new macro- and micronuclei form. Required periodically to <strong>prevent senescence</strong> and provide genetic recombination." },
+  { q: "Explain ALL the ways Paramecium obtains nutrition. Include normal feeding, toxic bacteria, endosymbiotic algae, and virivory.", hint: "Four distinct nutritional strategies in one organism.", hy: true,
+    a: "<strong>1. Normal grazing:</strong> Cilia sweep organic particles, <strong>bacteria, yeast, and other protists</strong> into the gullet → food vacuole → digestion → nutrients to cytoplasm → waste out anal pore. <strong>2. Toxic bacteria:</strong> Some paramecia eat <strong>toxin-secreting bacteria</strong>. If they develop <strong>immunity</strong>, they carry the bacteria inside and become <strong>toxic themselves</strong>, gaining predation protection. <strong>3. Endosymbiotic algae:</strong> When nutrients are scarce, paramecia associate with <strong>intracellular algae</strong>. Algae <strong>photosynthesize</strong> (providing energy), while paramecia provide <strong>motility</strong> toward light. Mutualistic. <strong>4. Virivory:</strong> <strong>P. bursaria</strong> can <strong>eat viruses</strong>, recycling viral amino acids, nucleic acids, and lipids into the food chain. This remarkable nutritional versatility highlights why paramecia are among the <strong>most complex single-celled organisms</strong>." },
+  { q: "The merozoite stage of Plasmodium is the most clinically important. Explain why, and describe what happens at the molecular and cellular level during this stage.", hint: "RBC invasion, replication, lysis, symptoms.",
+    a: "<strong>Merozoites</strong> are the form of Plasmodium released from liver schizonts into the <strong>bloodstream</strong>. They are clinically critical because: (1) Merozoites <strong>invade red blood cells</strong> using specific surface proteins that bind RBC receptors. (2) Inside RBCs, they <strong>replicate</strong>, consuming hemoglobin and producing waste products. (3) After maturation, the parasites cause <strong>synchronized lysis of infected RBCs</strong>, releasing new merozoites that invade fresh RBCs. (4) This synchronized lysis produces the <strong>hallmark symptoms of malaria</strong>: cyclical fever, chills, anemia (from RBC destruction), and potential organ damage. (5) The <strong>cyclical pattern</strong> (~48 hours) corresponds to the parasite's replication cycle within RBCs. (6) This is also the stage where some parasites differentiate into <strong>gametocytes</strong> for sexual transmission." },
+  { q: "Design an experiment to test whether a newly isolated protist uses photoautotrophy, chemoheterotrophy, or mixotrophy.", hint: "Light vs. dark, organic carbon vs. CO₂ only, measure growth.", hy: true,
+    a: "<strong>Condition 1 (Photoautotroph test):</strong> Grow protist in <strong>light + minimal media with CO₂ only</strong> (no organic carbon). If it grows → can photosynthesize. <strong>Condition 2 (Chemoheterotroph test):</strong> Grow protist in <strong>dark + media with organic carbon</strong> (glucose/bacteria). If it grows → can feed heterotrophically. <strong>Condition 3 (Mixotroph test):</strong> If it grows in BOTH conditions 1 and 2 → <strong>mixotroph</strong>. <strong>Condition 4 (Light + organic carbon):</strong> Compare growth rate to conditions 1 and 2. If faster → benefits from both strategies. <strong>Controls:</strong> No light + no organic carbon (should not grow). Check for chloroplasts/plastids microscopically. <strong>Results interpretation:</strong> Grows only in light = photoautotroph. Grows only with organic C = chemoheterotroph. Grows in both = mixotroph." },
+];
+
+// === FRQ ENGINE ===
+function buildFRQ(questions, containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'frq-card' + (q.hy ? ' hy-frq' : '');
+    div.innerHTML = `
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy ? ' <span class="hy-badge">EXAM TOPIC</span>' : ''}</div>
+      <div class="frq-hint">${q.hint}</div>
+      <textarea placeholder="Write your answer here..." id="ta-${containerId}-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ(this, ${i}, '${containerId}', '${scoreId}')">Show Model Answer</button>
+      <div class="frq-answer" id="ans-${containerId}-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="grade-${containerId}-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ(this, 'got-it', '${containerId}', '${scoreId}')">Got It</button>
+        <button class="grade-btn partial" onclick="gradeFRQ(this, 'partial', '${containerId}', '${scoreId}')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ(this, 'missed', '${containerId}', '${scoreId}')">Missed It</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFRQ(btn, idx, containerId, scoreId) {
+  document.getElementById('ans-' + containerId + '-' + idx).classList.add('show');
+  document.getElementById('grade-' + containerId + '-' + idx).classList.add('show');
+  btn.style.display = 'none';
+}
+
+function gradeFRQ(btn, grade, containerId, scoreId) {
+  btn.parentElement.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected-grade'));
+  btn.classList.add('selected-grade');
+  updateFRQScore(containerId, scoreId);
+}
+
+function updateFRQScore(containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  const graded = container.querySelectorAll('.grade-btn.selected-grade');
+  let gotIt = 0;
+  graded.forEach(b => { if (b.classList.contains('got-it')) gotIt++; });
+  document.getElementById(scoreId).textContent = gotIt + ' / ' + graded.length;
+}
+
+function resetFRQ(type) {
+  const containerId = type + '-container';
+  const scoreId = type + '-score';
+  const questions = type === 'frq' ? frqQuestions : hardFRQ;
+  buildFRQ(questions, containerId, scoreId);
+  document.getElementById(scoreId).textContent = '0 / 0';
+}
+
+buildFRQ(frqQuestions, 'frq-container', 'frq-score');
+buildFRQ(hardFRQ, 'hardfrq-container', 'hardfrq-score');
+
+// === MATCHING ===
+const matchPairs = [
+  ["Coccolithophore", "Algae whose shells formed the White Cliffs of Dover"],
+  ["Diatom", "Protist with silica-based shell; corpses make diatomaceous earth"],
+  ["Flagella", "Whip-like locomotion structures"],
+  ["Pseudopodia", "Cytoplasmic extensions for crawling movement"],
+  ["Macronucleus", "RNA factory with 40-1,000 gene copies for rapid growth"],
+  ["Micronucleus", "Contains all genes; used in reproduction"],
+  ["Sporozoite", "Plasmodium form released from mosquito into human"],
+  ["Merozoite", "Plasmodium form that invades red blood cells"],
+  ["Gametocyte", "Sexual form of Plasmodium picked up by mosquitoes"],
+  ["Conjugation", "Sexual reproduction where two paramecia exchange genetic material"],
+  ["Virivore", "Organism that eats viruses (e.g. P. bursaria)"],
+  ["Ocelloid", "Eye-like structure found in some dinoflagellates"],
+];
+
+let matchSelected = { left: null, right: null };
+let matchedCount = 0;
+
+function resetMatching() {
+  matchSelected = { left: null, right: null };
+  matchedCount = 0;
+  document.getElementById('match-score').textContent = '0 / ' + matchPairs.length;
+  renderMatching();
+}
+
+function renderMatching() {
+  const leftArr = matchPairs.map((p, i) => ({ text: p[0], idx: i }));
+  const rightArr = matchPairs.map((p, i) => ({ text: p[1], idx: i }));
+  for (let i = rightArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rightArr[i], rightArr[j]] = [rightArr[j], rightArr[i]];
+  }
+  const leftDiv = document.getElementById('match-left');
+  const rightDiv = document.getElementById('match-right');
+  leftDiv.innerHTML = leftArr.map(item =>
+    `<div class="match-item" data-side="left" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+  rightDiv.innerHTML = rightArr.map(item =>
+    `<div class="match-item" data-side="right" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  const idx = parseInt(el.dataset.idx);
+  document.querySelectorAll(`.match-item[data-side="${side}"]`).forEach(e => {
+    if (!e.classList.contains('matched')) e.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  matchSelected[side] = { el, idx };
+  if (matchSelected.left && matchSelected.right) {
+    if (matchSelected.left.idx === matchSelected.right.idx) {
+      matchSelected.left.el.classList.remove('selected');
+      matchSelected.right.el.classList.remove('selected');
+      matchSelected.left.el.classList.add('matched');
+      matchSelected.right.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('match-score').textContent = matchedCount + ' / ' + matchPairs.length;
+    } else {
+      matchSelected.left.el.classList.add('wrong-match');
+      matchSelected.right.el.classList.add('wrong-match');
+      setTimeout(() => {
+        matchSelected.left.el.classList.remove('selected', 'wrong-match');
+        matchSelected.right.el.classList.remove('selected', 'wrong-match');
+        matchSelected = { left: null, right: null };
+      }, 600);
+      return;
+    }
+    matchSelected = { left: null, right: null };
+  }
+}
+
+renderMatching();
+</script>
+
+</body>
+</html>

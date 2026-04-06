@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microbial Metabolism - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight { color: var(--green); font-weight: 600; }
+  .organism { color: var(--orange); font-weight: 600; }
+  .warn { color: var(--red); font-weight: 600; }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li { font-size: 13.5px; color: var(--text-dim); margin-bottom: 4px; }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  .tab-row { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th { background: var(--surface2); color: var(--accent-light); font-weight: 600; }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  .fc-container { perspective: 1000px; margin-bottom: 16px; }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav { display: flex; gap: 10px; justify-content: center; align-items: center; }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #4a4e63; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ Practice</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hardfrq')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Microbial Metabolism</h1>
+    <p>BIOL 3303 &middot; Lecture 9 &mdash; How microbes fuel growth through metabolism</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">20</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">FRQ Qs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>Precursor metabolites (13 metabolites, central pathways)</li>
+        <li>Nutritional categories (auto/heterotroph, photo/chemotroph)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li><span class="highlight">Learn</span> &mdash; Read through all lecture material organized by topic</li>
+      <li><span class="highlight">Flashcards</span> &mdash; Click to flip, test your recall of key terms</li>
+      <li><span class="highlight">FRQ Practice</span> &mdash; Write out free response answers, then reveal model answers and self-grade</li>
+      <li><span class="highlight">Matching</span> &mdash; Match terms to their definitions</li>
+      <li><span class="highlight">Hard FRQ</span> &mdash; Application and conceptual reasoning questions</li>
+      <li style="color: var(--yellow); font-weight: 700;">Gold-highlighted = CONFIRMED exam topics. Start with these.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('learn',0)">Overview</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',1)">Nutritional Categories</button>
+    <button class="tab-btn" onclick="showTab('learn',2)">Metabolic Framework</button>
+    <button class="tab-btn" onclick="showTab('learn',3)">ATP</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',4)">Fueling &amp; Pathways</button>
+    <button class="tab-btn" onclick="showTab('learn',5)">SLP &amp; Glycolysis</button>
+    <button class="tab-btn" onclick="showTab('learn',6)">ETC &amp; ATP Synthase</button>
+  </div>
+
+  <!-- Overview -->
+  <div class="tab-content active" id="learn-0">
+    <div class="card">
+      <h2>Microbial Growth Is Directly Linked to Metabolism</h2>
+      <ul>
+        <li>What do all microbes want to do the most? <span class="highlight">Make more of themselves!</span> (microbial growth)</li>
+        <li>What do they need?
+          <ul>
+            <li><span class="highlight">Energy</span></li>
+            <li>New cell components: DNA, ribosomes, lipids, etc.</li>
+          </ul>
+        </li>
+        <li>How do they get it? <span class="highlight">Metabolism!</span></li>
+      </ul>
+      <h3>Macromolecular Composition</h3>
+      <ul>
+        <li>All cellular structures are made of 4 major building blocks: <span class="highlight">nucleic acids, proteins, carbohydrates, lipids</span></li>
+      </ul>
+      <h3>E. coli Cell Composition (by dry weight)</h3>
+      <table class="data-table">
+        <tr><th>Component</th><th>% Dry Weight</th></tr>
+        <tr><td><span class="highlight">Proteins</span></td><td>55%</td></tr>
+        <tr><td><span class="highlight">RNA</span></td><td>~20%</td></tr>
+        <tr><td>Phospholipids</td><td>~9%</td></tr>
+        <tr><td>LPS</td><td>3.4%</td></tr>
+        <tr><td>DNA</td><td>3%</td></tr>
+      </table>
+      <ul>
+        <li>For division, metabolism must focus on <span class="highlight">synthesizing these macromolecules</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Nutritional Categories -->
+  <div class="tab-content" id="learn-1">
+    <div class="card hy-card">
+      <h2>Nutritional Categories of Microbes <span class="hy-badge">EXAM TOPIC</span></h2>
+      <p>Microbes are classified by where they get <span class="highlight">carbon</span> and <span class="highlight">energy</span>:</p>
+      <table class="data-table hy-table">
+        <tr><th>Category</th><th>Carbon Source</th><th>Energy Source</th></tr>
+        <tr><td><span class="highlight">Autotroph</span></td><td>CO&#8322;</td><td>&mdash;</td></tr>
+        <tr><td><span class="highlight">Heterotroph</span></td><td>Organic compounds</td><td>&mdash;</td></tr>
+        <tr><td><span class="highlight">Phototroph</span></td><td>&mdash;</td><td>Sunlight</td></tr>
+        <tr><td><span class="highlight">Chemotroph</span></td><td>&mdash;</td><td>Chemical (organic)</td></tr>
+      </table>
+      <h3>Combinations</h3>
+      <table class="data-table hy-table">
+        <tr><th>Type</th><th>Carbon</th><th>Energy</th><th>Description</th></tr>
+        <tr><td><span class="highlight">Photoautotroph</span></td><td>CO&#8322;</td><td>Light</td><td>Uses light to fix CO&#8322; (e.g., cyanobacteria)</td></tr>
+        <tr><td><span class="highlight">Photoheterotroph</span></td><td>Organic</td><td>Light</td><td>Light for energy, organic C for carbon</td></tr>
+        <tr><td><span class="highlight">Chemoautotroph</span></td><td>CO&#8322;</td><td>Chemical</td><td>Oxidizes inorganic compounds, fixes CO&#8322;</td></tr>
+        <tr><td><span class="highlight">Chemoheterotroph</span></td><td>Organic</td><td>Chemical (organic)</td><td>Derives both carbon and energy from organic compounds</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Metabolic Framework -->
+  <div class="tab-content" id="learn-2">
+    <div class="card">
+      <h2>Metabolic Framework of Bacterial Growth</h2>
+      <p>Reproduction is the result of a huge number of chemical reactions occurring through sequential processes:</p>
+      <ul>
+        <li><span class="key">1</span> <span class="highlight">Fueling</span> &mdash; generating precursor metabolites, energy, and reducing power</li>
+        <li><span class="key">2</span> <span class="highlight">Biosynthesis</span> &mdash; building small precursors into larger molecules</li>
+        <li><span class="key">3</span> <span class="highlight">Polymerization</span> &mdash; assembling monomers into polymers</li>
+        <li><span class="key">4</span> <span class="highlight">Assembly</span> &mdash; combining macromolecules into cellular structures</li>
+      </ul>
+      <h3>Catabolism vs. Anabolism</h3>
+      <table class="data-table">
+        <tr><th>Process</th><th>Also Called</th><th>What It Does</th></tr>
+        <tr><td><span class="highlight">Catabolism</span></td><td>Fueling</td><td>Degradative &mdash; breaks down organic nutrients into smaller precursors</td></tr>
+        <tr><td><span class="highlight">Anabolism</span></td><td>Biosynthesis</td><td>Builds small precursors into larger, more complex molecules</td></tr>
+      </table>
+      <ul>
+        <li><span class="highlight">Metabolism</span> = the sum of ALL chemical transformations in a cell</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ATP -->
+  <div class="tab-content" id="learn-3">
+    <div class="card">
+      <h2>ATP: The Energy Currency of the Cell</h2>
+      <ul>
+        <li>Strategies to harness energy are diverse, but they all converge into <span class="highlight">one universal mechanism</span></li>
+        <li>Energy is conserved in the <span class="highlight">energy-rich phosphate bonds</span> of ATP (adenosine triphosphate)</li>
+      </ul>
+      <h3>Why ATP?</h3>
+      <ul>
+        <li>Small molecule that can store <span class="highlight">a lot of energy</span></li>
+        <li>Contains <span class="warn">2 very high-energy phosphate bonds</span> (beta &beta; and gamma &gamma;)</li>
+        <li>The alpha (&alpha;) phosphate bond is <span class="highlight">much lower energy</span></li>
+        <li>Phosphate groups are <span class="highlight">highly negative</span> &mdash; takes a lot of energy to hold them together</li>
+        <li>When the phosphodiester bond is broken, that energy is <span class="highlight">released</span></li>
+        <li>Cleaving the &gamma;-phosphate releases <span class="warn">31 kJ of energy</span> (the equivalent of 2 strawberries!)</li>
+      </ul>
+      <h3>Cellular Activities Requiring Energy</h3>
+      <ul>
+        <li><span class="highlight">Fueling reactions</span> &mdash; getting precursor metabolites, energy, and reducing power for biosynthesis</li>
+        <li>Motility</li>
+        <li>Protein secretion</li>
+        <li>Repair</li>
+        <li>Sensing and communication</li>
+        <li><span class="warn">Even a non-growing cell requires energy</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Fueling & Pathways -->
+  <div class="tab-content" id="learn-4">
+    <div class="card hy-card">
+      <h2>Fueling Reactions &amp; Central Pathways <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li><span class="highlight">Growth</span> is the cellular activity that demands the <span class="warn">highest energy investment</span></li>
+        <li>Fueling reactions make <span class="highlight">precursor metabolites</span> from substrates taken from the environment</li>
+        <li>Microbes assimilate chemicals to make the cell's <span class="highlight">13 precursor metabolites</span></li>
+        <li>Precursor metabolites &rarr; building blocks &rarr; macromolecules</li>
+      </ul>
+      <h3>Three Central Pathways</h3>
+      <table class="data-table hy-table">
+        <tr><th>Pathway</th><th>Key Role</th></tr>
+        <tr><td><span class="highlight">Glycolysis</span></td><td>Breaks down glucose; generates ATP by SLP; produces precursor metabolites</td></tr>
+        <tr><td><span class="highlight">Pentose Phosphate Cycle</span></td><td>Generates NADPH and sugar precursors</td></tr>
+        <tr><td><span class="highlight">TCA Cycle</span></td><td>Completes oxidation; generates NADH, precursor metabolites</td></tr>
+      </table>
+      <ul>
+        <li>Together, these three pathways account for the synthesis of all <span class="highlight">13 precursor metabolites</span></li>
+        <li>Widely distributed among cellular organisms</li>
+      </ul>
+      <h3>Heterotrophic vs. Autotrophic Fueling</h3>
+      <table class="data-table">
+        <tr><th></th><th>Heterotrophs</th><th>Autotrophs</th></tr>
+        <tr><td>Substrate</td><td>Organic carbon</td><td>CO&#8322;</td></tr>
+        <tr><td>Must...</td><td>Transport organic C into cell</td><td>Fix inorganic C into organic C</td></tr>
+        <tr><td>Feeder pathways</td><td>Different from autotrophs</td><td>Calvin Cycle (most common)</td></tr>
+        <tr><td>Carbon &amp; energy</td><td><span class="highlight">Intertwined</span> (organic C = energy source too)</td><td>Separate (energy from light or inorganic chemicals)</td></tr>
+      </table>
+      <h3>The Calvin Cycle</h3>
+      <ul>
+        <li>Used by the <span class="highlight">overwhelming majority of autotrophs</span></li>
+        <li>Fixes carbon via the <span class="organism">RuBisCO</span> enzyme (ribulose bisphosphate carboxylase)</li>
+        <li><span class="warn">Extremely energetically expensive</span>: requires <span class="warn">18 ATP and 12 NADPH</span> per cycle</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SLP & Glycolysis -->
+  <div class="tab-content" id="learn-5">
+    <div class="card">
+      <h2>Substrate-Level Phosphorylation (SLP)</h2>
+      <ul>
+        <li>A <span class="highlight">simple way</span> to generate ATP from ADP</li>
+      </ul>
+      <h3>How SLP Works</h3>
+      <ul>
+        <li><span class="key">1</span> Organic substrate becomes <span class="highlight">phosphorylated</span> (no energy needed)</li>
+        <li><span class="key">2</span> Phosphorylated substrate is <span class="highlight">oxidized</span> (with NAD&#8314;) and the low-energy bond transforms into a <span class="warn">high-energy bond</span></li>
+        <li><span class="key">3</span> The high-energy phosphoryl bond is <span class="highlight">transferred to ADP</span> to form ATP</li>
+      </ul>
+      <h3>SLP in Glycolysis</h3>
+      <ul>
+        <li><span class="highlight">Glycolysis</span> is one of the most conserved metabolic pathways</li>
+        <li>3-phosphoglyceraldehyde is phosphorylated in a reaction that generates <span class="highlight">NADH and H&#8314;</span></li>
+        <li>Another enzyme hydrolyzes the high-energy phosphoryl bond and uses the energy to phosphorylate ADP &rarr; ATP</li>
+        <li>In total, glycolysis generates <span class="warn">2 ATPs per molecule of glucose</span> by SLP</li>
+      </ul>
+      <h3>The Energy Problem</h3>
+      <ul>
+        <li>Energy requirements to make <span class="highlight">protein are HUGE</span>: 29,257 mol of high-energy phosphate per gram of cells</li>
+        <li>At only 2 ATP per glucose, glycolysis alone would require enormous amounts of glucose</li>
+        <li>Microbes evolved <span class="highlight">more efficient pathways</span> (ETC) to make ATP</li>
+        <li>But glycolysis is still <span class="highlight">essential for making precursor metabolites</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ETC & ATP Synthase -->
+  <div class="tab-content" id="learn-6">
+    <div class="card">
+      <h2>The Electron Transport Chain (ETC)</h2>
+      <p><em>"Life consists of electrons looking for a place to rest"</em> &mdash; <span class="organism">Albert Szent-Gy&ouml;rgyi</span>, Nobel laureate</p>
+      <h3>Electrons &amp; Energy</h3>
+      <ul>
+        <li>All energy in living systems is derived from the <span class="highlight">movement of electrons down an energy gradient</span></li>
+        <li><span class="highlight">Chemotrophs:</span> electrons move from high energy in one molecule to lower energy in another &rarr; makes ATP</li>
+        <li><span class="highlight">Phototrophs:</span> light excites electrons to higher energy, then they travel downhill &rarr; makes ATP</li>
+      </ul>
+      <h3>How the ETC Works</h3>
+      <ul>
+        <li>Bacteria use the ETC and <span class="highlight">ATP synthase</span> to make lots of ATP and to oxidize NADH back to NAD&#8314;</li>
+        <li>Electrons and protons are extracted from <span class="highlight">NADH at the membrane</span></li>
+        <li>Electrons are transferred sequentially to membrane proteins with <span class="highlight">increasing reduction potential</span></li>
+        <li>Protons are exported across the inner membrane to generate the <span class="highlight">proton motive force (PMF)</span></li>
+        <li>The ETC is located in the <span class="warn">cytoplasmic membrane</span> of bacteria (not mitochondria)</li>
+      </ul>
+      <h3>Reduction Potential</h3>
+      <ul>
+        <li>If protein B has a <span class="highlight">higher reduction potential (E0')</span> than protein A, then protein A is a better <span class="highlight">electron donor</span> and protein B is a better <span class="highlight">electron acceptor</span></li>
+        <li>Electrons flow from <span class="highlight">lower to higher reduction potential</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>ATP Synthase</h2>
+      <ul>
+        <li><span class="highlight">Multi-subunit enzyme</span> with two large complexes:</li>
+      </ul>
+      <table class="data-table">
+        <tr><th>Complex</th><th>Location</th><th>Function</th></tr>
+        <tr><td><span class="highlight">F&#8320;</span></td><td>In the membrane</td><td>Forms a <span class="highlight">proton channel</span></td></tr>
+        <tr><td><span class="highlight">F&#8321;</span></td><td>Interior (cytoplasm)</td><td>Catalytic site; makes ATP from ADP</td></tr>
+      </table>
+      <h3>How It Works</h3>
+      <ul>
+        <li>Passage of <span class="highlight">3&ndash;4 protons</span> from exterior to interior through F&#8320; <span class="highlight">rotates the axle</span></li>
+        <li>Rotation of the axle drives F&#8321; to form <span class="highlight">one ATP molecule from ADP</span></li>
+        <li>Reaction can occur in <span class="warn">either direction</span> depending on ATP concentration and ion gradient</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <div class="card" style="text-align:center; padding: 16px 28px;">
+    <p style="font-size:13px; color: var(--text-dim);">Click the card to flip. Use arrows to navigate.</p>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&#8592;</button>
+    <span class="fc-counter" id="fc-counter">1 / 20</span>
+    <button class="fc-btn" onclick="nextCard()">&#8594;</button>
+    <button class="fc-btn" onclick="shuffleCards()" title="Shuffle" style="font-size:14px;">&#x1f500;</button>
+  </div>
+</div>
+
+<!-- FRQ PRACTICE -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div><div class="score-text">Self-Assessment</div><div class="score-pct" id="frq-score">0 / 0</div></div>
+    <button class="reset-btn" onclick="resetFRQ('frq')">Reset</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- MATCHING -->
+<div class="section" id="sec-matching">
+  <div class="card" style="padding: 16px 28px;">
+    <p style="font-size:14px; font-weight:600;">Match the term on the left with its description on the right.</p>
+  </div>
+  <div class="score-bar">
+    <div><div class="score-text">Matched</div><div class="score-pct" id="match-score">0 / 12</div></div>
+    <button class="reset-btn" onclick="resetMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div><div class="match-col-header">Term</div><div id="match-left"></div></div>
+    <div><div class="match-col-header">Description</div><div id="match-right"></div></div>
+  </div>
+</div>
+
+<!-- HARD FRQ -->
+<div class="section" id="sec-hardfrq">
+  <div class="score-bar">
+    <div><div class="score-text">Self-Assessment</div><div class="score-pct" id="hardfrq-score">0 / 0</div></div>
+    <button class="reset-btn" onclick="resetFRQ('hardfrq')">Reset</button>
+  </div>
+  <div id="hardfrq-container"></div>
+</div>
+
+</main>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showTab(section, idx) {
+  const parent = document.getElementById('sec-' + section);
+  parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(section + '-' + idx).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// FLASHCARDS
+const flashcards = [
+  ["In microbiology, what does 'growth' require at the metabolic level?", "Energy and new cell components (DNA, ribosomes, lipids, etc.), all obtained through metabolism."],
+  ["What is an autotroph vs. a heterotroph?", "Autotroph uses CO₂ as carbon source. Heterotroph uses organic compounds as carbon source."],
+  ["What is a phototroph vs. a chemotroph?", "Phototroph uses sunlight for energy. Chemotroph uses organic/chemical compounds for energy."],
+  ["What would a chemoheterotroph do?", "Derive both carbon AND energy from organic compounds."],
+  ["What are the 4 sequential processes of the metabolic framework?", "Fueling → Biosynthesis → Polymerization → Assembly."],
+  ["What is catabolism (fueling)?", "The degradative phase — organic nutrients are broken down into smaller precursors. Generates energy and precursor metabolites."],
+  ["What is anabolism (biosynthesis)?", "The building phase — small precursors are assembled into larger, more complex molecules."],
+  ["What is the most abundant macromolecule in E. coli?", "Proteins — 55% of the cell's dry weight. RNA is second at ~20%."],
+  ["Why is ATP the energy currency of the cell?", "Small molecule that stores a lot of energy. Has 2 high-energy phosphate bonds (β and γ). Cleaving the γ-phosphate releases 31 kJ of energy."],
+  ["Which phosphate bonds in ATP are high energy?", "The beta (β) and gamma (γ) phosphate bonds. The alpha (α) bond is much lower energy."],
+  ["Why are ATP's phosphate groups high energy?", "Phosphate groups are highly negative — it takes a lot of energy to hold them together. When the bond breaks, that energy is released."],
+  ["Name 5 cellular activities that require energy.", "Fueling/biosynthesis, motility, protein secretion, repair, sensing/communication. Even a non-growing cell requires energy."],
+  ["What are the 13 precursor metabolites?", "Small molecules generated by the 3 central pathways (glycolysis, pentose phosphate, TCA) that form the building blocks for all macromolecules."],
+  ["What are the 3 central metabolic pathways?", "Glycolysis, Pentose Phosphate Cycle, and TCA Cycle. Together they produce all 13 precursor metabolites."],
+  ["How do heterotrophs differ from autotrophs in fueling?", "Heterotrophs transport organic C into the cell (C = energy source too, so carbon and energy metabolism are intertwined). Autotrophs fix CO₂ via Calvin Cycle."],
+  ["What is the Calvin Cycle and why is it significant?", "Feeder pathway used by most autotrophs to fix CO₂. Uses RuBisCO enzyme. Extremely expensive: 18 ATP and 12 NADPH per cycle."],
+  ["Describe substrate-level phosphorylation (SLP).", "Substrate is phosphorylated → oxidized with NAD⁺ (low-energy bond becomes high-energy) → high-energy phosphoryl group transferred to ADP → ATP."],
+  ["How much ATP does glycolysis produce per glucose?", "2 ATP per glucose molecule by substrate-level phosphorylation."],
+  ["Where is the ETC located in bacteria?", "In the cytoplasmic membrane (NOT in mitochondria like eukaryotes)."],
+  ["What are the two complexes of ATP synthase?", "F₀ (in membrane, forms proton channel) and F₁ (interior, catalytic site). 3-4 protons through F₀ rotate the axle, driving F₁ to make 1 ATP from ADP."],
+];
+
+let fcIndex = 0;
+function renderCard() {
+  document.getElementById('fc-front').textContent = flashcards[fcIndex][0];
+  document.getElementById('fc-back').textContent = flashcards[fcIndex][1];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-counter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0; renderCard();
+}
+renderCard();
+
+// FRQ ENGINE
+const frqQuestions = [
+  { q: "Explain why microbial growth is directly linked to metabolism.", hint: "What do microbes need to reproduce and how do they get it?",
+    a: "All microbes want to <strong>make more of themselves</strong> (growth). This requires <strong>energy</strong> and <strong>new cell components</strong> (DNA, ribosomes, lipids, etc.). Metabolism is the sum of all chemical transformations that provide both — <strong>catabolism</strong> breaks down nutrients to generate energy and precursor metabolites, while <strong>anabolism</strong> uses that energy to build the macromolecules needed for a new cell." },
+  { q: "Define the four nutritional categories of microbes based on carbon and energy sources.", hint: "Two axes: carbon source and energy source.", hy: true,
+    a: "<strong>Autotroph:</strong> uses CO₂ as carbon source. <strong>Heterotroph:</strong> uses organic compounds as carbon source. <strong>Phototroph:</strong> uses sunlight as energy source. <strong>Chemotroph:</strong> uses chemical/organic compounds as energy source. These combine into 4 types: photoautotroph, photoheterotroph, chemoautotroph, and chemoheterotroph." },
+  { q: "What is a chemoheterotroph and how does it obtain carbon and energy?", hint: "Both carbon and energy come from the same type of source.", hy: true,
+    a: "A chemoheterotroph derives <strong>both carbon AND energy from organic compounds</strong>. Because the organic carbon substrates are also energy sources, heterotrophs <strong>intertwine carbon and energy metabolism</strong> — the same molecules serve dual purposes." },
+  { q: "Distinguish between catabolism and anabolism.", hint: "Think breaking down vs. building up.",
+    a: "<strong>Catabolism (fueling):</strong> the degradative phase — organic nutrients are converted into smaller precursors. Generates energy and reducing power. <strong>Anabolism (biosynthesis):</strong> the building phase — small precursors are assembled into larger, more complex molecules (macromolecules). Together, catabolism + anabolism = metabolism." },
+  { q: "List the four sequential processes of the metabolic framework for bacterial growth.", hint: "Start from raw materials and end at cellular structures.",
+    a: "<strong>1. Fueling</strong> — generating precursor metabolites, energy, and reducing power. <strong>2. Biosynthesis</strong> — making building blocks from precursor metabolites. <strong>3. Polymerization</strong> — assembling monomers into polymers (e.g., amino acids → proteins). <strong>4. Assembly</strong> — combining macromolecules into functional cellular structures." },
+  { q: "Describe the macromolecular composition of an E. coli cell.", hint: "Proteins are the most abundant; what percentage?",
+    a: "<strong>Proteins</strong> make up 55% of the cell's dry weight. <strong>RNA</strong> is the second most abundant at ~20%. <strong>Phospholipids</strong> are ~9%, <strong>LPS</strong> is 3.4%, and <strong>DNA</strong> is 3%. For division, metabolism needs to focus on synthesizing these macromolecules. The 4 major building blocks are nucleic acids, proteins, carbohydrates, and lipids." },
+  { q: "Explain why ATP is the universal energy currency of the cell.", hint: "Think about its structure, the phosphate bonds, and energy release.",
+    a: "ATP is a <strong>small molecule that stores a lot of energy</strong>. It has <strong>2 high-energy phosphate bonds</strong> (β and γ) — the phosphate groups are highly negative, so it takes a lot of energy to hold them together. When the γ-phosphate bond is cleaved, <strong>31 kJ of energy is released</strong>. All energy-harvesting strategies converge on ATP as the universal energy carrier." },
+  { q: "Explain the difference between the alpha, beta, and gamma phosphate bonds of ATP.", hint: "Not all phosphate bonds are equal in energy.",
+    a: "The <strong>alpha (α) phosphate bond</strong> is much <strong>lower energy</strong>. The <strong>beta (β) and gamma (γ) phosphate bonds</strong> are <strong>very high energy</strong>. This is because the phosphate groups are all highly negatively charged and repel each other, requiring a lot of energy to stay bonded. Cleaving the γ-phosphate releases 31 kJ of energy. The α bond releases much less." },
+  { q: "List cellular activities that require energy, beyond just making new macromolecules.", hint: "Think about what cells do besides grow.",
+    a: "Beyond biosynthesis: <strong>motility</strong> (flagellar movement), <strong>protein secretion</strong>, <strong>repair</strong> (DNA repair, protein turnover), <strong>sensing and communication</strong> (signal transduction). Critically, <strong>even a non-growing cell requires energy</strong> for maintenance — energy is not just for growth." },
+  { q: "Describe the three central metabolic pathways and their collective importance.", hint: "Name each pathway and what they produce together.", hy: true,
+    a: "The three central pathways are <strong>glycolysis</strong>, the <strong>pentose phosphate cycle</strong>, and the <strong>TCA cycle</strong>. Together they account for the synthesis of all <strong>13 precursor metabolites</strong> — the essential starting materials for all biosynthesis. They are widely distributed among cellular organisms, making them among the most conserved metabolic pathways in biology." },
+  { q: "Compare how heterotrophs and autotrophs carry out fueling reactions.", hint: "Think about their different substrates, feeder pathways, and carbon/energy relationship.", hy: true,
+    a: "<strong>Heterotrophs</strong> transport organic C into the cell. Since organic C substrates are also energy sources, they <strong>intertwine carbon and energy metabolism</strong>. Organic C goes directly into central pathways. <strong>Autotrophs</strong> must fix inorganic CO₂ into organic C, most commonly via the <strong>Calvin Cycle</strong> (using RuBisCO). This is extremely expensive (18 ATP + 12 NADPH per cycle). They have different feeder pathways to assimilate carbon." },
+  { q: "Describe the step-by-step process of substrate-level phosphorylation.", hint: "Phosphorylation → oxidation → transfer to ADP.",
+    a: "<strong>Step 1:</strong> An organic substrate becomes phosphorylated (no energy input needed). <strong>Step 2:</strong> The phosphorylated substrate is oxidized (with NAD⁺), converting the low-energy phosphate bond into a <strong>high-energy bond</strong>. This also generates NADH. <strong>Step 3:</strong> The high-energy phosphoryl group is transferred to ADP, forming <strong>ATP</strong>." },
+];
+
+const hardFRQ = [
+  { q: "Glycolysis generates only 2 ATP per glucose. Explain why this is insufficient for cell division, and describe the alternative mechanism bacteria use to generate large amounts of ATP.", hint: "Think about protein synthesis energy requirements and the ETC.",
+    a: "The energy requirements for macromolecular synthesis are enormous — protein alone requires <strong>29,257 mol of high-energy phosphate per gram of cells</strong>. At only 2 ATP per glucose (via SLP), an enormous and impractical amount of glucose would be needed. Bacteria evolved the <strong>electron transport chain (ETC)</strong> and <strong>ATP synthase</strong> to generate much more ATP. The ETC transfers electrons through membrane proteins with increasing reduction potential, pumping protons to create the <strong>proton motive force (PMF)</strong>. ATP synthase then uses the PMF to produce ATP far more efficiently. However, <strong>glycolysis is still essential</strong> for generating the 13 precursor metabolites needed for biosynthesis." },
+  { q: "Explain how the electron transport chain generates ATP. Include the role of reduction potential, proton motive force, and ATP synthase.", hint: "Trace the full path from NADH to ATP.",
+    a: "<strong>1.</strong> Electrons and protons are extracted from <strong>NADH at the membrane</strong>. <strong>2.</strong> Electrons are transferred sequentially to membrane proteins with <strong>increasing reduction potential</strong> (E0') — proteins with higher E0' are better electron acceptors. <strong>3.</strong> As electrons flow, protons are <strong>pumped across the inner membrane</strong>, making the exterior highly positive (periplasm in Gram⁻). This creates the <strong>proton motive force (PMF)</strong>. <strong>4. ATP synthase</strong> (F₀F₁ complex) uses the PMF: <strong>3-4 protons</strong> flow back through F₀ (proton channel), rotating the axle, which drives F₁ to form <strong>1 ATP from ADP</strong>. In bacteria, the ETC is located in the <strong>cytoplasmic membrane</strong>, not mitochondria." },
+  { q: "Explain the concept of reduction potential and how it determines electron flow in the ETC.", hint: "Think about donor vs. acceptor and the direction electrons flow.",
+    a: "<strong>Reduction potential (E0')</strong> measures a molecule's tendency to accept electrons. If protein B has a <strong>higher reduction potential</strong> than protein A, then protein A is a better <strong>electron donor</strong> and protein B is a better <strong>electron acceptor</strong>. Electrons flow from molecules with <strong>lower E0' to higher E0'</strong> — always moving 'downhill' energetically. The ETC is arranged so each successive carrier has a higher reduction potential, ensuring unidirectional electron flow. This stepwise release of energy at each transfer drives proton pumping." },
+  { q: "Describe the structure and mechanism of ATP synthase. How can the reaction run in either direction?", hint: "Think about F₀, F₁, the axle, and what determines directionality.",
+    a: "ATP synthase is a <strong>multi-subunit enzyme</strong> with two complexes: <strong>F₀</strong> (embedded in membrane, forms a proton channel) and <strong>F₁</strong> (on the cytoplasmic side, catalytic). When <strong>3-4 protons</strong> flow from exterior to interior through F₀, they <strong>rotate the central axle</strong>. This rotation drives F₁ to catalyze <strong>ADP + Pᵢ → ATP</strong>. The reaction is <strong>reversible</strong>: if ATP concentration is very high relative to the PMF, ATP synthase can run in reverse — <strong>hydrolyzing ATP to pump protons out</strong> and restore the gradient. Directionality depends on the relative concentrations of ATP and the strength of the ion gradient." },
+  { q: "A microbe can fix CO₂ and uses sunlight for energy. Classify this organism and explain its metabolic strategy.", hint: "Use the nutritional category system.", hy: true,
+    a: "This is a <strong>photoautotroph</strong>. <strong>Photo-</strong> because it uses sunlight as its energy source, and <strong>-autotroph</strong> because it uses CO₂ as its carbon source. Metabolic strategy: light energy excites electrons to a higher energy level, and as these electrons travel 'downhill' through an ETC, they generate a proton motive force that powers <strong>ATP synthesis</strong>. The ATP (along with NADPH) is then used to fix CO₂ into organic carbon via the <strong>Calvin Cycle</strong> (using RuBisCO), which is extremely expensive (18 ATP + 12 NADPH per cycle). The fixed organic carbon provides the precursor metabolites for biosynthesis." },
+  { q: "Explain why heterotrophs 'intertwine carbon and energy metabolism' while autotrophs do not.", hint: "Think about where each type gets its carbon vs. energy.", hy: true,
+    a: "For <strong>heterotrophs</strong>, organic carbon substrates serve a <strong>dual purpose</strong> — they are both the carbon source for building macromolecules AND the energy source (broken down in central pathways to generate ATP). The same glucose molecule provides precursor metabolites AND fuels SLP/ETC. For <strong>autotrophs</strong>, carbon comes from CO₂ (fixed via Calvin Cycle) and energy comes separately — from <strong>light</strong> (photoautotrophs) or from <strong>oxidizing inorganic compounds</strong> (chemoautotrophs). Carbon acquisition and energy harvesting are separate processes." },
+  { q: "Why is the Calvin Cycle considered 'extremely energetically expensive'? What are the implications for autotrophic organisms?", hint: "Consider the ATP/NADPH cost and what that means for growth.",
+    a: "The Calvin Cycle requires <strong>18 ATP and 12 NADPH per cycle</strong> to fix CO₂ into organic carbon. This is a massive energy investment just to obtain carbon. Implications: autotrophs must generate <strong>enormous amounts of ATP</strong> through their energy-harvesting mechanisms (light reactions for photoautotrophs) before they can even begin biosynthesis. This is why autotrophic organisms often grow <strong>slower</strong> than heterotrophs — a large proportion of their energy budget goes to carbon fixation rather than directly to growth." },
+  { q: "Explain why glycolysis is still essential even though it only produces 2 ATP per glucose.", hint: "ATP isn't the only important output.", hy: true,
+    a: "While glycolysis generates only 2 ATP per glucose (via SLP), it is essential because it produces <strong>precursor metabolites</strong> — small molecules that are the starting materials for all biosynthesis. The 3 central pathways (glycolysis, pentose phosphate, TCA) together generate all <strong>13 precursor metabolites</strong>. Without glycolysis, the cell would lack critical building blocks even if it had abundant ATP from the ETC. Glycolysis also generates <strong>NADH</strong>, which feeds electrons into the ETC for oxidative phosphorylation." },
+  { q: "A researcher discovers a bacterium that can grow using only CO₂ and inorganic sulfur compounds. Classify this organism and explain how it obtains carbon and energy.", hint: "What type of -troph uses inorganic chemicals for energy?", hy: true,
+    a: "This is a <strong>chemoautotroph</strong> (also called chemolithoautotroph). <strong>Chemo-</strong> because it uses chemical compounds (inorganic sulfur) for energy, not light. <strong>-autotroph</strong> because it uses CO₂ as its sole carbon source. Energy pathway: it oxidizes inorganic sulfur compounds, and the electrons released flow through an <strong>ETC</strong> to generate a proton motive force and ATP. Carbon pathway: it fixes CO₂ into organic carbon using the <strong>Calvin Cycle</strong> (RuBisCO), powered by the ATP and NADPH generated from sulfur oxidation." },
+  { q: "Compare substrate-level phosphorylation (SLP) and oxidative phosphorylation (ETC/ATP synthase). When would a cell rely more on one vs. the other?", hint: "Think about efficiency, oxygen, and which produces more ATP.",
+    a: "<strong>SLP:</strong> Direct transfer of a phosphoryl group from a substrate to ADP. Simple, does not require a membrane or oxygen. Produces small amounts of ATP (e.g., 2 per glucose in glycolysis). <strong>Oxidative phosphorylation:</strong> Electrons from NADH flow through the ETC (membrane-bound), creating a PMF that drives ATP synthase. Produces <strong>much more ATP</strong> per glucose. A cell relies more on <strong>SLP</strong> under anaerobic conditions or when it lacks a functional ETC (e.g., some fermentative organisms). It relies on <strong>oxidative phosphorylation</strong> when growing aerobically, because the energy demands of growth (especially protein synthesis) vastly exceed what SLP can provide." },
+  { q: "Explain what happens at the molecular level when ATP's gamma phosphate is cleaved, and why this releases energy.", hint: "Think about electrostatic repulsion and bond energy.",
+    a: "ATP's three phosphate groups are all <strong>negatively charged</strong> and experience strong <strong>electrostatic repulsion</strong>. Holding them together requires significant energy stored in the phosphodiester bonds. When the <strong>γ-phosphate is cleaved</strong> (hydrolysis), the products (ADP + Pᵢ) are more stable than ATP because the repulsion is reduced. This difference in stability means <strong>31 kJ of energy is released</strong>. The released energy can be coupled to endergonic reactions (like biosynthesis), driving them forward. This is why ATP is called the 'energy currency' — energy stored in its bonds can be spent to power cellular work." },
+  { q: "Explain the significance of the proton motive force (PMF) beyond just making ATP. Why is it considered a central feature of bioenergetics?", hint: "Think about what else PMF can power in bacteria.",
+    a: "The PMF is an <strong>electrochemical gradient</strong> across the membrane (exterior positive, interior negative). Beyond driving ATP synthase, the PMF powers: <strong>flagellar rotation</strong> (motility — the flagellar motor is directly driven by proton flow), <strong>active transport</strong> of nutrients across the membrane, <strong>protein secretion</strong>, and maintenance of cellular <strong>ion homeostasis</strong>. Even the <strong>reversibility of ATP synthase</strong> shows PMF's centrality — under some conditions, cells hydrolyze ATP to maintain the PMF because it's needed for other essential functions. The PMF is arguably more fundamental than ATP itself as a form of cellular energy." },
+];
+
+function buildFRQ(questions, containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'frq-card' + (q.hy ? ' hy-frq' : '');
+    div.innerHTML = `
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy ? ' <span class="hy-badge">EXAM TOPIC</span>' : ''}</div>
+      <div class="frq-hint">${q.hint}</div>
+      <textarea placeholder="Write your answer here..." id="ta-${containerId}-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ(this, ${i}, '${containerId}', '${scoreId}')">Show Model Answer</button>
+      <div class="frq-answer" id="ans-${containerId}-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="grade-${containerId}-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ(this, 'got-it', '${containerId}', '${scoreId}')">Got It</button>
+        <button class="grade-btn partial" onclick="gradeFRQ(this, 'partial', '${containerId}', '${scoreId}')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ(this, 'missed', '${containerId}', '${scoreId}')">Missed It</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFRQ(btn, idx, containerId, scoreId) {
+  document.getElementById('ans-' + containerId + '-' + idx).classList.add('show');
+  document.getElementById('grade-' + containerId + '-' + idx).classList.add('show');
+  btn.style.display = 'none';
+}
+
+function gradeFRQ(btn, grade, containerId, scoreId) {
+  btn.parentElement.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected-grade'));
+  btn.classList.add('selected-grade');
+  updateFRQScore(containerId, scoreId);
+}
+
+function updateFRQScore(containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  const graded = container.querySelectorAll('.grade-btn.selected-grade');
+  let gotIt = 0;
+  graded.forEach(b => { if (b.classList.contains('got-it')) gotIt++; });
+  document.getElementById(scoreId).textContent = gotIt + ' / ' + graded.length;
+}
+
+function resetFRQ(type) {
+  const containerId = type + '-container';
+  const scoreId = type + '-score';
+  const questions = type === 'frq' ? frqQuestions : hardFRQ;
+  buildFRQ(questions, containerId, scoreId);
+  document.getElementById(scoreId).textContent = '0 / 0';
+}
+
+buildFRQ(frqQuestions, 'frq-container', 'frq-score');
+buildFRQ(hardFRQ, 'hardfrq-container', 'hardfrq-score');
+
+// MATCHING
+const matchPairs = [
+  ["Autotroph", "Uses CO₂ as carbon source"],
+  ["Heterotroph", "Uses organic compounds as carbon source"],
+  ["Chemoheterotroph", "Derives both carbon and energy from organic compounds"],
+  ["Catabolism", "Degradative phase; breaks down nutrients into precursors"],
+  ["Anabolism", "Biosynthesis; builds small precursors into macromolecules"],
+  ["ATP γ-phosphate", "Releases 31 kJ of energy when cleaved"],
+  ["Glycolysis", "Produces 2 ATP per glucose by SLP"],
+  ["Calvin Cycle", "Fixes CO₂ via RuBisCO; costs 18 ATP + 12 NADPH"],
+  ["SLP", "Direct transfer of phosphoryl group from substrate to ADP"],
+  ["Proton motive force", "Electrochemical gradient driving ATP synthase"],
+  ["F₀ complex", "Proton channel in the membrane portion of ATP synthase"],
+  ["Reduction potential", "Determines electron donor vs. acceptor in ETC"],
+];
+
+let matchSelected = { left: null, right: null };
+let matchedCount = 0;
+
+function resetMatching() {
+  matchSelected = { left: null, right: null };
+  matchedCount = 0;
+  document.getElementById('match-score').textContent = '0 / ' + matchPairs.length;
+  renderMatching();
+}
+
+function renderMatching() {
+  const leftArr = matchPairs.map((p, i) => ({ text: p[0], idx: i }));
+  const rightArr = matchPairs.map((p, i) => ({ text: p[1], idx: i }));
+  for (let i = rightArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rightArr[i], rightArr[j]] = [rightArr[j], rightArr[i]];
+  }
+  document.getElementById('match-left').innerHTML = leftArr.map(item =>
+    `<div class="match-item" data-side="left" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+  document.getElementById('match-right').innerHTML = rightArr.map(item =>
+    `<div class="match-item" data-side="right" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  document.querySelectorAll(`.match-item[data-side="${side}"]`).forEach(e => {
+    if (!e.classList.contains('matched')) e.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  matchSelected[side] = { el, idx: parseInt(el.dataset.idx) };
+  if (matchSelected.left && matchSelected.right) {
+    if (matchSelected.left.idx === matchSelected.right.idx) {
+      matchSelected.left.el.classList.remove('selected');
+      matchSelected.right.el.classList.remove('selected');
+      matchSelected.left.el.classList.add('matched');
+      matchSelected.right.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('match-score').textContent = matchedCount + ' / ' + matchPairs.length;
+    } else {
+      matchSelected.left.el.classList.add('wrong-match');
+      matchSelected.right.el.classList.add('wrong-match');
+      setTimeout(() => {
+        matchSelected.left.el.classList.remove('selected', 'wrong-match');
+        matchSelected.right.el.classList.remove('selected', 'wrong-match');
+        matchSelected = { left: null, right: null };
+      }, 600);
+      return;
+    }
+    matchSelected = { left: null, right: null };
+  }
+}
+
+renderMatching();
+</script>
+
+</body>
+</html>
