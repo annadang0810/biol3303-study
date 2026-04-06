@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microbial Stress Responses - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+    --teal: #4ecdc4;
+    --teal-dim: #4ecdc420;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 58px;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.2px;
+    color: var(--text);
+
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight { color: var(--green); font-weight: 700; }
+  .organism { color: var(--orange); font-weight: 700; }
+  .warn { color: var(--red); font-weight: 700; }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+
+  }
+  .enzyme { color: var(--teal); font-weight: 700; }
+  .gene { color: var(--blue); font-style: italic; font-weight: 600; }
+
+  /* HIGH YIELD */
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 700;
+
+  }
+
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  /* HERO */
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); font-family: 'Trebuchet MS', sans-serif; }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; font-family: 'Trebuchet MS', sans-serif; }
+
+  /* TABS */
+  .tab-row {
+    display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TABLES */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th {
+    background: var(--surface2);
+    color: var(--accent-light);
+    font-weight: 700;
+
+  }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 700; font-family: 'Trebuchet MS', sans-serif; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); font-family: 'Trebuchet MS', sans-serif; }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s;
+
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  /* FLASHCARD */
+  .fc-container { perspective: 1000px; margin-bottom: 16px; }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 700; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav { display: flex; gap: 10px; justify-content: center; align-items: center; }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 700; min-width: 60px; text-align: center; font-family: 'Trebuchet MS', sans-serif; }
+  .fc-hint { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 10px; }
+
+  /* MATCHING */
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 800;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  /* FRQ */
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-right: 8px;
+
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #3a3f52; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.2s;
+
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  /* DIAGRAM */
+  .diagram-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 14px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .diagram-box .arr { color: var(--accent-light); }
+  .diagram-box .mol { color: var(--teal); font-weight: 700; }
+  .diagram-box .label { color: var(--text-dim); font-style: italic; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--teal-dim);
+    border: 1px solid #4ecdc440;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hard')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================== HOME ==================== -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Microbial Stress Responses</h1>
+    <p>BIOL 3303 &middot; Lecture 14 &mdash; Regulation, Two-Component Systems &amp; the LAC Operon</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">22</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">28</div><div class="stat-label">FRQs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>Different forms of regulation (DNA topology, transcription, translation, proteolysis, allostery, reversible modification, sRNA)</li>
+        <li>Two-component systems (histidine kinase + response regulator mechanism)</li>
+        <li>LAC operon and its regulation (how it regulates, how it detects lactose, what is the substrate)</li>
+        <li>Error-prone DNA repair (Pol IV, MutS repression, how mutations become fixed)</li>
+        <li>Stresses bacteria respond to and how (osmotic, temperature, toxic agents, nutritional, antibiotics)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LEARN ==================== -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn hy-tab active" onclick="showTab(this,'regulation')">Forms of Regulation</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'lac')">LAC Operon</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'twocomp')">Two-Component Systems</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'errorprone')">Error-Prone Repair</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'stresses')">Bacterial Stresses</button>
+    <button class="tab-btn" onclick="showTab(this,'catabolite')">Catabolite Repression</button>
+  </div>
+
+  <!-- FORMS OF REGULATION -->
+  <div class="tab-content active" id="tab-regulation">
+    <div class="card hy-card">
+      <h2>Different Forms of Regulation <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>Microbes regulate protein production in response to <span class="highlight">environmental cues</span> to be efficient with cellular energy. They can regulate protein <span class="warn">amount</span> or <span class="warn">function</span>.</p>
+
+      <h3>Modulating Protein Levels (Amount)</h3>
+      <table class="data-table hy-table">
+        <tr><th>Mechanism</th><th>How It Works</th></tr>
+        <tr><td><span class="highlight">DNA Topology</span></td><td>Supercoiling state affects which genes are accessible for transcription</td></tr>
+        <tr><td><span class="highlight">Transcription Control</span></td><td>&sigma;-factors direct RNA polymerase to specific promoters; repressors block transcription; activators enhance it</td></tr>
+        <tr><td><span class="highlight">Translation Control</span></td><td>mRNA stability, RNA thermometers (temp-sensitive structures), sRNA base-pairing alters ribosome access</td></tr>
+        <tr><td><span class="highlight">Proteolysis</span></td><td>Targeted degradation of proteins to reduce their levels</td></tr>
+      </table>
+
+      <h3>Modulating Protein Activity (Function)</h3>
+      <table class="data-table hy-table">
+        <tr><th>Mechanism</th><th>How It Works</th></tr>
+        <tr><td><span class="highlight">Allosteric Regulation</span></td><td>Binding of another molecule changes protein structure &rarr; switches between <span class="warn">active</span> and <span class="warn">inactive</span> forms</td></tr>
+        <tr><td><span class="highlight">Reversible Modification</span></td><td>Adding a chemical group (<span class="enzyme">phosphate</span>, <span class="enzyme">methyl</span>, or <span class="enzyme">AMP</span>) changes protein activity</td></tr>
+        <tr><td><span class="highlight">sRNA Regulation</span></td><td>Small regulatory RNA binds to protein and alters its function</td></tr>
+      </table>
+
+      <div class="callout">Most regulation occurs at the level of <strong>transcription</strong>: transcription ON = protein made, transcription OFF = protein not made.</div>
+
+      <h3>Naming Conventions</h3>
+      <ul>
+        <li><span class="gene">lacA</span> = gene name (three lowercase + capital letter, <span class="warn">italicized</span>)</li>
+        <li><span class="enzyme">LacA</span> = protein name (first letter capitalized, <span class="warn">not italicized</span>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- LAC OPERON -->
+  <div class="tab-content" id="tab-lac">
+    <div class="card hy-card">
+      <h2>The LAC Operon <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>A classic example of gene regulation in <span class="organism">E. coli</span>. An <span class="highlight">operon</span> is a unit of transcription: promoter + two or more genes + transcriptional terminator, all transcribed together.</p>
+
+      <h3>The Three Genes</h3>
+      <table class="data-table hy-table">
+        <tr><th>Gene</th><th>Protein</th><th>Function</th></tr>
+        <tr><td><span class="gene">lacZ</span></td><td><span class="enzyme">&beta;-galactosidase</span></td><td>Hydrolyzes <span class="highlight">lactose</span> into glucose + galactose</td></tr>
+        <tr><td><span class="gene">lacY</span></td><td><span class="enzyme">Permease</span></td><td>Transports lactose into the cell</td></tr>
+        <tr><td><span class="gene">lacA</span></td><td><span class="enzyme">Transacetylase</span></td><td>Uncertain function</td></tr>
+      </table>
+
+      <h3>What is the Substrate?</h3>
+      <p>The substrate is <span class="warn">lactose</span>. Bacteria only make LacZYA proteins when lactose is present. The true inducer is <span class="highlight">allolactose</span> (produced when small basal amounts of LacZ convert lactose to allolactose).</p>
+
+      <h3>How Does the Operon Detect Lactose?</h3>
+      <div class="diagram-box"><span class="mol">LacI</span> (repressor) is always being made by <span class="gene">lacI</span> gene upstream
+  |
+  v
+<span class="label">NO lactose:</span> <span class="mol">LacI</span> <span class="arr">&rarr;</span> binds <span class="mol">Operator (O)</span> <span class="arr">&rarr;</span> blocks RNAP <span class="arr">&rarr;</span> <span class="warn">genes OFF</span>
+  |
+  <span class="label">(but a little leaky transcription occurs &rarr; low basal LacY + LacZ)</span>
+  |
+<span class="label">Lactose appears:</span> <span class="mol">LacY</span> imports it <span class="arr">&rarr;</span> <span class="mol">LacZ</span> converts some to <span class="highlight">allolactose</span>
+  |
+  v
+<span class="highlight">Allolactose</span> <span class="arr">&rarr;</span> binds <span class="mol">LacI</span> <span class="arr">&rarr;</span> <span class="warn">inactivates repressor</span> <span class="arr">&rarr;</span> falls off operator
+  |
+  v
+RNAP transcribes <span class="gene">lacZYA</span> freely <span class="arr">&rarr;</span> <span class="highlight">genes ON</span></div>
+
+      <div class="callout">Key concept: The operon is "leaky" on purpose &mdash; the small basal level of LacY and LacZ lets the cell <strong>sense</strong> when lactose first appears, even though transcription is mostly OFF.</div>
+
+      <h3>How Does the Operon Regulate?</h3>
+      <ul>
+        <li><span class="key">NEGATIVE</span> regulation: <span class="enzyme">LacI</span> repressor binds operator to <span class="warn">block</span> transcription</li>
+        <li><span class="key">POSITIVE</span> regulation: <span class="enzyme">CRP-cAMP</span> complex binds upstream to <span class="highlight">enhance</span> transcription (see catabolite repression)</li>
+        <li>Both signals needed: lactose must be present AND glucose must be absent for full expression</li>
+      </ul>
+
+      <h3>Exploiting the LAC Operon (Reporter Assays)</h3>
+      <ul>
+        <li><span class="gene">lacZ</span> encodes <span class="enzyme">&beta;-galactosidase</span> that breaks galactosidic bonds</li>
+        <li><span class="highlight">X-gal</span> is a synthetic substrate &mdash; when cleaved by &beta;-galactosidase, it forms a <span class="warn">blue pigment</span></li>
+        <li>Used to test if a promoter is active: attach <span class="gene">lacZ</span> to any promoter &rarr; blue = promoter ON</li>
+        <li>Works in both prokaryotic and eukaryotic systems</li>
+        <li>Also used as a readout for cloning (blue/white screening)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TWO-COMPONENT SYSTEMS -->
+  <div class="tab-content" id="tab-twocomp">
+    <div class="card hy-card">
+      <h2>Two-Component Systems <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>One of the most <span class="highlight">common and ubiquitous</span> prokaryotic sensing mechanisms.</p>
+
+      <h3>The Two Components</h3>
+      <table class="data-table hy-table">
+        <tr><th>Component</th><th>Domains</th><th>Role</th></tr>
+        <tr><td><span class="enzyme">Sensor Protein</span> (Histidine Kinase)</td><td>Sensing domain + Histidine kinase domain</td><td>Detects environmental signal</td></tr>
+        <tr><td><span class="enzyme">Response Regulator</span></td><td>Aspartate (Asp) receiver + DNA-binding domain</td><td>Activates gene expression</td></tr>
+      </table>
+
+      <h3>The 5-Step Mechanism</h3>
+      <div class="diagram-box"><span class="label">1.</span> Sensing domain detects stress signal (e.g. binds a ligand)
+   <span class="arr">&rarr;</span> conformational change + <span class="highlight">dimerization</span>
+
+<span class="label">2.</span> Histidine kinase domain <span class="mol">auto-phosphorylates</span> its <span class="enzyme">His</span> residue
+
+<span class="label">3.</span> Phosphate transferred: <span class="enzyme">His</span> <span class="arr">&rarr;</span> <span class="enzyme">Asp</span> on response regulator
+
+<span class="label">4.</span> Response regulator <span class="highlight">DNA-binding activated</span>
+   <span class="arr">&rarr;</span> binds target promoters <span class="arr">&rarr;</span> controls gene expression
+
+<span class="label">5.</span> Feedback: when stress passes, response regulator is
+   <span class="warn">dephosphorylated</span> (by a phosphatase) <span class="arr">&rarr;</span> system OFF</div>
+
+      <h3>Example: CheA-CheY (Chemotaxis)</h3>
+      <ul>
+        <li><span class="enzyme">CheA</span> = histidine kinase</li>
+        <li><span class="enzyme">CheY</span> = response regulator</li>
+        <li><span class="enzyme">MCP</span> = the sensing domain</li>
+        <li>Signal transduction: CheA, CheY, CheZ</li>
+        <li>Response: clockwise vs counter-clockwise flagellar rotation</li>
+      </ul>
+
+      <h3>Example: Pho System (Phosphate Starvation)</h3>
+      <ul>
+        <li>Low phosphate = stress for microbes (phosphate is essential and often limiting)</li>
+        <li><span class="enzyme">PhoR</span> = histidine kinase, <span class="enzyme">PhoB</span> = response regulator</li>
+        <li>PhoR does <span class="warn">NOT</span> bind phosphate directly!</li>
+        <li>PhoR is physically linked to <span class="enzyme">Pst</span> transporter via chaperone <span class="enzyme">PhoU</span></li>
+        <li>When phosphate is available: Pst transports it, PhoU keeps PhoR sequestered (inactive)</li>
+        <li>When phosphate is low: Pst stops transporting, PhoU releases PhoR &rarr; PhoR autophosphorylates &rarr; activates PhoB</li>
+        <li>PhoB activates <span class="highlight">47 genes</span>: alkaline phosphatases, AMP nucleosidases, phosphate transporters</li>
+      </ul>
+
+      <h3>Pho Feedback Control</h3>
+      <ul>
+        <li>When phosphate returns: Pst resumes transport &rarr; PhoU re-sequesters PhoR</li>
+        <li>Active Pst converts PhoR into a <span class="warn">phosphatase</span> &rarr; dephosphorylates PhoB &rarr; system OFF</li>
+        <li>The same protein (PhoR) can act as both <span class="highlight">kinase</span> and <span class="warn">phosphatase</span> depending on state</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ERROR-PRONE DNA REPAIR -->
+  <div class="tab-content" id="tab-errorprone">
+    <div class="card hy-card">
+      <h2>Error-Prone DNA Repair <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>How antibiotic stress leads to <span class="warn">increased mutagenesis</span> and potential resistance.</p>
+
+      <h3>The Chain of Events</h3>
+      <div class="diagram-box"><span class="label">Sublethal ampicillin</span> damages <span class="mol">peptidoglycan</span>
+  |
+  v
+<span class="mol">Rcs phospho-relay</span> senses PG damage
+  <span class="arr">&rarr;</span> activates <span class="mol">RpoS</span> (via sRNA <span class="enzyme">RprA</span>)
+  |
+  + also: ppGpp accumulation <span class="arr">&rarr;</span> activates <span class="mol">RpoS</span>
+  |
+  v
+<span class="mol">RpoS</span> (general stress sigma factor) does TWO critical things:
+
+  <span class="highlight">1. Upregulates Pol IV</span> (error-prone polymerase)
+     &bull; Normal polymerases = high-fidelity (few mistakes)
+     &bull; <span class="warn">Pol IV = low-fidelity</span>, generates base-substitutions
+
+  <span class="highlight">2. Represses MutS</span> (mismatch repair protein)
+     &bull; RpoS activates sRNA <span class="enzyme">SdsR</span>
+     &bull; SdsR base-pairs with <span class="gene">mutS</span> mRNA <span class="arr">&rarr;</span> <span class="warn">downregulates MutS</span>
+     &bull; Without MutS, mismatches can't be fixed
+
+  v
+<span class="warn">Mutations become FIXED</span> in the genome
+  <span class="arr">&rarr;</span> increased mutagenesis
+  <span class="arr">&rarr;</span> can generate antibiotic resistance mutations</div>
+
+      <div class="callout">Why mutations become fixed: Pol IV introduces errors AND MutS (the repair protein) is simultaneously repressed. Double whammy = mutations persist.</div>
+
+      <h3>Key Players</h3>
+      <table class="data-table hy-table">
+        <tr><th>Player</th><th>Role</th></tr>
+        <tr><td><span class="enzyme">RpoS</span></td><td>General stress sigma factor; master regulator of stress response</td></tr>
+        <tr><td><span class="enzyme">Pol IV</span></td><td>Error-prone polymerase; introduces base substitutions</td></tr>
+        <tr><td><span class="enzyme">MutS</span></td><td>Mismatch repair protein; normally fixes errors but is repressed by SdsR</td></tr>
+        <tr><td><span class="enzyme">SdsR</span></td><td>sRNA that downregulates MutS via base-pairing</td></tr>
+        <tr><td><span class="enzyme">ppGpp</span></td><td>Alarmone that activates RpoS</td></tr>
+        <tr><td><span class="enzyme">Rcs system</span></td><td>Senses peptidoglycan damage; activates RpoS via sRNA RprA</td></tr>
+      </table>
+
+      <h3>sRNAs in Antibiotic Responses</h3>
+      <ul>
+        <li>sRNAs are produced in response to <span class="highlight">many antibiotics</span>, not just ampicillin</li>
+        <li>They can either activate or inhibit cellular processes</li>
+        <li>This is a relatively <span class="warn">new area of research</span> with active discoveries</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BACTERIAL STRESSES -->
+  <div class="tab-content" id="tab-stresses">
+    <div class="card hy-card">
+      <h2>Stresses Bacteria Respond To <span class="hy-badge">HIGH YIELD</span></h2>
+
+      <h3>Types of Stress</h3>
+      <table class="data-table hy-table">
+        <tr><th>Stress Type</th><th>Examples / Details</th></tr>
+        <tr><td><span class="highlight">Nutritional</span></td><td>Starvation, limiting nutrients (e.g. phosphate limitation &rarr; Pho system)</td></tr>
+        <tr><td><span class="highlight">Osmotic</span></td><td>Changes in solute concentration in the environment</td></tr>
+        <tr><td><span class="highlight">Temperature</span></td><td>Heat shock, cold shock (RNA thermometers sense temperature)</td></tr>
+        <tr><td><span class="highlight">Toxic Agents</span></td><td>Antibiotics, heavy metals, reactive oxygen species</td></tr>
+        <tr><td><span class="highlight">Physical</span></td><td>UV radiation, mechanical damage</td></tr>
+      </table>
+
+      <h3>Blueprint of a Stress Response (4 Steps)</h3>
+      <div class="diagram-box"><span class="label">1. SENSING</span>
+   A protein or nucleic acid sensor detects the stress
+
+<span class="label">2. SIGNAL TRANSDUCTION</span>
+   Sensor transmits signal to regulator(s)
+   (e.g. phosphorylation cascade in two-component systems)
+
+<span class="label">3. RESPONSE</span>
+   Regulators modulate expression of target operons
+   <span class="arr">&rarr;</span> produce stress-responding proteins
+
+<span class="label">4. FEEDBACK CONTROL</span>
+   Mechanism to <span class="warn">turn OFF</span> the response
+   when the situation is handled</div>
+
+      <div class="callout">All four steps are essential. Without feedback control, the cell wastes energy on stress responses it no longer needs.</div>
+
+      <h3>Antibiotic Stress Specifically</h3>
+      <ul>
+        <li>Antibiotics target essential cellular functions &rarr; loss of function triggers stress response</li>
+        <li>Sometimes the response <span class="warn">doesn't help</span> and the cell dies</li>
+        <li>Other times the response leads to <span class="highlight">survival + evolution of resistance</span></li>
+        <li><span class="organism">Quinolone</span> antibiotics at sublethal doses can select for resistance via:
+          <ul>
+            <li>Upregulation of <span class="highlight">efflux pumps</span></li>
+            <li>Mutations in <span class="gene">DNA gyrase</span> or <span class="gene">topoisomerase IV</span> genes</li>
+            <li>Plasmid-encoded resistance genes</li>
+          </ul>
+        </li>
+        <li>Quinolones also increase mutation rates, recombination, and <span class="highlight">persister</span> formation</li>
+        <li><span class="key">PERSISTERS</span> = dormant/slow-growing bacteria that <span class="warn">tolerate</span> antibiotics until they're gone. They do NOT have unique resistance genes &mdash; they just wait it out.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CATABOLITE REPRESSION -->
+  <div class="tab-content" id="tab-catabolite">
+    <div class="card">
+      <h2>Catabolite Repression (Glucose Preference)</h2>
+      <p><span class="organism">E. coli</span> prioritizes <span class="highlight">glucose</span> over other carbon sources. Here's how:</p>
+
+      <div class="diagram-box"><span class="label">Glucose PRESENT:</span>
+  <span class="mol">Pts system</span> active (transporting glucose)
+  <span class="arr">&rarr;</span> phosphorylated <span class="mol">Enzyme IIA</span> <span class="warn">inhibits adenylate cyclase (AC)</span>
+  <span class="arr">&rarr;</span> low cAMP
+  <span class="arr">&rarr;</span> no cAMP-CRP complex
+  <span class="arr">&rarr;</span> <span class="warn">cannot activate</span> operons for other carbon sources
+
+<span class="label">Glucose ABSENT:</span>
+  Pts system inactive
+  <span class="arr">&rarr;</span> AC is <span class="highlight">not inhibited</span>
+  <span class="arr">&rarr;</span> cAMP accumulates
+  <span class="arr">&rarr;</span> cAMP binds <span class="mol">CRP</span> (allosteric activation)
+  <span class="arr">&rarr;</span> cAMP-CRP binds promoters
+  <span class="arr">&rarr;</span> <span class="highlight">activates</span> transcription of alternative carbon source operons</div>
+
+      <ul>
+        <li><span class="enzyme">CRP</span> = cyclic AMP receptor protein</li>
+        <li>CRP needs <span class="highlight">cAMP</span> to allosterically activate and bind DNA</li>
+        <li>This is why LAC operon needs <span class="warn">both</span> lactose present AND glucose absent for full expression</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FLASHCARDS ==================== -->
+<div class="section" id="sec-flashcards">
+  <div class="score-bar">
+    <div><span class="score-text">Flashcard Progress</span></div>
+    <div><span class="score-pct" id="fc-score">0 / 22</span></div>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&larr;</button>
+    <span class="fc-counter" id="fc-counter">1 / 22</span>
+    <button class="fc-btn" onclick="nextCard()">&rarr;</button>
+  </div>
+  <div class="fc-hint">Click to flip &middot; Arrow keys to navigate</div>
+</div>
+
+<!-- ==================== FRQ ==================== -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div><span class="score-text">FRQ Self-Assessment</span></div>
+    <div><span class="score-pct" id="frq-score">0%</span></div>
+    <button class="reset-btn" onclick="resetFRQ()">Reset All</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- ==================== MATCHING ==================== -->
+<div class="section" id="sec-matching">
+  <div class="score-bar">
+    <div><span class="score-text">Matching</span></div>
+    <div><span class="score-pct" id="match-score">0 / 10</span></div>
+    <button class="reset-btn" onclick="initMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div>
+      <div class="match-col-header">Term</div>
+      <div id="match-left"></div>
+    </div>
+    <div>
+      <div class="match-col-header">Definition</div>
+      <div id="match-right"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HARD FRQ ==================== -->
+<div class="section" id="sec-hard">
+  <div class="score-bar">
+    <div><span class="score-text">Hard FRQ (Exam-Level)</span></div>
+    <div><span class="score-pct" id="hard-score">0%</span></div>
+    <button class="reset-btn" onclick="resetHard()">Reset All</button>
+  </div>
+  <div id="hard-container"></div>
+</div>
+
+</main>
+
+<script>
+// ====== NAVIGATION ======
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function showTab(btn, id) {
+  btn.closest('.section').querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  btn.closest('.section').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ====== FLASHCARDS ======
+const flashcards = [
+  {q:"What are the two main categories of protein regulation?", a:"1) Modulating protein LEVELS (amount): DNA topology, transcription control, translation control, proteolysis\n2) Modulating protein ACTIVITY (function): allostery, reversible modification, sRNA regulation"},
+  {q:"What is an operon?", a:"A unit of transcription consisting of a promoter, two or more genes encoding proteins, and a transcriptional terminator &mdash; all transcribed as one mRNA."},
+  {q:"What are the three genes in the LAC operon and what do they encode?", a:"lacZ = &beta;-galactosidase (hydrolyzes lactose)\nlacY = permease (transports lactose into cell)\nlacA = transacetylase (uncertain function)"},
+  {q:"What is the substrate of the LAC operon?", a:"Lactose. The actual inducer is allolactose, which is produced when small basal amounts of LacZ convert lactose to allolactose."},
+  {q:"How does the LAC operon detect lactose?", a:"The operon is 'leaky' &mdash; low basal LacY imports lactose, basal LacZ converts some to allolactose. Allolactose binds LacI repressor, inactivating it, freeing the operator for RNAP to transcribe."},
+  {q:"What does LacI do in the ABSENCE of lactose?", a:"LacI (repressor) binds the operator (O), physically blocking RNA polymerase from transcribing lacZYA. Transcription is mostly OFF but slightly leaky."},
+  {q:"Why is the 'leaky' transcription of the LAC operon important?", a:"It allows low basal levels of LacY (permease) and LacZ (&beta;-galactosidase) so the cell can sense when lactose first appears by importing and converting it to allolactose."},
+  {q:"What is allosteric regulation?", a:"Binding of another molecule changes protein structure, switching it between active and inactive conformations. Example: allolactose binds LacI to inactivate it."},
+  {q:"What is reversible modification in protein regulation?", a:"Adding a chemical group (phosphate, methyl, or AMP) to a protein alters its activity. The modification can be reversed to restore original activity."},
+  {q:"What are the two components in a two-component system?", a:"1) Sensor protein (Histidine Kinase): has sensing domain + histidine kinase domain\n2) Response regulator: has accessible Asp residue + DNA-binding domain"},
+  {q:"Describe the signal transduction in a two-component system (5 steps).", a:"1) Sensor detects signal &rarr; conformational change + dimerization\n2) His kinase auto-phosphorylates His residue\n3) Phosphate transferred from His to Asp on response regulator\n4) Response regulator binds target promoters\n5) Feedback: dephosphorylation turns system OFF"},
+  {q:"How does the Pho system sense low phosphate?", a:"PhoR does NOT bind phosphate directly. It's linked to Pst transporter via PhoU. When Pst stops transporting phosphate, PhoU releases PhoR, allowing it to autophosphorylate."},
+  {q:"What does PhoB activate when phosphorylated?", a:"47 genes total: alkaline phosphatases, AMP nucleosidases, and phosphate transporters (Pst complex)."},
+  {q:"How is the Pho system turned OFF?", a:"When phosphate returns, Pst resumes transport &rarr; PhoU re-sequesters PhoR &rarr; PhoR converts to phosphatase &rarr; dephosphorylates PhoB &rarr; system OFF."},
+  {q:"What are the 4 steps of a microbial stress response?", a:"1) SENSING (protein/nucleic acid sensor)\n2) SIGNAL TRANSDUCTION (sensor transmits to regulators)\n3) RESPONSE (regulators modulate target operons)\n4) FEEDBACK CONTROL (turn off when handled)"},
+  {q:"What types of stress do bacteria respond to?", a:"Nutritional, osmotic, temperature, toxic agents (antibiotics, heavy metals), and physical stress (UV, mechanical)."},
+  {q:"What is error-prone DNA repair and how does it occur?", a:"Under stress, RpoS upregulates Pol IV (low-fidelity polymerase that introduces base substitutions) AND represses MutS (mismatch repair) via sRNA SdsR. Mutations become fixed because they can't be repaired."},
+  {q:"What is the role of Pol IV?", a:"Pol IV is an error-prone (low-fidelity) polymerase that generates base-substitutions in DNA, unlike normal high-fidelity polymerases. It's upregulated by RpoS during stress."},
+  {q:"How does RpoS repress MutS?", a:"RpoS activates expression of sRNA SdsR, which base-pairs with mutS mRNA to downregulate MutS protein production. Without MutS, mismatches can't be repaired."},
+  {q:"What are persisters?", a:"Dormant or slow-growing bacteria that tolerate antibiotics until the antibiotics are gone. They do NOT have unique resistance genes &mdash; they simply wait it out by being metabolically inactive."},
+  {q:"How does catabolite repression work?", a:"When glucose is present, the Pts system inhibits adenylate cyclase &rarr; low cAMP &rarr; no cAMP-CRP complex &rarr; alternative carbon source operons are NOT activated. Without glucose, cAMP accumulates, binds CRP, and activates those operons."},
+  {q:"What is X-gal and how is it used?", a:"X-gal is a synthetic substrate cleaved by &beta;-galactosidase (LacZ). When cleaved, it forms a blue pigment. Used as a reporter to test if promoters are active (blue = ON) and in blue/white cloning screening."}
+];
+
+let fcIdx = 0;
+function renderCard() {
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  document.getElementById('fc-front').innerHTML = flashcards[fcIdx].q;
+  document.getElementById('fc-back').innerHTML = flashcards[fcIdx].a.replace(/\n/g,'<br>');
+  document.getElementById('fc-counter').textContent = (fcIdx+1)+' / '+flashcards.length;
+  document.getElementById('fc-score').textContent = (fcIdx+1)+' / '+flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIdx = (fcIdx+1) % flashcards.length; renderCard(); }
+function prevCard() { fcIdx = (fcIdx-1+flashcards.length) % flashcards.length; renderCard(); }
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight') nextCard();
+  if(e.key==='ArrowLeft') prevCard();
+  if(e.key===' '||e.key==='Enter') { e.preventDefault(); flipCard(); }
+});
+renderCard();
+
+// ====== FRQ ======
+const frqs = [
+  {q:"List the ways bacteria can modulate protein LEVELS.", a:"DNA topology, transcription control (&sigma;-factors, repressors, activators), translation control (mRNA stability, RNA thermometers, sRNA), and proteolysis.", hy:true},
+  {q:"List the ways bacteria can modulate protein ACTIVITY.", a:"Allosteric regulation (binding changes conformation), reversible modification (adding P, CH\u2083, or AMP), and regulation by sRNA (small RNA alters function).", hy:true},
+  {q:"What is the difference between a gene name and protein name in bacteria? Give an example.", a:"Gene names: three lowercase letters + capital, italicized (e.g. <em>lacA</em>). Protein names: same name but first letter capitalized, not italicized (e.g. LacA).", hy:false},
+  {q:"Define an operon and list its components.", a:"An operon is a unit of transcription with: a <strong>promoter</strong>, two or more <strong>genes</strong> encoding proteins, and a <strong>transcriptional terminator</strong>. All genes are transcribed as a single mRNA.", hy:true},
+  {q:"What is the substrate of the LAC operon? What is the true inducer?", a:"The substrate is <strong>lactose</strong>. The true inducer is <strong>allolactose</strong>, which is produced when basal levels of LacZ (&beta;-galactosidase) convert lactose into allolactose.", hy:true},
+  {q:"Explain step-by-step how the LAC operon is turned ON when lactose appears.", a:"1) Low basal LacY imports lactose. 2) Basal LacZ converts some lactose to <strong>allolactose</strong>. 3) Allolactose binds LacI repressor, causing conformational change. 4) LacI releases the operator. 5) RNA polymerase now transcribes lacZYA freely.", hy:true},
+  {q:"Why does the LAC operon allow 'leaky' transcription even when repressed?", a:"The leaky transcription produces low basal levels of LacY (permease) and LacZ (&beta;-galactosidase). These are needed to <strong>sense</strong> when lactose first appears: LacY imports it and LacZ converts it to the inducer allolactose.", hy:true},
+  {q:"What is the role of the operator in the LAC operon?", a:"The operator (O) is the control region downstream of the promoter where the <strong>LacI repressor binds</strong>. When LacI is bound, it physically blocks RNA polymerase from transcribing the lac genes.", hy:true},
+  {q:"What is X-gal and how does it work as a reporter?", a:"X-gal is a synthetic galactoside. When cleaved by &beta;-galactosidase (LacZ), it releases 5-bromo-4-chloro-3-hydroxyindole, which dimerizes to form a <strong>blue pigment</strong>. Blue color = lacZ is being expressed = promoter is active.", hy:false},
+  {q:"Explain catabolite repression and why glucose is preferred over lactose.", a:"When glucose is present, the Pts system phosphorylates Enzyme IIA, which <strong>inhibits adenylate cyclase</strong>. This lowers cAMP levels, so cAMP-CRP complex cannot form. Without CRP activation, the LAC operon (and other alternative carbon operons) cannot be fully transcribed.", hy:true},
+  {q:"Name the two components of a two-component system and their domains.", a:"1) <strong>Sensor protein</strong> (Histidine Kinase): sensing domain + histidine kinase domain. 2) <strong>Response regulator</strong>: Asp (aspartate) receiver domain + DNA-binding domain.", hy:true},
+  {q:"Walk through the 5 steps of two-component signaling.", a:"1) Sensing domain detects signal &rarr; conformational change + dimerization. 2) His kinase auto-phosphorylates His. 3) Phosphate transferred His&rarr;Asp on response regulator. 4) Response regulator DNA-binding activated &rarr; controls target promoters. 5) Feedback: dephosphorylation when stress passes.", hy:true},
+  {q:"How does the Pho system sense low phosphate? (PhoR does NOT bind phosphate directly!)", a:"PhoR is linked to the <strong>Pst transporter</strong> via chaperone <strong>PhoU</strong>. When phosphate transport slows/stops, Pst changes conformation, PhoU no longer binds PhoR. Freed PhoR autophosphorylates its His, then phosphorylates PhoB.", hy:true},
+  {q:"How is feedback control achieved in the Pho system?", a:"When phosphate returns, Pst resumes transport, changes conformation. PhoU re-sequesters PhoR. Active Pst converts PhoR into a <strong>phosphatase</strong> that dephosphorylates PhoB, turning the system OFF.", hy:true},
+  {q:"List the 4 steps of a microbial stress response blueprint.", a:"1) <strong>Sensing</strong> &mdash; protein or nucleic acid sensor. 2) <strong>Signal transduction</strong> &mdash; sensor transmits to regulators. 3) <strong>Response</strong> &mdash; regulators modulate target operons. 4) <strong>Feedback control</strong> &mdash; turn off when situation is handled.", hy:true},
+  {q:"Name 5 types of environmental stress bacteria respond to.", a:"1) <strong>Nutritional</strong> (starvation). 2) <strong>Osmotic</strong> (solute changes). 3) <strong>Temperature</strong> (heat/cold shock). 4) <strong>Toxic agents</strong> (antibiotics, heavy metals). 5) <strong>Physical</strong> (UV, mechanical).", hy:true},
+  {q:"How does sublethal ampicillin lead to error-prone DNA repair?", a:"Ampicillin damages peptidoglycan &rarr; Rcs system senses damage &rarr; activates <strong>RpoS</strong> (also via ppGpp). RpoS upregulates <strong>Pol IV</strong> (error-prone polymerase) and represses <strong>MutS</strong> (mismatch repair) via sRNA SdsR. Mutations become fixed.", hy:true},
+  {q:"Why do mutations become fixed during error-prone repair?", a:"Because <strong>two things happen simultaneously</strong>: Pol IV introduces base substitutions, AND MutS (the mismatch repair protein) is repressed by sRNA SdsR. Without repair, the errors persist and become permanent mutations.", hy:true},
+  {q:"What are persisters and how are they different from resistant bacteria?", a:"Persisters are <strong>dormant/slow-growing</strong> bacteria that tolerate antibiotics by being metabolically inactive. Unlike resistant bacteria, they do NOT have unique resistance genes. They simply wait until antibiotics are gone, then resume growth.", hy:true},
+];
+
+function buildFRQ(container, questions, prefix) {
+  const el = document.getElementById(container);
+  el.innerHTML = '';
+  questions.forEach((q,i) => {
+    const hy = q.hy ? 'hy-frq' : '';
+    const hyQ = q.hy ? ' hy-frq' : '';
+    el.innerHTML += `
+    <div class="frq-card ${hy}">
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy?'<span class="hy-badge">HIGH YIELD</span>':''}</div>
+      <textarea placeholder="Write your answer..." id="${prefix}-ta-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ('${prefix}',${i})">Reveal Answer</button>
+      <div class="frq-answer" id="${prefix}-ans-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="${prefix}-grade-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ('${prefix}',${i},'got-it')">Got it</button>
+        <button class="grade-btn partial" onclick="gradeFRQ('${prefix}',${i},'partial')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ('${prefix}',${i},'missed')">Missed</button>
+      </div>
+    </div>`;
+  });
+}
+
+const frqGrades = {};
+const hardGrades = {};
+
+function revealFRQ(prefix, i) {
+  document.getElementById(prefix+'-ans-'+i).classList.add('show');
+  document.getElementById(prefix+'-grade-'+i).classList.add('show');
+}
+
+function gradeFRQ(prefix, i, grade) {
+  const grades = prefix === 'frq' ? frqGrades : hardGrades;
+  grades[i] = grade;
+  const btns = document.getElementById(prefix+'-grade-'+i).querySelectorAll('.grade-btn');
+  btns.forEach(b => b.classList.remove('selected-grade'));
+  event.target.classList.add('selected-grade');
+  updateFRQScore(prefix);
+}
+
+function updateFRQScore(prefix) {
+  const grades = prefix === 'frq' ? frqGrades : hardGrades;
+  const total = prefix === 'frq' ? frqs.length : hardFrqs.length;
+  let pts = 0, answered = 0;
+  Object.values(grades).forEach(g => {
+    answered++;
+    if(g==='got-it') pts += 1;
+    else if(g==='partial') pts += 0.5;
+  });
+  const pct = answered ? Math.round((pts/total)*100) : 0;
+  document.getElementById(prefix+'-score').textContent = pct + '%';
+}
+
+function resetFRQ() {
+  Object.keys(frqGrades).forEach(k => delete frqGrades[k]);
+  buildFRQ('frq-container', frqs, 'frq');
+  document.getElementById('frq-score').textContent = '0%';
+}
+
+// ====== HARD FRQ ======
+const hardFrqs = [
+  {q:"A student claims the LAC operon is fully ON whenever lactose is present. What critical detail are they missing? Explain with the role of catabolite repression.", a:"They're missing <strong>catabolite repression</strong>. Even with lactose present, if glucose is also present, the Pts system inhibits adenylate cyclase &rarr; low cAMP &rarr; no cAMP-CRP &rarr; CRP cannot bind upstream of the lac promoter. Without CRP activation, RNAP binds weakly &rarr; transcription is minimal. Full expression requires <strong>both</strong> lactose present (to inactivate LacI) AND glucose absent (to allow cAMP-CRP activation).", hy:true},
+  {q:"Explain how the Pho system achieves both activation AND feedback control using the same protein, PhoR.", a:"PhoR acts as a <strong>bifunctional enzyme</strong>. When phosphate is low: PhoU releases PhoR &rarr; PhoR autophosphorylates &rarr; acts as KINASE to phosphorylate PhoB (activation). When phosphate returns: Pst resumes transport &rarr; PhoU re-sequesters PhoR &rarr; PhoR switches to PHOSPHATASE mode &rarr; dephosphorylates PhoB (feedback OFF). Same protein, two opposite enzymatic activities depending on Pst/PhoU state.", hy:true},
+  {q:"A mutation knocks out the sRNA SdsR. How would this affect the bacteria's ability to develop antibiotic resistance under sublethal ampicillin?", a:"Without SdsR, <strong>MutS would not be repressed</strong>. MutS (mismatch repair) would remain active. Even though Pol IV still introduces base substitutions, MutS would <strong>repair those mismatches</strong>. The mutation rate would be significantly lower &rarr; fewer resistance-conferring mutations would become fixed. The bacteria would be <strong>less likely to evolve resistance</strong> under sublethal ampicillin.", hy:true},
+  {q:"Compare and contrast persisters vs. resistant bacteria. A patient takes a full antibiotic course, feels better, stops early. Which population is more dangerous and why?", a:"<strong>Resistant bacteria</strong> have genetic mutations conferring resistance; they grow in the presence of antibiotics. <strong>Persisters</strong> are dormant and simply tolerate antibiotics without genetic changes. If a patient stops early, <strong>persisters are more dangerous</strong> because they wake up and resume growth once antibiotics drop below effective levels. They can then repopulate the infection. However, through error-prone repair mechanisms, persisters can also develop true resistance mutations over time.", hy:true},
+  {q:"Design a two-component system that senses high temperature. Define the sensor, signal transduction, response, and feedback mechanism.", a:"<strong>Sensor</strong>: Histidine kinase with a periplasmic sensing domain that changes conformation at high temps (protein unfolds or changes shape). <strong>Transduction</strong>: Heat causes dimerization + autophosphorylation of His &rarr; phosphotransfer to Asp on response regulator. <strong>Response</strong>: Phosphorylated response regulator activates heat shock genes (chaperones like DnaK/GroEL, proteases). <strong>Feedback</strong>: When chaperones resolve misfolded proteins and temperature normalizes, a phosphatase dephosphorylates the response regulator.", hy:true},
+  {q:"Explain why sublethal antibiotic concentrations are arguably MORE dangerous for public health than lethal concentrations.", a:"Lethal concentrations <strong>kill bacteria</strong>, removing them from the population. Sublethal concentrations <strong>don't kill</strong> but trigger stress responses: activate RpoS &rarr; upregulate Pol IV (error-prone polymerase) &rarr; repress MutS (mismatch repair) &rarr; massively increase mutation rate. This generates diversity including resistance mutations. Also promotes persister formation and efflux pump upregulation. The surviving, mutated bacteria can then resist higher concentrations. Sublethal exposure is essentially a <strong>training ground</strong> for resistance evolution.", hy:true},
+  {q:"A lacI mutant produces a LacI protein that cannot bind allolactose but can still bind the operator. What happens to LAC operon expression?", a:"The LAC operon would be <strong>constitutively OFF</strong> (permanently repressed). LacI still binds the operator and blocks transcription, but since it cannot bind allolactose, it can never be inactivated. Even when lactose is present, the repressor stays on the operator. The cell cannot metabolize lactose. This is called a <strong>super-repressor</strong> mutation (lacI^s).", hy:true},
+  {q:"Trace the full pathway from ampicillin exposure to a fixed resistance mutation. Include all key molecules.", a:"<strong>Ampicillin</strong> damages peptidoglycan &rarr; <strong>Rcs phospho-relay</strong> senses PG damage &rarr; activates <strong>RpoS</strong> via sRNA <strong>RprA</strong>. Also, <strong>ppGpp</strong> (alarmone) accumulates and further activates RpoS. RpoS does two things: 1) Upregulates <strong>Pol IV</strong> (error-prone polymerase) which introduces base substitutions. 2) Activates sRNA <strong>SdsR</strong> which base-pairs with <strong>mutS</strong> mRNA &rarr; downregulates <strong>MutS</strong> (mismatch repair). Result: Pol IV makes errors + MutS can't fix them = <strong>mutations become fixed</strong>. If a mutation happens to confer ampicillin resistance, that cell survives and proliferates.", hy:true},
+  {q:"Why is feedback control essential in stress response systems? What would happen to a bacterial cell if the Pho system lacked feedback?", a:"Without feedback, PhoB would remain <strong>permanently phosphorylated</strong> even after phosphate levels normalize. The cell would constitutively express all 47 Pho regulon genes (phosphatases, transporters, nucleosidases). This wastes enormous amounts of <strong>cellular energy</strong> producing proteins no longer needed. The cell would also potentially degrade essential phosphorylated molecules and disrupt normal phosphate homeostasis. In a competitive environment, these cells would be <strong>outcompeted</strong> by cells with functional feedback.", hy:true},
+];
+
+function resetHard() {
+  Object.keys(hardGrades).forEach(k => delete hardGrades[k]);
+  buildFRQ('hard-container', hardFrqs, 'hard');
+  document.getElementById('hard-score').textContent = '0%';
+}
+
+buildFRQ('frq-container', frqs, 'frq');
+buildFRQ('hard-container', hardFrqs, 'hard');
+
+// ====== MATCHING ======
+const matchPairs = [
+  {term:"LacI", def:"Repressor that binds operator to block lac transcription"},
+  {term:"Allolactose", def:"True inducer of the LAC operon; inactivates LacI"},
+  {term:"LacY", def:"Permease that transports lactose into the cell"},
+  {term:"Histidine Kinase", def:"Sensor protein that auto-phosphorylates His residue"},
+  {term:"Response Regulator", def:"Protein with Asp receiver + DNA-binding domain"},
+  {term:"PhoR", def:"Histidine kinase in the phosphate sensing system"},
+  {term:"Pol IV", def:"Error-prone polymerase that introduces base substitutions"},
+  {term:"MutS", def:"Mismatch repair protein repressed by SdsR during stress"},
+  {term:"Persisters", def:"Dormant bacteria that tolerate antibiotics without resistance genes"},
+  {term:"CRP-cAMP", def:"Complex that activates alternative carbon source operons when glucose is absent"},
+];
+
+let matchLeft = null, matchRight = null, matchedCount = 0, matchMap = {};
+
+function initMatching() {
+  matchLeft = null; matchRight = null; matchedCount = 0; matchMap = {};
+  const lDiv = document.getElementById('match-left');
+  const rDiv = document.getElementById('match-right');
+  const shuffledL = [...matchPairs].sort(() => Math.random()-0.5);
+  const shuffledR = [...matchPairs].sort(() => Math.random()-0.5);
+  lDiv.innerHTML = shuffledL.map((p,i) => `<div class="match-item" data-term="${p.term}" onclick="selectMatch('left',this)">${p.term}</div>`).join('');
+  rDiv.innerHTML = shuffledR.map((p,i) => `<div class="match-item" data-term="${p.term}" onclick="selectMatch('right',this)">${p.def}</div>`).join('');
+  document.getElementById('match-score').textContent = '0 / '+matchPairs.length;
+}
+
+function selectMatch(side, el) {
+  if(el.classList.contains('matched')) return;
+  const col = el.parentElement;
+  col.querySelectorAll('.match-item').forEach(i => { if(!i.classList.contains('matched')) i.classList.remove('selected'); });
+  el.classList.add('selected');
+  if(side==='left') matchLeft = el;
+  else matchRight = el;
+  if(matchLeft && matchRight) checkMatch();
+}
+
+function checkMatch() {
+  const lt = matchLeft.dataset.term;
+  const rt = matchRight.dataset.term;
+  if(lt === rt) {
+    matchLeft.classList.add('matched'); matchLeft.classList.remove('selected');
+    matchRight.classList.add('matched'); matchRight.classList.remove('selected');
+    matchedCount++;
+    document.getElementById('match-score').textContent = matchedCount+' / '+matchPairs.length;
+  } else {
+    matchLeft.classList.add('wrong-match'); matchRight.classList.add('wrong-match');
+    const l = matchLeft, r = matchRight;
+    setTimeout(() => { l.classList.remove('wrong-match','selected'); r.classList.remove('wrong-match','selected'); }, 700);
+  }
+  matchLeft = null; matchRight = null;
+}
+
+initMatching();
+</script>
+</body>
+</html>

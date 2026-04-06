@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antibiotic Resistance - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight { color: var(--green); font-weight: 600; }
+  .organism { color: var(--orange); font-weight: 600; }
+  .warn { color: var(--red); font-weight: 600; }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  /* HIGH YIELD */
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+
+  .hy-legend {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--yellow-dim);
+    border: 1px solid #ffd43b40;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 600;
+  }
+
+  .exam-topics {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border: 1px solid #ffd43b30;
+    border-radius: 10px;
+  }
+  .exam-topics p {
+    font-size: 12px;
+    color: var(--yellow);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  /* HERO */
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  /* TABS */
+  .tab-row { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TABLES */
+  .data-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .data-table th, .data-table td { padding: 8px 12px; border: 1px solid var(--border); text-align: left; font-size: 13.5px; }
+  .data-table th { background: var(--surface2); color: var(--accent-light); font-weight: 600; }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  /* DIAGRAM */
+  .diagram-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 14px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .diagram-box .arr { color: var(--accent-light); }
+  .diagram-box .mol { color: var(--green); font-weight: 700; }
+  .diagram-box .label { color: var(--text-dim); font-style: italic; }
+
+  .callout {
+    background: #00cec920;
+    border: 1px solid #00cec940;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* SCORE BAR */
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  /* FLASHCARD */
+  .fc-container { perspective: 1000px; margin-bottom: 16px; }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav { display: flex; gap: 10px; justify-content: center; align-items: center; }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+  .fc-hint { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 10px; }
+
+  /* MATCHING */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  /* FRQ */
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #4a4e63; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hard')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================== HOME ==================== -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Antibiotic Resistance</h1>
+    <p>BIOL 3303 &middot; Lecture 15 &mdash; Discovery, Mechanisms &amp; the Resistance Crisis</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">7</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">26</div><div class="stat-label">FRQs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>History of antibiotic discovery &mdash; the two main players and what they discovered</li>
+        <li>What is an antibiotic? (bactericidal vs bacteriostatic)</li>
+        <li>Targets of antibiotics (5 general mechanisms, not specific drugs)</li>
+        <li>Testing for antibiotic susceptibility (MIC)</li>
+        <li>Antibiotic resistance &mdash; what is it, how it occurs (4 mechanisms)</li>
+        <li>Treating antibiotic resistant infections</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LEARN ==================== -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn hy-tab active" onclick="showTab(this,'history')">Discovery History</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'whatis')">What Is an Antibiotic</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'targets')">Targets of Antibiotics</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'susceptibility')">Susceptibility Testing</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'resistance')">Resistance Mechanisms</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'treating')">Treating Resistant Infections</button>
+    <button class="tab-btn hy-tab" onclick="showTab(this,'stopping')">Stopping the Crisis</button>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="tab-content active" id="tab-history">
+    <div class="card hy-card">
+      <h2>History of Antibiotic Discovery <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>Before antibiotics, infectious diseases were the <span class="warn">leading cause of death</span>. Two key figures changed everything.</p>
+
+      <h3>Paul Ehrlich (1854&ndash;1915) &mdash; The "Magic Bullet" Pioneer</h3>
+      <ul>
+        <li>Born in Poland, earned doctorate studying <span class="highlight">tissue staining with dyes</span> (foundational for pathology)</li>
+        <li>Won <span class="highlight">Nobel Prize in 1908</span> for contributions to immunology (serum therapy for diphtheria)</li>
+        <li>Hypothesized he could stain bacteria &rarr; successfully stained <span class="organism">Mycobacterium tuberculosis</span></li>
+        <li>His staining work led <span class="highlight">Hans Christian Gram</span> to develop the Gram Stain technique</li>
+        <li>Theorized "magic bullets" &mdash; chemicals that would <span class="warn">exclusively target the parasite</span> within the organism</li>
+        <li>With <span class="highlight">Sahachiro Hata</span>, screened compounds against syphilis (<span class="organism">Treponema pallidum</span>, discovered 1905)</li>
+        <li>Found <span class="highlight">Salvarsan</span> and <span class="highlight">Neosalvarsan</span> &mdash; could treat syphilis</li>
+        <li><span class="warn">Not considered a true antibiotic</span> &mdash; he is considered one of the founders of <span class="highlight">chemotherapy</span></li>
+      </ul>
+
+      <h3>Alexander Fleming (1881&ndash;1955) &mdash; The Discoverer of Penicillin</h3>
+      <ul>
+        <li>Born in Scotland, served as captain in WWI Medical Corps &mdash; saw soldiers die from infected wounds</li>
+        <li><span class="warn">"Not a very careful scientist"</span> &mdash; this actually led to TWO major discoveries:</li>
+      </ul>
+
+      <h3>Discovery #1: Lysozyme (1922)</h3>
+      <ul>
+        <li>Had a cold &rarr; plated some of his <span class="highlight">mucus</span> &rarr; forgot about it for 2 weeks</li>
+        <li>Found bacteria everywhere on the plate <span class="warn">except where his mucus was</span></li>
+        <li>Discovered this antimicrobial substance was also in saliva and tears</li>
+        <li>Named it <span class="highlight">lysozyme</span> (1922)</li>
+      </ul>
+
+      <h3>Discovery #2: Penicillin (1928)</h3>
+      <ul>
+        <li>Was experimenting with <span class="organism">Staphylococcus aureus</span> &rarr; left an open plate by an open window &rarr; went on vacation</li>
+        <li>Came back and found the plate <span class="highlight">contaminated with a fungus</span></li>
+        <li>Noticed <span class="organism">S. aureus</span> colonies were <span class="warn">dying near the edge of the fungus</span></li>
+        <li>Identified the fungus as <span class="organism">Penicillium</span></li>
+        <li>Diluted the fungus in culture &rarr; inhibited gram-positive bacteria up to <span class="highlight">800-fold dilution</span></li>
+        <li>Theorized it was some "juice" the mold produced &rarr; named it <span class="highlight">penicillin</span></li>
+        <li>Could kill agents of scarlet fever, pneumonia, gonorrhea, meningitis, diphtheria</li>
+        <li>Published results in <span class="highlight">1929</span> &mdash; to little interest</li>
+        <li>Argued for penicillin from 1929 on but couldn't produce large enough quantities</li>
+        <li><span class="highlight">Howard Florey</span> and <span class="highlight">Ernst Chain</span> helped him mass-produce penicillin</li>
+        <li>At onset of WWII &rarr; mass-produced in the US by Pfizer, Merck, Abbott, and others</li>
+        <li>Fleming, Florey, and Chain won the <span class="highlight">Nobel Prize in 1945</span></li>
+      </ul>
+
+      <div class="callout">Context: Before penicillin, infectious disease was the #1 killer. After mass production, deaths from infection plummeted. This is visible in the leading causes of death charts from 1900s vs 2000s.</div>
+    </div>
+  </div>
+
+  <!-- WHAT IS AN ANTIBIOTIC -->
+  <div class="tab-content" id="tab-whatis">
+    <div class="card hy-card">
+      <h2>What Is an Antibiotic? <span class="hy-badge">HIGH YIELD</span></h2>
+
+      <p><span class="key">DEF</span> An antibiotic is a medicine that <span class="highlight">inhibits the growth of or destroys microorganisms</span>.</p>
+
+      <div class="callout">Antibiotics can clear a bacterial infection but may NOT actually kill the bacteria!</div>
+
+      <h3>Two Types</h3>
+      <table class="data-table hy-table">
+        <tr><th>Type</th><th>Definition</th><th>How It Works</th></tr>
+        <tr><td><span class="highlight">Bactericidal</span></td><td>Can directly <span class="warn">kill</span> the bacteria</td><td>Targets essential structures/processes so cell dies</td></tr>
+        <tr><td><span class="highlight">Bacteriostatic</span></td><td>Cannot directly kill, but <span class="warn">stops growth</span></td><td>Halts bacterial replication; host immune system then clears the pathogen</td></tr>
+      </table>
+
+      <h3>What Makes a Good Antibiotic?</h3>
+      <ul>
+        <li>Clears bacterial infections</li>
+        <li><span class="highlight">Broad spectrum</span> = targets many species of bacteria (more useful)</li>
+        <li><span class="highlight">Narrow spectrum</span> = only targets a few species</li>
+        <li><span class="warn">Not toxic to humans</span> &mdash; achieved by targeting <span class="highlight">prokaryotic-specific</span> structures</li>
+        <li>Effective at a <span class="highlight">physiologically achievable dose</span></li>
+        <li>Can be easily delivered (oral preferred, also IV)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TARGETS -->
+  <div class="tab-content" id="tab-targets">
+    <div class="card hy-card">
+      <h2>Targets of Antibiotics (5 General Mechanisms) <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>Most antibiotics target one of <span class="warn">5 prokaryotic-specific targets</span>. This is how they avoid harming human cells.</p>
+
+      <table class="data-table hy-table">
+        <tr><th>#</th><th>Target</th><th>Why It Works</th></tr>
+        <tr><td>1</td><td><span class="highlight">Cell Wall</span></td><td>Human cells don't have cell walls; bacteria need peptidoglycan to survive</td></tr>
+        <tr><td>2</td><td><span class="highlight">DNA/RNA Synthesis</span></td><td>Bacterial DNA replication and transcription machinery differs from eukaryotic</td></tr>
+        <tr><td>3</td><td><span class="highlight">Folate Synthesis</span></td><td>Bacteria must synthesize their own folate; humans get it from diet</td></tr>
+        <tr><td>4</td><td><span class="highlight">Prokaryotic Cell Membrane</span></td><td>Bacterial membranes have different composition than human membranes</td></tr>
+        <tr><td>5</td><td><span class="highlight">Protein Synthesis</span></td><td>Prokaryotic ribosomes (70S) are different from eukaryotic (80S); many ways to inhibit them</td></tr>
+      </table>
+
+      <div class="callout">Key concept: Antibiotics can target the SAME pathway at DIFFERENT points. For example, there are many different antibiotics that inhibit protein synthesis, each with a unique mechanism of action.</div>
+
+      <h3>Mechanism of Action = the biochemical process through which a drug produces its effect</h3>
+      <ul>
+        <li>Each antibiotic has its own specific mechanism of action</li>
+        <li>Multiple antibiotics can target the same general pathway but hit different steps</li>
+        <li>Protein synthesis is the most commonly targeted because the prokaryotic ribosome has many vulnerable points</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SUSCEPTIBILITY TESTING -->
+  <div class="tab-content" id="tab-susceptibility">
+    <div class="card hy-card">
+      <h2>Testing for Antibiotic Susceptibility <span class="hy-badge">HIGH YIELD</span></h2>
+      <p>The goal of infectious disease care: identify which antibiotic works and at what dose.</p>
+
+      <h3>The Process</h3>
+      <div class="diagram-box"><span class="label">1.</span> Collect bacteria from the patient (culture)
+   <span class="arr">&rarr;</span> grow on culture media
+
+<span class="label">2.</span> Expose bacteria to different <span class="mol">antibiotics</span>
+
+<span class="label">3.</span> Check for results:
+   <span class="mol">No growth</span> = bacteria is susceptible (antibiotic works)
+   <span class="warn">Growth</span>   = bacteria is resistant (antibiotic doesn't work)
+
+<span class="label">4.</span> Find the <span class="mol">effective dose</span></div>
+
+      <h3>Minimum Inhibitory Concentration (MIC)</h3>
+      <ul>
+        <li><span class="key">MIC</span> = the <span class="highlight">lowest concentration of an antibiotic</span> that prevents visible growth of the bacterium</li>
+        <li>Determined by exposing bacteria to <span class="highlight">serial dilutions</span> of the antibiotic</li>
+        <li>The MIC tells clinicians what dose to prescribe</li>
+        <li>If MIC is higher than what can be safely achieved in the patient's body &rarr; that antibiotic is <span class="warn">not useful</span></li>
+      </ul>
+
+      <div class="callout">Clinical goal: Find an antibiotic with an MIC that is achievable at a safe, physiological dose in the patient.</div>
+    </div>
+  </div>
+
+  <!-- RESISTANCE MECHANISMS -->
+  <div class="tab-content" id="tab-resistance">
+    <div class="card hy-card">
+      <h2>Antibiotic Resistance <span class="hy-badge">HIGH YIELD</span></h2>
+
+      <h3>What Is Antibiotic Resistance?</h3>
+      <p>When bacteria can <span class="warn">survive and grow</span> in the presence of an antibiotic that would normally kill or inhibit them. Extended resistance across multiple antibiotics creates <span class="warn">"superbugs."</span></p>
+      <ul>
+        <li>Resistance often develops <span class="warn">quickly</span> after a new antibiotic is introduced</li>
+        <li>Currently ~<span class="highlight">700,000 deaths/year</span> globally from resistant infections</li>
+        <li>Estimated to reach <span class="warn">10 million/year by 2050</span></li>
+        <li>~2 million infections and ~35,900 deaths/year in the US alone (2019 CDC data)</li>
+      </ul>
+
+      <h3>How Does Resistance Arise?</h3>
+      <ul>
+        <li><span class="highlight">Mutations within the cell</span> (spontaneous or stress-induced, e.g. error-prone repair from Lecture 14)</li>
+        <li><span class="highlight">Horizontal gene transfer</span> &mdash; acquiring resistance genes from other bacteria via:
+          <ul>
+            <li>Transformation, conjugation, or transduction (Lecture 12)</li>
+            <li>Plasmids, transposons, and phages can carry resistance genes</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>4 General Mechanisms of Resistance</h3>
+      <table class="data-table hy-table">
+        <tr><th>#</th><th>Mechanism</th><th>How It Works</th><th>Details</th></tr>
+        <tr><td>1</td><td><span class="highlight">Decreased Permeability</span></td><td>Reduce entry of antibiotic into the cell</td><td>Reduce number/size of outer membrane pores; primarily a <span class="organism">gram-negative</span> tactic</td></tr>
+        <tr><td>2</td><td><span class="highlight">Target Site Alteration</span></td><td>Change the antibiotic's binding site so it no longer binds</td><td>Can involve changes to DNA, lipid, or protein targets</td></tr>
+        <tr><td>3</td><td><span class="highlight">Enzyme Inactivation</span></td><td>Destroy the antibiotic before it works</td><td>Bacteria produce enzymes that break the antibiotic apart (e.g. beta-lactamases destroy beta-lactam ring)</td></tr>
+        <tr><td>4</td><td><span class="highlight">Efflux Pumps</span></td><td>Pump the antibiotic out of the cell</td><td>Overexpression of efflux pumps; same pump can work against <span class="warn">multiple antibiotics</span></td></tr>
+      </table>
+
+      <div class="callout">Remember: Resistance can spread between bacteria via horizontal gene transfer. One resistant bacterium can share its resistance genes with others that were previously susceptible.</div>
+    </div>
+  </div>
+
+  <!-- TREATING RESISTANT INFECTIONS -->
+  <div class="tab-content" id="tab-treating">
+    <div class="card hy-card">
+      <h2>Treating Antibiotic Resistant Infections <span class="hy-badge">HIGH YIELD</span></h2>
+
+      <h3>Strategy 1: Resensitize &mdash; Change the Antibiotic Structure</h3>
+      <ul>
+        <li>Modify the <span class="highlight">non-essential structure</span> of the antibiotic so resistance mechanisms don't recognize it</li>
+        <li>Most common historical approach to preserving antibiotics</li>
+        <li><span class="warn">Not a good long-term solution</span> &mdash; pathogens adapt fast</li>
+      </ul>
+
+      <h3>Strategy 2: Resensitize &mdash; Target the Resistance Mechanism</h3>
+      <ul>
+        <li>Example: bacteria produce <span class="warn">beta-lactamases</span> that destroy beta-lactam ring antibiotics (penicillin, cephalosporin, carbapenem, monobactam)</li>
+        <li><span class="highlight">Avibactam</span> = a beta-lactamase inhibitor</li>
+        <li>Has little direct antibacterial activity on its own</li>
+        <li>But it <span class="highlight">inactivates the beta-lactamase enzyme</span></li>
+        <li>When combined with a beta-lactam (e.g. ceftazidime) &rarr; the beta-lactam <span class="highlight">regains its activity</span></li>
+      </ul>
+
+      <h3>Strategy 3: Multi-Drug Combinations</h3>
+      <ul>
+        <li>Use <span class="highlight">multiple antibiotics</span> instead of one</li>
+        <li>Hits multiple targets at once</li>
+        <li><span class="warn">Reduces the rate of resistance</span> &mdash; here's the math:</li>
+      </ul>
+
+      <div class="diagram-box"><span class="label">Mutation frequency</span> = resistant mutants / total population
+
+Example: 10 resistant out of 10,000 CFU = <span class="mol">1 &times; 10⁻³</span>
+
+<span class="label">With TWO antibiotics:</span>
+  Antibiotic A mutation freq = <span class="mol">1 &times; 10⁻⁵</span>
+  Antibiotic B mutation freq = <span class="mol">1 &times; 10⁻⁵</span>
+
+  Chance of resistance to BOTH =
+  (1 &times; 10⁻⁵) &times; (1 &times; 10⁻⁵) = <span class="warn">1 &times; 10⁻¹⁰</span>
+
+<span class="label">Multiplying frequencies makes double resistance astronomically unlikely</span></div>
+
+      <h3>Example: Tuberculosis</h3>
+      <ul>
+        <li><span class="organism">Mycobacterium tuberculosis</span> was a leading cause of death into the 20th century</li>
+        <li>Streptomycin (1943) provided a treatment, but <span class="organism">M. tuberculosis</span> develops resistance quickly</li>
+        <li>In the 1970s a <span class="highlight">4-drug combination</span> was identified &mdash; still used today</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STOPPING THE CRISIS -->
+  <div class="tab-content" id="tab-stopping">
+    <div class="card hy-card">
+      <h2>Stopping the Antibiotic Resistance Crisis <span class="hy-badge">HIGH YIELD</span></h2>
+
+      <h3>The Pipeline Problem</h3>
+      <ul>
+        <li>New drug applications for antibiotics are <span class="warn">dropping</span></li>
+        <li>No longer profitable: costs <span class="warn">$1.7 billion</span> to develop, only <span class="highlight">$46 million/year</span> profit</li>
+        <li>Most major pharma companies have <span class="warn">shut down</span> their antibiotic discovery divisions</li>
+      </ul>
+
+      <h3>What Can Individuals Do?</h3>
+      <ul>
+        <li>Practice good hygiene (wash hands)</li>
+        <li>Only take antibiotics when needed (<span class="warn">antibiotics don't work on viruses</span>)</li>
+        <li>Take your <span class="highlight">full dosage for the full time</span> &mdash; the full course is needed to kill all bacteria</li>
+        <li>Dispose of any extras</li>
+      </ul>
+
+      <h3>What Can Hospitals Do?</h3>
+      <ul>
+        <li>Practice good hygiene</li>
+        <li>Only prescribe antibiotics when needed</li>
+        <li>Always prescribe <span class="highlight">more than one antibiotic</span> to reduce evolution of resistance</li>
+      </ul>
+
+      <h3>What Can Governments Do?</h3>
+      <ul>
+        <li>Invest in antibiotic resistance research</li>
+        <li>Incentivize pharmaceutical investment</li>
+        <li>Reduce the use of antibiotics in <span class="highlight">livestock</span></li>
+      </ul>
+
+      <div class="callout">"A post-antibiotic era means, in effect, an end to modern medicine as we know it. Things as common as strep throat or a child's scratched knee could once again kill." &mdash; Margaret Chan, Director-general WHO, 2012</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FLASHCARDS ==================== -->
+<div class="section" id="sec-flashcards">
+  <div class="score-bar">
+    <div><span class="score-text">Flashcard Progress</span></div>
+    <div><span class="score-pct" id="fc-score">0 / 24</span></div>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&larr;</button>
+    <span class="fc-counter" id="fc-counter">1 / 24</span>
+    <button class="fc-btn" onclick="nextCard()">&rarr;</button>
+  </div>
+  <div class="fc-hint">Click to flip &middot; Arrow keys to navigate</div>
+</div>
+
+<!-- ==================== FRQ ==================== -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div><span class="score-text">FRQ Self-Assessment</span></div>
+    <div><span class="score-pct" id="frq-score">0%</span></div>
+    <button class="reset-btn" onclick="resetFRQ()">Reset All</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- ==================== MATCHING ==================== -->
+<div class="section" id="sec-matching">
+  <div class="score-bar">
+    <div><span class="score-text">Matching</span></div>
+    <div><span class="score-pct" id="match-score">0 / 10</span></div>
+    <button class="reset-btn" onclick="initMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div>
+      <div class="match-col-header">Term</div>
+      <div id="match-left"></div>
+    </div>
+    <div>
+      <div class="match-col-header">Definition</div>
+      <div id="match-right"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HARD FRQ ==================== -->
+<div class="section" id="sec-hard">
+  <div class="score-bar">
+    <div><span class="score-text">Hard FRQ (Exam-Level)</span></div>
+    <div><span class="score-pct" id="hard-score">0%</span></div>
+    <button class="reset-btn" onclick="resetHard()">Reset All</button>
+  </div>
+  <div id="hard-container"></div>
+</div>
+
+</main>
+
+<script>
+// ====== NAVIGATION ======
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function showTab(btn, id) {
+  btn.closest('.section').querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  btn.closest('.section').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ====== FLASHCARDS ======
+const flashcards = [
+  {q:"Who was Paul Ehrlich and what did he contribute?", a:"Polish scientist (1854-1915). Pioneered tissue staining with dyes, stained M. tuberculosis (led to Gram stain), theorized 'magic bullets,' and with Sahachiro Hata found Salvarsan/Neosalvarsan to treat syphilis. Nobel Prize 1908. Founder of chemotherapy, NOT true antibiotics."},
+  {q:"Who was Alexander Fleming and what did he discover?", a:"Scottish scientist (1881-1955). Discovered lysozyme (1922) from his own mucus and penicillin (1928) from Penicillium fungus contaminating a S. aureus plate. Published 1929, mass-produced in WWII with help from Florey and Chain. Nobel Prize 1945."},
+  {q:"How did Fleming discover penicillin?", a:"Left an open S. aureus plate by an open window, went on vacation. Came back to find it contaminated with Penicillium fungus. S. aureus colonies were dying near the fungus edge. He isolated the 'mold juice' and named it penicillin."},
+  {q:"Who helped Fleming mass-produce penicillin?", a:"Howard Florey and Ernst Chain. They became interested around 1940 and helped scale production. At the onset of WWII, it was mass-produced in the US by Pfizer, Merck, Abbott, Lederle, and Squibb. All three won the Nobel Prize in 1945."},
+  {q:"What is an antibiotic?", a:"A medicine that inhibits the growth of or destroys microorganisms. Can clear a bacterial infection but may not actually kill the bacteria."},
+  {q:"What is the difference between bactericidal and bacteriostatic?", a:"Bactericidal = directly KILLS bacteria. Bacteriostatic = stops bacterial growth but doesn't kill; relies on the host immune system to clear the pathogen."},
+  {q:"What makes a good antibiotic?", a:"Clears bacterial infections, broad spectrum preferred, NOT toxic to humans (targets prokaryotic-specific structures), effective at a physiologically achievable dose, and easily delivered (oral or IV)."},
+  {q:"What are the 5 general targets of antibiotics?", a:"1) Cell wall\n2) DNA/RNA synthesis\n3) Folate synthesis\n4) Prokaryotic cell membrane\n5) Protein synthesis"},
+  {q:"Why do antibiotics target prokaryotic-specific structures?", a:"To avoid being toxic to human cells. For example: bacteria have cell walls (humans don't), bacteria use 70S ribosomes (humans use 80S), bacteria synthesize their own folate (humans get it from diet)."},
+  {q:"What is a mechanism of action?", a:"The biochemical process through which a drug produces its effect. Each antibiotic has its own mechanism of action, even if multiple antibiotics target the same general pathway."},
+  {q:"What is MIC?", a:"Minimum Inhibitory Concentration &mdash; the lowest concentration of an antibiotic that prevents visible growth of the bacterium. Used to determine what dose to prescribe."},
+  {q:"How is antibiotic susceptibility tested?", a:"1) Culture bacteria from patient\n2) Expose to different antibiotics\n3) No growth = susceptible; growth = resistant\n4) Find the effective dose (MIC)"},
+  {q:"What is antibiotic resistance?", a:"When bacteria can survive and grow in the presence of an antibiotic that would normally kill or inhibit them. Can arise from mutations or horizontal gene transfer."},
+  {q:"How does antibiotic resistance arise?", a:"Two ways: 1) Mutations within the cell (spontaneous or stress-induced). 2) Horizontal gene transfer &mdash; acquiring resistance genes via transformation, conjugation, or transduction (carried on plasmids, transposons, phages)."},
+  {q:"What are the 4 mechanisms of antibiotic resistance?", a:"1) Decreased permeability (reduce/shrink outer membrane pores)\n2) Target site alteration (change binding site)\n3) Enzyme inactivation (destroy the antibiotic)\n4) Efflux pumps (pump antibiotic out of cell)"},
+  {q:"Which resistance mechanism is primarily a gram-negative tactic?", a:"Decreased permeability &mdash; reducing the number or size of outer membrane pores. Gram-negatives have an outer membrane with porins that gram-positives lack."},
+  {q:"How do efflux pumps contribute to resistance?", a:"Overexpression of efflux pumps allows the pathogen to pump out the antibiotic before it can interact with its target. The same efflux pump can work against MULTIPLE different antibiotics."},
+  {q:"What are beta-lactamases?", a:"Enzymes produced by bacteria that destroy beta-lactam ring antibiotics (penicillin, cephalosporin, carbapenem, monobactam). This is an example of resistance by enzyme inactivation."},
+  {q:"How does changing antibiotic structure help treat resistance?", a:"Modify the non-essential structure of the antibiotic so the pathogen's resistance mechanisms don't recognize it. Most common historical approach, but NOT a good long-term solution since pathogens adapt fast."},
+  {q:"What is avibactam and how does it work?", a:"A beta-lactamase inhibitor. Has little direct antibacterial activity, but inactivates the beta-lactamase enzyme. When combined with a beta-lactam (e.g. ceftazidime), the beta-lactam regains its activity."},
+  {q:"Why do multi-drug combinations reduce resistance?", a:"They hit multiple targets at once. The chance of a bacterium being resistant to BOTH is the product of individual mutation frequencies. E.g. if each is 1&times;10⁻⁵, chance of double resistance = 1&times;10⁻¹⁰."},
+  {q:"What is mutation frequency?", a:"The number of resistant mutants compared to total population. E.g. 10 resistant mutants out of 10,000 CFU = 10/10,000 = 1&times;10⁻³."},
+  {q:"How is tuberculosis treated and why?", a:"With a 4-drug combination (identified in 1970s, still used today). M. tuberculosis develops resistance quickly to single drugs, so multi-drug therapy is essential."},
+  {q:"Why is the antibiotic pipeline drying up?", a:"No longer profitable: costs $1.7 billion to develop, only $46 million/year profit. Most major pharmaceutical companies have shut down their antibiotic discovery divisions."}
+];
+
+let fcIdx = 0;
+function renderCard() {
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-front').innerHTML = flashcards[fcIdx].q;
+  document.getElementById('fc-back').innerHTML = flashcards[fcIdx].a.replace(/\n/g,'<br>');
+  document.getElementById('fc-counter').textContent = (fcIdx+1)+' / '+flashcards.length;
+  document.getElementById('fc-score').textContent = (fcIdx+1)+' / '+flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIdx = (fcIdx+1) % flashcards.length; renderCard(); }
+function prevCard() { fcIdx = (fcIdx-1+flashcards.length) % flashcards.length; renderCard(); }
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight') nextCard();
+  if(e.key==='ArrowLeft') prevCard();
+  if(e.key===' '||e.key==='Enter') { e.preventDefault(); flipCard(); }
+});
+renderCard();
+
+// ====== FRQ ======
+const frqs = [
+  {q:"Describe Paul Ehrlich's key contributions to the history of antibiotics.", a:"Ehrlich pioneered <strong>tissue staining with dyes</strong>, successfully stained <strong>M. tuberculosis</strong> (which led Hans Christian Gram to develop the Gram stain), and theorized 'magic bullets' that would exclusively target pathogens. With Sahachiro Hata, he found <strong>Salvarsan and Neosalvarsan</strong> to treat syphilis. Won Nobel Prize in 1908. He's considered a founder of <strong>chemotherapy</strong>, not true antibiotics.", hy:true},
+  {q:"Tell the full story of how Fleming discovered penicillin.", a:"Fleming was experimenting with <strong>S. aureus</strong> in 1928. He left an open plate by an open window and went on vacation. When he returned, the plate was contaminated with a fungus (<strong>Penicillium</strong>). He noticed S. aureus colonies were <strong>dying near the fungus edge</strong>. He isolated the fungus, found its diluted culture could inhibit gram-positive bacteria up to 800-fold dilution, and named the substance <strong>penicillin</strong> (published 1929). It took until WWII for Florey and Chain to help mass-produce it.", hy:true},
+  {q:"What was Fleming's first accidental discovery before penicillin?", a:"<strong>Lysozyme</strong> (1922). He plated some of his mucus when he had a cold, forgot about it for 2 weeks, and found bacteria grew everywhere <strong>except where his mucus was</strong>. He discovered this antimicrobial substance was also present in saliva and tears.", hy:true},
+  {q:"Define antibiotic, bactericidal, and bacteriostatic.", a:"<strong>Antibiotic</strong> = a medicine that inhibits the growth of or destroys microorganisms. <strong>Bactericidal</strong> = directly kills bacteria. <strong>Bacteriostatic</strong> = cannot directly kill but stops growth; relies on the host immune system to clear the infection.", hy:true},
+  {q:"List the 5 general targets of antibiotics and explain why they are prokaryotic-specific.", a:"1) <strong>Cell wall</strong> (humans lack cell walls). 2) <strong>DNA/RNA synthesis</strong> (bacterial machinery differs). 3) <strong>Folate synthesis</strong> (bacteria synthesize folate; humans get it from diet). 4) <strong>Prokaryotic cell membrane</strong> (different composition). 5) <strong>Protein synthesis</strong> (70S vs 80S ribosomes). Targeting prokaryotic-specific structures avoids toxicity to human cells.", hy:true},
+  {q:"Explain what MIC is and how it's used clinically.", a:"<strong>MIC</strong> = Minimum Inhibitory Concentration = the lowest concentration of an antibiotic that prevents visible growth of the bacterium. Clinicians culture the patient's bacteria, expose it to serial dilutions of antibiotics, and determine the MIC. If the MIC is achievable at a safe dose in the patient, that antibiotic can be prescribed.", hy:true},
+  {q:"Describe the steps of antibiotic susceptibility testing.", a:"1) <strong>Culture</strong> bacteria from the patient on media. 2) Expose to different <strong>antibiotics</strong>. 3) Check results: no growth = susceptible, growth = resistant. 4) Determine the <strong>MIC</strong> (effective dose) for susceptible antibiotics.", hy:true},
+  {q:"What is antibiotic resistance and how does it arise?", a:"Antibiotic resistance is when bacteria can <strong>survive and grow</strong> in the presence of an antibiotic that normally kills/inhibits them. It arises two ways: 1) <strong>Mutations within the cell</strong> (spontaneous or stress-induced). 2) <strong>Horizontal gene transfer</strong> &mdash; gaining resistance genes via transformation, conjugation, or transduction (on plasmids, transposons, phages).", hy:true},
+  {q:"List and explain the 4 general mechanisms of antibiotic resistance.", a:"1) <strong>Decreased permeability</strong>: reduce number/size of outer membrane pores to block antibiotic entry (mainly gram-negative). 2) <strong>Target site alteration</strong>: change the binding site so antibiotic no longer binds. 3) <strong>Enzyme inactivation</strong>: produce enzymes that destroy the antibiotic (e.g. beta-lactamases). 4) <strong>Efflux pumps</strong>: pump antibiotic out of the cell before it acts; same pump can work on multiple antibiotics.", hy:true},
+  {q:"How does changing antibiotic structure combat resistance?", a:"Modify the <strong>non-essential structure</strong> of the antibiotic so the pathogen's evolved resistance mechanisms don't recognize it. This has been the most common historical approach, but it's <strong>not a good long-term solution</strong> because pathogens adapt fast.", hy:true},
+  {q:"Explain the beta-lactamase/avibactam strategy for treating resistance.", a:"Bacteria produce <strong>beta-lactamases</strong> that destroy beta-lactam antibiotics by breaking the beta-lactam ring. <strong>Avibactam</strong> is a beta-lactamase inhibitor that inactivates the enzyme. When paired with a beta-lactam like ceftazidime, the antibiotic <strong>regains its activity</strong> because the beta-lactamase is neutralized.", hy:true},
+  {q:"How do multi-drug combinations reduce resistance, and show the math.", a:"Using multiple antibiotics hits <strong>multiple targets at once</strong>. The chance of being resistant to both = product of individual mutation frequencies. If antibiotic A has freq 1&times;10⁻⁵ and B has freq 1&times;10⁻⁵, the chance of resistance to both is (1&times;10⁻⁵) &times; (1&times;10⁻⁵) = <strong>1&times;10⁻¹⁰</strong>, which is astronomically unlikely.", hy:true},
+  {q:"Why is the antibiotic discovery pipeline drying up?", a:"It costs <strong>$1.7 billion</strong> to develop a new antibiotic but only generates about <strong>$46 million/year</strong> in profit. Most major pharmaceutical companies have shut down their antibiotic discovery divisions because it is no longer profitable.", hy:true},
+  {q:"What can individuals, hospitals, and governments do to stop resistance?", a:"<strong>Individuals</strong>: good hygiene, only take antibiotics when needed (not for viruses), take full dosage for full time. <strong>Hospitals</strong>: good hygiene, prescribe antibiotics only when needed, always prescribe more than one. <strong>Governments</strong>: invest in research, incentivize pharma investment, reduce antibiotic use in livestock.", hy:true},
+];
+
+const hardFrqs = [
+  {q:"A patient has a bacterial infection. The lab reports that Antibiotic X has an MIC of 2 &mu;g/mL and Antibiotic Y has an MIC of 256 &mu;g/mL. The maximum safe blood concentration is 32 &mu;g/mL. Which antibiotic should be prescribed and why?", a:"<strong>Antibiotic X</strong> should be prescribed. Its MIC (2 &mu;g/mL) is well below the maximum safe blood concentration (32 &mu;g/mL), so an effective dose can be safely achieved in the patient. Antibiotic Y's MIC (256 &mu;g/mL) far exceeds what can be safely achieved, making it clinically useless for this infection even though the bacteria may technically be 'susceptible' at high enough concentrations.", hy:true},
+  {q:"A gram-negative bacterium is resistant to a beta-lactam antibiotic. Describe TWO different resistance mechanisms it could be using and how you would treat each.", a:"1) <strong>Enzyme inactivation via beta-lactamases</strong>: the bacterium produces enzymes that destroy the beta-lactam ring. Treat by combining the beta-lactam with a <strong>beta-lactamase inhibitor</strong> (e.g. avibactam + ceftazidime) to neutralize the enzyme. 2) <strong>Decreased permeability</strong>: the bacterium has reduced/shrunk its outer membrane porins so the antibiotic can't enter. This is primarily a gram-negative strategy. Could treat by switching to an antibiotic that enters by a different route, or using <strong>multi-drug combination therapy</strong> to hit multiple targets.", hy:true},
+  {q:"Explain why Fleming being 'not a very careful scientist' was actually critical to both his major discoveries.", a:"<strong>Lysozyme (1922)</strong>: Fleming plated his mucus when he had a cold and <strong>forgot about it for 2 weeks</strong>. A careful scientist would have disposed of or checked the plate sooner. The delay allowed him to observe that bacteria couldn't grow where his mucus was. <strong>Penicillin (1928)</strong>: He left an S. aureus plate open by an open window and <strong>went on vacation</strong>. A careful scientist would have sealed or discarded the plate. The contamination by Penicillium fungus and the time away allowed the killing zone to develop visibly. Both discoveries required accidental contamination + neglected observation time.", hy:true},
+  {q:"A hospital is treating a patient with a single antibiotic. The mutation frequency for resistance to that drug is 1&times;10⁻⁶. If the patient has 10⁹ bacteria at the infection site, approximately how many resistant mutants are expected? What would you recommend instead, and why?", a:"Expected resistant mutants = 10⁹ &times; 1&times;10⁻⁶ = <strong>~1,000 resistant bacteria</strong>. That's a significant number that could repopulate the infection after sensitive bacteria are killed. I would recommend <strong>multi-drug combination therapy</strong>. If a second antibiotic also has frequency 1&times;10⁻⁶, the chance of resistance to both = (1&times;10⁻⁶)&times;(1&times;10⁻⁶) = 1&times;10⁻¹² . With 10⁹ bacteria, the expected double-resistant mutants = 10⁹ &times; 10⁻¹² = <strong>0.001</strong>, essentially zero.", hy:true},
+  {q:"Compare and contrast Ehrlich and Fleming's approaches to fighting infection. Why is Ehrlich considered the father of chemotherapy but not of antibiotics?", a:"<strong>Ehrlich</strong> took a deliberate, systematic approach: he hypothesized 'magic bullets,' then conducted a large chemical screen testing synthetic compounds against syphilis. He found Salvarsan/Neosalvarsan &mdash; <strong>synthetic chemicals</strong> designed to target pathogens. This is chemotherapy (using chemicals to treat disease). <strong>Fleming</strong>'s approach was accidental: he stumbled upon penicillin, a <strong>natural product</strong> made by a living organism (Penicillium fungus). An antibiotic in the strict sense is a substance <strong>produced by a microorganism</strong> that kills other microorganisms. Ehrlich's compounds were synthetic, not produced by living organisms, so they're classified as chemotherapeutic agents rather than true antibiotics.", hy:true},
+  {q:"A bacterium has efflux pumps that confer resistance to Antibiotic A. Explain why this same mechanism might also make it resistant to Antibiotics B, C, and D without any additional mutations.", a:"Efflux pumps have <strong>broad substrate specificity</strong> &mdash; the same pump can recognize and export <strong>multiple different antibiotics</strong>. If the bacterium has overexpressed an efflux pump to resist Antibiotic A, that same pump may also be able to pump out Antibiotics B, C, and D before they can interact with their targets. This is called <strong>cross-resistance</strong> or multidrug resistance. No additional mutations are needed because the single resistance mechanism (the efflux pump) works against multiple drugs simultaneously. This is why efflux pump overexpression is one of the most dangerous resistance mechanisms.", hy:true},
+  {q:"Why does your professor say hospitals should ALWAYS prescribe more than one antibiotic? Connect this to mutation frequency math.", a:"With a single antibiotic, the mutation frequency for resistance might be ~1&times;10⁻⁵ to 1&times;10⁻⁶. In a large infection (10⁸-10⁹ bacteria), this means <strong>hundreds to thousands of resistant mutants</strong> already exist before treatment starts. These will survive and repopulate. With two antibiotics, the probability of resistance to BOTH is the <strong>product</strong> of individual frequencies (e.g. 10⁻⁵ &times; 10⁻⁵ = 10⁻¹⁰), making it essentially impossible for any bacterium in the population to be resistant to both simultaneously. The infection is cleared completely with no resistant survivors.", hy:true},
+  {q:"A patient stops taking their antibiotic course early because they feel better. Explain, using concepts from this and previous lectures, why this is dangerous.", a:"When the patient feels better, the antibiotic has killed the most <strong>susceptible</strong> bacteria, but the most <strong>tolerant/resistant</strong> ones may still survive. These include: 1) <strong>Persisters</strong> (Lecture 14) &mdash; dormant bacteria that tolerate antibiotics and will resume growth once the drug is gone. 2) Bacteria with partial resistance mutations that survived the initial doses. Stopping early provides <strong>sublethal antibiotic concentrations</strong> as the drug clears the body, which (from Lecture 14) triggers stress responses like <strong>error-prone repair</strong> (RpoS &rarr; Pol IV + MutS repression), generating even more resistance mutations. The surviving population can then re-establish the infection, now potentially with <strong>true resistance</strong>.", hy:true},
+];
+
+function buildFRQ(container, questions, prefix) {
+  const el = document.getElementById(container);
+  el.innerHTML = '';
+  questions.forEach((q,i) => {
+    const hy = q.hy ? 'hy-frq' : '';
+    el.innerHTML += `
+    <div class="frq-card ${hy}">
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy?'<span class="hy-badge">HIGH YIELD</span>':''}</div>
+      <textarea placeholder="Write your answer..." id="${prefix}-ta-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ('${prefix}',${i})">Reveal Answer</button>
+      <div class="frq-answer" id="${prefix}-ans-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="${prefix}-grade-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ('${prefix}',${i},'got-it')">Got it</button>
+        <button class="grade-btn partial" onclick="gradeFRQ('${prefix}',${i},'partial')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ('${prefix}',${i},'missed')">Missed</button>
+      </div>
+    </div>`;
+  });
+}
+
+const frqGrades = {};
+const hardGrades = {};
+
+function revealFRQ(prefix, i) {
+  document.getElementById(prefix+'-ans-'+i).classList.add('show');
+  document.getElementById(prefix+'-grade-'+i).classList.add('show');
+}
+function gradeFRQ(prefix, i, grade) {
+  const grades = prefix === 'frq' ? frqGrades : hardGrades;
+  grades[i] = grade;
+  const btns = document.getElementById(prefix+'-grade-'+i).querySelectorAll('.grade-btn');
+  btns.forEach(b => b.classList.remove('selected-grade'));
+  event.target.classList.add('selected-grade');
+  updateFRQScore(prefix);
+}
+function updateFRQScore(prefix) {
+  const grades = prefix === 'frq' ? frqGrades : hardGrades;
+  const total = prefix === 'frq' ? frqs.length : hardFrqs.length;
+  let pts = 0;
+  Object.values(grades).forEach(g => { if(g==='got-it') pts+=1; else if(g==='partial') pts+=0.5; });
+  document.getElementById(prefix+'-score').textContent = Math.round((pts/total)*100)+'%';
+}
+function resetFRQ() {
+  Object.keys(frqGrades).forEach(k => delete frqGrades[k]);
+  buildFRQ('frq-container', frqs, 'frq');
+  document.getElementById('frq-score').textContent = '0%';
+}
+function resetHard() {
+  Object.keys(hardGrades).forEach(k => delete hardGrades[k]);
+  buildFRQ('hard-container', hardFrqs, 'hard');
+  document.getElementById('hard-score').textContent = '0%';
+}
+
+buildFRQ('frq-container', frqs, 'frq');
+buildFRQ('hard-container', hardFrqs, 'hard');
+
+// ====== MATCHING ======
+const matchPairs = [
+  {term:"Paul Ehrlich", def:"Pioneered 'magic bullets,' found Salvarsan for syphilis, founder of chemotherapy"},
+  {term:"Alexander Fleming", def:"Discovered lysozyme (1922) and penicillin (1928) from Penicillium fungus"},
+  {term:"Bactericidal", def:"Antibiotic that directly kills bacteria"},
+  {term:"Bacteriostatic", def:"Antibiotic that stops growth; host immune system clears pathogen"},
+  {term:"MIC", def:"Lowest antibiotic concentration that prevents visible bacterial growth"},
+  {term:"Decreased Permeability", def:"Resistance by reducing outer membrane pore number/size (gram-negative)"},
+  {term:"Target Site Alteration", def:"Resistance by changing the antibiotic's binding location"},
+  {term:"Enzyme Inactivation", def:"Resistance by producing enzymes that destroy the antibiotic"},
+  {term:"Efflux Pumps", def:"Resistance by pumping antibiotics out of the cell; works on multiple drugs"},
+  {term:"Avibactam", def:"Beta-lactamase inhibitor that restores beta-lactam antibiotic activity"},
+];
+
+let matchLeft = null, matchRight = null, matchedCount = 0;
+function initMatching() {
+  matchLeft = null; matchRight = null; matchedCount = 0;
+  const lDiv = document.getElementById('match-left');
+  const rDiv = document.getElementById('match-right');
+  const sL = [...matchPairs].sort(() => Math.random()-0.5);
+  const sR = [...matchPairs].sort(() => Math.random()-0.5);
+  lDiv.innerHTML = sL.map(p => `<div class="match-item" data-term="${p.term}" onclick="selectMatch('left',this)">${p.term}</div>`).join('');
+  rDiv.innerHTML = sR.map(p => `<div class="match-item" data-term="${p.term}" onclick="selectMatch('right',this)">${p.def}</div>`).join('');
+  document.getElementById('match-score').textContent = '0 / '+matchPairs.length;
+}
+function selectMatch(side, el) {
+  if(el.classList.contains('matched')) return;
+  el.parentElement.querySelectorAll('.match-item').forEach(i => { if(!i.classList.contains('matched')) i.classList.remove('selected'); });
+  el.classList.add('selected');
+  if(side==='left') matchLeft = el; else matchRight = el;
+  if(matchLeft && matchRight) checkMatch();
+}
+function checkMatch() {
+  if(matchLeft.dataset.term === matchRight.dataset.term) {
+    matchLeft.classList.add('matched'); matchLeft.classList.remove('selected');
+    matchRight.classList.add('matched'); matchRight.classList.remove('selected');
+    matchedCount++;
+    document.getElementById('match-score').textContent = matchedCount+' / '+matchPairs.length;
+  } else {
+    matchLeft.classList.add('wrong-match'); matchRight.classList.add('wrong-match');
+    const l=matchLeft, r=matchRight;
+    setTimeout(() => { l.classList.remove('wrong-match','selected'); r.classList.remove('wrong-match','selected'); }, 700);
+  }
+  matchLeft = null; matchRight = null;
+}
+initMatching();
+</script>
+</body>
+</html>
