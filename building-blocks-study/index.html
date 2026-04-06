@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synthesis of Building Blocks - BIOL 3303 Study Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3344;
+    --text: #e2e4ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c5ce7;
+    --accent-light: #a29bfe;
+    --green: #00cec9;
+    --green-dim: #00cec920;
+    --red: #fd7272;
+    --red-dim: #fd727220;
+    --orange: #ffa94d;
+    --orange-dim: #ffa94d20;
+    --blue: #74b9ff;
+    --yellow: #ffd43b;
+    --yellow-dim: #ffd43b18;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    gap: 8px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent-light);
+    white-space: nowrap;
+    margin-right: 16px;
+    letter-spacing: -0.3px;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn.active {
+    color: var(--accent-light);
+    background: #6c5ce715;
+    border-color: #6c5ce740;
+  }
+
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 84px 24px 60px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--accent-light);
+  }
+  .card p, .card li {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+  .card li::marker { color: var(--accent); }
+
+  .highlight { color: var(--green); font-weight: 600; }
+  .organism { color: var(--orange); font-weight: 600; }
+  .warn { color: var(--red); font-weight: 600; }
+  .key {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+  }
+
+  .hy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    animation: hyPulse 2s ease-in-out infinite;
+  }
+  @keyframes hyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ffd43b40; }
+    50% { box-shadow: 0 0 12px 4px #ffd43b30; }
+  }
+  .hy-card {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .hy-card h2 { color: var(--yellow); }
+  .hy-legend {
+    display: flex; align-items: center; gap: 8px; justify-content: center;
+    margin-top: 20px; padding: 10px 16px;
+    background: var(--yellow-dim); border: 1px solid #ffd43b40; border-radius: 8px;
+    font-size: 13px; color: var(--yellow); font-weight: 600;
+  }
+  .exam-topics {
+    margin-top: 16px; padding: 16px 20px;
+    background: var(--surface2); border: 1px solid #ffd43b30; border-radius: 10px;
+  }
+  .exam-topics p { font-size: 12px; color: var(--yellow); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .exam-topics ul { padding-left: 18px; }
+  .exam-topics li { font-size: 13.5px; color: var(--text-dim); margin-bottom: 4px; }
+  .exam-topics li::marker { color: var(--yellow); }
+
+  .hero-card {
+    background: linear-gradient(135deg, #6c5ce730, #00cec915);
+    border-color: #6c5ce740;
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .hero-card h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-card p { color: var(--text-dim); font-size: 15px; }
+  .hero-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 24px; font-weight: 800; color: var(--accent-light); }
+  .stat-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+
+  .tab-row { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-btn.hy-tab { border-color: #ffd43b60; }
+  .tab-btn.hy-tab.active { background: linear-gradient(135deg, #ffd43b, #f59f00); color: #1a1d27; border-color: #ffd43b; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-size: 13.5px;
+  }
+  .data-table th { background: var(--surface2); color: var(--accent-light); font-weight: 600; }
+  .data-table td { color: var(--text-dim); }
+  .data-table.hy-table th { color: var(--yellow); }
+
+  .score-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .score-text { font-size: 15px; font-weight: 600; }
+  .score-pct { font-size: 28px; font-weight: 800; color: var(--accent-light); }
+  .reset-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: var(--accent-light); color: var(--bg); }
+
+  .fc-container { perspective: 1000px; margin-bottom: 16px; }
+  .flashcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .flashcard:hover { box-shadow: 0 4px 24px #6c5ce720; }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    backface-visibility: hidden;
+    border-radius: 14px;
+  }
+  .fc-front { font-size: 16px; font-weight: 600; color: var(--text); }
+  .fc-back {
+    transform: rotateY(180deg);
+    font-size: 15px;
+    color: var(--green);
+    background: var(--surface);
+    line-height: 1.6;
+  }
+  .fc-nav { display: flex; gap: 10px; justify-content: center; align-items: center; }
+  .fc-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fc-btn:hover { background: var(--accent); border-color: var(--accent); }
+  .fc-counter { font-size: 13px; color: var(--text-dim); font-weight: 600; min-width: 60px; text-align: center; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .match-col-header {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .match-item {
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .match-item:hover { border-color: var(--accent); color: var(--text); }
+  .match-item.selected { border-color: var(--accent); background: #6c5ce715; color: var(--accent-light); }
+  .match-item.matched { border-color: var(--green); background: var(--green-dim); color: var(--green); pointer-events: none; opacity: 0.7; }
+  .match-item.wrong-match { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+
+  .frq-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .frq-card.hy-frq {
+    border-color: #ffd43b40;
+    background: linear-gradient(135deg, var(--surface), var(--yellow-dim));
+  }
+  .frq-card .q-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .frq-card.hy-frq .q-num {
+    background: linear-gradient(135deg, #ffd43b, #f59f00);
+    color: #1a1d27;
+  }
+  .frq-card .frq-prompt { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: var(--text); }
+  .frq-card .frq-hint { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; font-style: italic; }
+  .frq-card textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .frq-card textarea:focus { outline: none; border-color: var(--accent); }
+  .frq-card textarea::placeholder { color: #4a4e63; }
+  .frq-reveal-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent-light);
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .frq-reveal-btn:hover { background: #6c5ce715; }
+  .frq-answer {
+    display: none;
+    margin-top: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .frq-answer.show { display: block; }
+  .frq-answer strong { color: var(--green); }
+  .frq-self-grade { display: none; margin-top: 12px; gap: 8px; }
+  .frq-self-grade.show { display: flex; }
+  .grade-btn {
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .grade-btn.got-it { color: var(--green); border-color: var(--green); }
+  .grade-btn.got-it:hover { background: var(--green-dim); }
+  .grade-btn.partial { color: var(--orange); border-color: var(--orange); }
+  .grade-btn.partial:hover { background: var(--orange-dim); }
+  .grade-btn.missed { color: var(--red); border-color: var(--red); }
+  .grade-btn.missed:hover { background: var(--red-dim); }
+  .grade-btn.selected-grade { font-weight: 800; }
+  .grade-btn.got-it.selected-grade { background: var(--green-dim); }
+  .grade-btn.partial.selected-grade { background: var(--orange-dim); }
+  .grade-btn.missed.selected-grade { background: var(--red-dim); }
+
+  @media (max-width: 600px) {
+    .nav-brand { display: none; }
+    main { padding: 76px 14px 40px; }
+    .card { padding: 20px; }
+    .hero-card { padding: 32px 20px; }
+    .hero-card h1 { font-size: 22px; }
+    .match-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">BioStudy</span>
+    <button class="nav-btn active" onclick="showSection('home')">Home</button>
+    <button class="nav-btn" onclick="showSection('learn')">Learn</button>
+    <button class="nav-btn" onclick="showSection('flashcards')">Flashcards</button>
+    <button class="nav-btn" onclick="showSection('frq')">FRQ Practice</button>
+    <button class="nav-btn" onclick="showSection('matching')">Matching</button>
+    <button class="nav-btn" onclick="showSection('hardfrq')">Hard FRQ</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="sec-home">
+  <div class="card hero-card">
+    <h1>Synthesis of Building Blocks</h1>
+    <p>BIOL 3303 &middot; Lecture 10 &mdash; How microbes build what they need to grow</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">Topics</div></div>
+      <div class="stat"><div class="stat-num">22</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat"><div class="stat-num">24</div><div class="stat-label">FRQ Qs</div></div>
+    </div>
+    <div class="hy-legend">HIGH YIELD = Confirmed exam topics from your professor. Prioritize these.</div>
+    <div class="exam-topics">
+      <p>Your Professor's Exam Topics</p>
+      <ul>
+        <li>Central pathways and how they relate to each other</li>
+        <li>PTS system (mechanism and why it's energetically free)</li>
+        <li>Auxotroph/nutrient limitation experiment (what it tells you, how it's done)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>How to Use</h2>
+    <ul>
+      <li><span class="highlight">Learn</span> &mdash; Read through all lecture material organized by topic</li>
+      <li><span class="highlight">Flashcards</span> &mdash; Click to flip, test your recall of key terms</li>
+      <li><span class="highlight">FRQ Practice</span> &mdash; Write out free response answers, then reveal model answers and self-grade</li>
+      <li><span class="highlight">Matching</span> &mdash; Match terms to their definitions</li>
+      <li><span class="highlight">Hard FRQ</span> &mdash; Application and conceptual reasoning questions</li>
+      <li style="color: var(--yellow); font-weight: 700;">Gold-highlighted = CONFIRMED exam topics. Start with these.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEARN -->
+<div class="section" id="sec-learn">
+  <div class="tab-row">
+    <button class="tab-btn active" onclick="showTab('learn',0)">Building Blocks</button>
+    <button class="tab-btn" onclick="showTab('learn',1)">Nutritional Needs</button>
+    <button class="tab-btn" onclick="showTab('learn',2)">3 Steps of Fueling</button>
+    <button class="tab-btn" onclick="showTab('learn',3)">Transport</button>
+    <button class="tab-btn" onclick="showTab('learn',4)">Active Transport</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',5)">PTS &amp; Iron</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',6)">Central Pathways</button>
+    <button class="tab-btn hy-tab" onclick="showTab('learn',7)">Aromatic AAs &amp; Experiments</button>
+  </div>
+
+  <!-- Building Blocks Overview -->
+  <div class="tab-content active" id="learn-0">
+    <div class="card">
+      <h2>Major Building Blocks for a Gram-Negative Bacterium</h2>
+      <ul>
+        <li>A microbial cell <span class="warn">cannot make its macromolecules</span> and therefore grow unless it has a <span class="highlight">complete array of building blocks</span></li>
+        <li>If the cell cannot make one of the building blocks, it must <span class="highlight">acquire it from the environment</span></li>
+        <li>Most building blocks can be <span class="highlight">transported inside of cells</span> (at an energy cost)</li>
+      </ul>
+      <h3>The 4 Major Classes of Building Blocks</h3>
+      <ul>
+        <li><span class="highlight">Nucleotides</span> &mdash; for DNA and RNA</li>
+        <li><span class="highlight">Amino acids</span> &mdash; for proteins</li>
+        <li><span class="highlight">Sugars</span> &mdash; for carbohydrates and cell wall</li>
+        <li><span class="highlight">Fatty acids</span> &mdash; for lipids and membranes</li>
+      </ul>
+      <h3>From Precursors to Macromolecules</h3>
+      <ul>
+        <li>There are actually <span class="warn">75&ndash;100 building blocks</span> consisting of members of these 4 major classes plus vitamins and cofactors</li>
+        <li>13 precursor metabolites &rarr; building blocks &rarr; macromolecules &rarr; cellular structures</li>
+        <li>There are <span class="highlight">100s of complex biosynthetic reactions</span> that must occur to convert the 13 precursor metabolites into cellular components</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Nutritional Needs -->
+  <div class="tab-content" id="learn-1">
+    <div class="card">
+      <h2>Ability to Make Building Blocks Defines Nutritional Needs</h2>
+      <ul>
+        <li><span class="highlight">Different bacteria can make different building blocks</span></li>
+        <li>This determines what they need from the environment</li>
+      </ul>
+      <h3>Example: E. coli vs. Streptococcus agalactiae</h3>
+      <table class="data-table">
+        <tr><th>Feature</th><th>E. coli</th><th>S. agalactiae</th></tr>
+        <tr><td>Gram stain</td><td>Gram-negative rod</td><td>Gram-positive cocci</td></tr>
+        <tr><td>Makes own amino acids?</td><td><span class="highlight">Yes</span></td><td><span class="warn">No</span></td></tr>
+        <tr><td>Nutritional type</td><td>Heterotroph</td><td>Heterotroph</td></tr>
+        <tr><td>Building block needs</td><td>Fewer supplements needed</td><td>Many supplements required</td></tr>
+      </table>
+      <h3>About S. agalactiae ("Group B Strep")</h3>
+      <ul>
+        <li><span class="organism">Gram-positive cocci</span></li>
+        <li>Part of the <span class="highlight">normal microbiota</span> of the gastrointestinal tract and vagina</li>
+        <li>Causes infections in <span class="warn">neonates, newborns, and immunocompromised adults</span></li>
+        <li>Both are heterotrophs, but have <span class="highlight">different requirements</span> for major building blocks</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3 Steps of Fueling -->
+  <div class="tab-content" id="learn-2">
+    <div class="card">
+      <h2>Precursor Metabolites &amp; the 3 Steps of Biological Fueling</h2>
+      <ul>
+        <li>Role of fueling reactions: produce <span class="highlight">13 precursor metabolites</span> and provide <span class="highlight">energy (ATP)</span> and <span class="highlight">reducing power (NADH)</span> needed for biosynthesis</li>
+      </ul>
+      <h3>The 3 Steps</h3>
+      <ul>
+        <li><span class="key">1</span> <span class="highlight">Entry</span> &mdash; Substrates enter by diffusion or active transport</li>
+        <li><span class="key">2</span> <span class="highlight">Feeder pathways</span> &mdash; Generate intermediate organic molecules needed for central metabolism</li>
+        <li><span class="key">3</span> <span class="highlight">Central pathways</span> &mdash; Make the 13 precursor metabolites common to all organisms</li>
+      </ul>
+      <h3>Why This Matters</h3>
+      <ul>
+        <li>Without all 13 precursor metabolites, a cell <span class="warn">cannot carry out biosynthesis</span></li>
+        <li>These precursor metabolites are the starting materials for <span class="highlight">ALL building blocks</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Passive Transport -->
+  <div class="tab-content" id="learn-3">
+    <div class="card">
+      <h2>How Do Metabolic Substrates Enter the Cell?</h2>
+      <p>Example: Gram-negative bacteria &mdash; molecules must pass the <span class="highlight">outer membrane (OM)</span> and then <span class="highlight">inner membrane</span>.</p>
+      <ul>
+        <li>The hydrophobic OM presents an <span class="warn">impenetrable barrier</span> to water and dissolved ions</li>
+        <li>OM equipped with <span class="highlight">transport proteins</span></li>
+        <li>Molecules pass by <span class="highlight">diffusion</span>, <span class="highlight">facilitated diffusion</span>, and <span class="highlight">energy-coupled transport</span></li>
+      </ul>
+      <h3>Passive Transport: Diffusion &amp; Facilitated Diffusion</h3>
+      <table class="data-table">
+        <tr><th>Feature</th><th>Simple Diffusion</th><th>Facilitated Diffusion</th></tr>
+        <tr><td>Energy required?</td><td><span class="highlight">No</span></td><td><span class="highlight">No</span></td></tr>
+        <tr><td>Selective?</td><td>Non-selective</td><td><span class="highlight">Selective</span></td></tr>
+        <tr><td>Molecules</td><td>Water, O&#8322;, CO&#8322;, ammonia</td><td>Glycerol and others</td></tr>
+      </table>
+      <h3>Getting Through the Outer Membrane</h3>
+      <ul>
+        <li>Water and hydrophilic solutes diffuse readily into the <span class="highlight">periplasm</span> if they are no larger than <span class="warn">600&ndash;700 daltons</span></li>
+        <li>Sugars, amino acids, and most ions can diffuse through <span class="highlight">porins</span> to the periplasm</li>
+        <li>Peptidoglycan does <span class="highlight">not readily affect diffusion</span> of hydrophilic compounds (Gram- or Gram+)</li>
+      </ul>
+      <h3>Getting Through the Inner Membrane</h3>
+      <ul>
+        <li><span class="warn">Few molecules</span> can passively diffuse through the cell (inner) membrane</li>
+        <li>Only <span class="highlight">water, oxygen, carbon dioxide, and ammonia</span> can pass by simple diffusion</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Active Transport -->
+  <div class="tab-content" id="learn-4">
+    <div class="card">
+      <h2>Active Transport</h2>
+      <ul>
+        <li>Other molecules require <span class="highlight">active transport</span> to pass the cell membrane &mdash; <span class="warn">requires energy</span></li>
+        <li>Works <span class="highlight">against the concentration gradient</span></li>
+        <li>Can concentrate molecules inside the cell up to <span class="warn">1000x!</span></li>
+      </ul>
+      <h3>3 Types of Active Transport</h3>
+      <table class="data-table">
+        <tr><th>Type</th><th>Energy Source</th><th>How It Works</th></tr>
+        <tr><td><span class="highlight">Ion-coupled transport</span></td><td>Electrochemical gradient</td><td>Driven by proton or sodium-motive force</td></tr>
+        <tr><td><span class="highlight">ABC transport</span></td><td>ATP hydrolysis</td><td>ATP-binding cassette uses energy from ATP to move solutes into the cell</td></tr>
+        <tr><td><span class="highlight">Group translocation (PTS)</span></td><td>Phosphoenolpyruvate</td><td>Phosphotransferase system &mdash; chemically modifies molecule during transport</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PTS & Iron -->
+  <div class="tab-content" id="learn-5">
+    <div class="card hy-card">
+      <h2>The PTS System of E. coli <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li><span class="warn">Not found in all bacteria</span></li>
+        <li>Responsible for acquisition of a variety of <span class="highlight">sugars</span></li>
+        <li>Energy is expended not for transport but for the formation of an <span class="highlight">intracellular derivative</span> that is membrane impermeable and now <span class="warn">trapped within the cell</span></li>
+      </ul>
+      <h3>Why PTS Is Energetically "Free"</h3>
+      <ul>
+        <li>The phosphorylation step makes glucose transport by PTS <span class="highlight">energetically free</span></li>
+        <li>Because the first step of glycolysis is the formation of <span class="highlight">glucose-6-phosphate</span>, which would require ATP anyway!</li>
+        <li>PTS is a strategy common amongst <span class="organism">energetically-challenged microbes</span> like those living in the absence of oxygen (e.g., <span class="organism">E. coli</span> in your gut)</li>
+      </ul>
+      <h3>Specialized Transporters: Iron</h3>
+      <ul>
+        <li>Iron is usually <span class="warn">limiting in the environment</span></li>
+        <li>Iron is essential for both eukaryotes and prokaryotes</li>
+        <li>Bacteria secrete powerful iron chelators called <span class="highlight">siderophores</span> (e.g., <span class="organism">enterochelin</span>)</li>
+        <li>Once bound to iron, enterochelin is recognized by a special transport system of <span class="highlight">8 proteins</span> and is actively transported inside the cell</li>
+        <li>Energy demanding process driven by <span class="highlight">proton motive force</span> and <span class="highlight">ATP hydrolysis</span></li>
+        <li>Inside the cell, iron is cleaved from enterochelin and converted to a soluble form</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Central Pathways -->
+  <div class="tab-content" id="learn-6">
+    <div class="card hy-card">
+      <h2>Central Fueling Pathways &amp; the 13 Precursor Metabolites <span class="hy-badge">EXAM TOPIC</span></h2>
+      <ul>
+        <li>Three most common central pathways: <span class="highlight">glycolysis</span>, <span class="highlight">pentose phosphate cycle</span>, and the <span class="highlight">TCA cycle</span></li>
+        <li>Widely distributed amongst cellular organisms</li>
+        <li>Together account for the synthesis of the <span class="highlight">13 precursor metabolites</span></li>
+        <li>Some organisms also have specialized <span class="highlight">auxiliary pathways</span> of central metabolism</li>
+      </ul>
+      <h3>Pathways for Making Building Blocks</h3>
+      <ul>
+        <li>13 precursor metabolites go on to make the major classes of building blocks: <span class="highlight">nucleotides, amino acids, sugars, and fatty acids</span></li>
+        <li>Specific central pathways generate different classes of building blocks</li>
+      </ul>
+      <table class="data-table hy-table">
+        <tr><th>Central Pathway</th><th>Key Building Blocks Produced</th></tr>
+        <tr><td><span class="highlight">Pentose phosphate pathway</span></td><td>Nucleotide building blocks (e.g., erythrose-4-phosphate)</td></tr>
+        <tr><td><span class="highlight">Glycolysis</span></td><td>Precursors like PEP, pyruvate; feeds into amino acid and fatty acid synthesis</td></tr>
+        <tr><td><span class="highlight">TCA cycle</span></td><td>Precursors for many amino acids, cofactors, and other metabolites</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Aromatic AAs & Experiments -->
+  <div class="tab-content" id="learn-7">
+    <div class="card hy-card">
+      <h2>Aromatic Amino Acids &amp; Experimental Design <span class="hy-badge">EXAM TOPIC</span></h2>
+      <h3>How Aromatic Amino Acids Are Made</h3>
+      <ul>
+        <li>The <span class="highlight">pentose phosphate pathway</span> produces <span class="highlight">erythrose-4-phosphate (E4P)</span></li>
+        <li><span class="highlight">Glycolysis</span> produces <span class="highlight">phosphoenolpyruvate (PEP)</span></li>
+        <li>Both are needed for the synthesis of <span class="organism">chorismate</span></li>
+        <li><span class="organism">Chorismate</span> is the precursor to the aromatic amino acids: <span class="highlight">tryptophan, phenylalanine, and tyrosine</span></li>
+      </ul>
+      <h3>The Essential Aromatics Experiment</h3>
+      <ul>
+        <li><span class="key">OBS</span> A bacterium <span class="warn">cannot grow</span> unless media is supplemented with Trp, Phe, and Tyr</li>
+        <li>Culture is turbid with aromatics, clear without them</li>
+      </ul>
+      <h3>Building Hypotheses</h3>
+      <ul>
+        <li><span class="highlight">Hypothesis 1:</span> Bacteria unable to make the precursor metabolites (E4P and/or PEP)</li>
+        <li><span class="highlight">Hypothesis 2:</span> Bacteria unable to make aromatic amino acids from the precursors</li>
+      </ul>
+      <h3>Experiment 1: Supplement with E4P and PEP</h3>
+      <table class="data-table hy-table">
+        <tr><th>Result</th><th>Interpretation</th></tr>
+        <tr><td><span class="highlight">Bacteria grows</span></td><td>E4P and PEP enabled growth &mdash; bacteria unable to make E4P and/or PEP</td></tr>
+        <tr><td><span class="warn">Bacteria doesn't grow</span></td><td>Bacteria cannot make aromatic AAs from E4P and PEP &rarr; proceed to Experiment 2</td></tr>
+      </table>
+      <h3>Experiment 2: Supplement with Chorismate</h3>
+      <table class="data-table hy-table">
+        <tr><th>Result</th><th>Interpretation</th></tr>
+        <tr><td><span class="highlight">Bacteria grows</span></td><td>Bacteria could not make chorismate &mdash; block is between E4P/PEP and chorismate</td></tr>
+        <tr><td><span class="warn">Bacteria doesn't grow</span></td><td>Bacteria cannot make aromatic AAs from chorismate &mdash; block is downstream</td></tr>
+      </table>
+      <ul>
+        <li><span class="highlight">Controls:</span> Media supplemented with aromatics (+) and unsupplemented media (&minus;)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="sec-flashcards">
+  <div class="card" style="text-align:center; padding: 16px 28px;">
+    <p style="font-size:13px; color: var(--text-dim);">Click the card to flip. Use arrows to navigate.</p>
+  </div>
+  <div class="fc-container">
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+      <div class="fc-front" id="fc-front"></div>
+      <div class="fc-back" id="fc-back"></div>
+    </div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="prevCard()">&#8592;</button>
+    <span class="fc-counter" id="fc-counter">1 / 22</span>
+    <button class="fc-btn" onclick="nextCard()">&#8594;</button>
+    <button class="fc-btn" onclick="shuffleCards()" title="Shuffle" style="font-size:14px;">&#x1f500;</button>
+  </div>
+</div>
+
+<!-- FRQ PRACTICE -->
+<div class="section" id="sec-frq">
+  <div class="score-bar">
+    <div><div class="score-text">Self-Assessment</div><div class="score-pct" id="frq-score">0 / 0</div></div>
+    <button class="reset-btn" onclick="resetFRQ('frq')">Reset</button>
+  </div>
+  <div id="frq-container"></div>
+</div>
+
+<!-- MATCHING -->
+<div class="section" id="sec-matching">
+  <div class="card" style="padding: 16px 28px;">
+    <p style="font-size:14px; font-weight:600;">Match the term on the left with its description on the right.</p>
+  </div>
+  <div class="score-bar">
+    <div><div class="score-text">Matched</div><div class="score-pct" id="match-score">0 / 12</div></div>
+    <button class="reset-btn" onclick="resetMatching()">Reset</button>
+  </div>
+  <div class="match-grid">
+    <div><div class="match-col-header">Term</div><div id="match-left"></div></div>
+    <div><div class="match-col-header">Description</div><div id="match-right"></div></div>
+  </div>
+</div>
+
+<!-- HARD FRQ -->
+<div class="section" id="sec-hardfrq">
+  <div class="score-bar">
+    <div><div class="score-text">Self-Assessment</div><div class="score-pct" id="hardfrq-score">0 / 0</div></div>
+    <button class="reset-btn" onclick="resetFRQ('hardfrq')">Reset</button>
+  </div>
+  <div id="hardfrq-container"></div>
+</div>
+
+</main>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showTab(section, idx) {
+  const parent = document.getElementById('sec-' + section);
+  parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(section + '-' + idx).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// FLASHCARDS
+const flashcards = [
+  ["Why can't a microbial cell grow without a complete array of building blocks?", "A cell cannot make its macromolecules (and therefore grow) unless it has ALL building blocks. If it can't synthesize one, it must acquire it from the environment."],
+  ["What are the 4 major classes of building blocks?", "Nucleotides, amino acids, sugars, and fatty acids. There are actually 75-100 building blocks including vitamins and cofactors."],
+  ["How does E. coli differ from S. agalactiae in building block synthesis?", "E. coli can make its own amino acids. S. agalactiae cannot and must acquire them from the environment. Both are heterotrophs but have different nutritional requirements."],
+  ["What is S. agalactiae (Group B Strep)?", "Gram-positive cocci, part of normal microbiota of GI tract and vagina. Causes infections in neonates, newborns, and immunocompromised adults."],
+  ["What are the 3 steps of biological fueling?", "1) Entry: substrates enter by diffusion or active transport. 2) Feeder pathways: generate intermediates for central metabolism. 3) Central pathways: make the 13 precursor metabolites."],
+  ["What do fueling reactions produce?", "13 precursor metabolites, energy (ATP), and reducing power (NADH) needed for biosynthesis."],
+  ["How do molecules cross the outer membrane of Gram-negative bacteria?", "Through porins. Water and hydrophilic solutes up to 600-700 daltons diffuse readily. Sugars, amino acids, and most ions pass through porins to the periplasm."],
+  ["What molecules can pass the inner membrane by simple diffusion?", "Only water, oxygen, carbon dioxide, and ammonia. Simple diffusion is non-selective. Very few molecules can passively cross the inner membrane."],
+  ["What is facilitated diffusion?", "Selective transport that requires NO energy. Uses membrane proteins to help specific molecules (like glycerol) cross the membrane, unlike simple diffusion which is non-selective."],
+  ["What is active transport?", "Transport requiring energy, moves molecules against the concentration gradient. Can concentrate molecules inside the cell up to 1000x."],
+  ["What are the 3 types of active transport?", "1) Ion-coupled transport (driven by electrochemical gradient/PMF). 2) ABC transport (uses ATP hydrolysis). 3) Group translocation/PTS (phosphotransferase system)."],
+  ["How does the PTS system work?", "Phosphorylates sugars during transport, making them membrane-impermeable and trapped inside the cell. Energy is spent on chemical modification, not the transport itself."],
+  ["Why is PTS transport of glucose energetically 'free'?", "Because the first step of glycolysis is forming glucose-6-phosphate, which would require ATP anyway. PTS accomplishes this during transport, saving that ATP."],
+  ["What organisms use PTS?", "Common among energetically-challenged microbes living in absence of oxygen (e.g., E. coli in the gut). Not found in all bacteria."],
+  ["What are siderophores?", "Powerful iron chelators secreted by bacteria (e.g., enterochelin). They bind iron in the environment, then are recognized by a special 8-protein transport system and actively transported into the cell."],
+  ["Why do bacteria need specialized iron transport?", "Iron is usually limiting in the environment but essential for both eukaryotes and prokaryotes. Transport requires proton motive force and ATP hydrolysis."],
+  ["What are the 3 central fueling pathways?", "Glycolysis, pentose phosphate cycle, and TCA cycle. Together they account for synthesis of all 13 precursor metabolites."],
+  ["Which pathway produces nucleotide building blocks?", "The pentose phosphate pathway is the source of nucleotide building blocks, including erythrose-4-phosphate."],
+  ["What is chorismate?", "A precursor to the aromatic amino acids (tryptophan, phenylalanine, tyrosine). Made from erythrose-4-phosphate (PPP) and phosphoenolpyruvate (glycolysis)."],
+  ["What two precursor metabolites are needed for aromatic amino acid synthesis?", "Erythrose-4-phosphate (from pentose phosphate pathway) and phosphoenolpyruvate/PEP (from glycolysis). Both feed into chorismate synthesis."],
+  ["How many total building blocks does a cell need?", "75-100 building blocks, consisting of nucleotides, amino acids, sugars, fatty acids, plus vitamins and cofactors. All derived from the 13 precursor metabolites."],
+  ["Does peptidoglycan affect diffusion of hydrophilic compounds?", "No. Peptidoglycan does not readily affect diffusion of hydrophilic compounds in either Gram-negative or Gram-positive bacteria."],
+];
+
+let fcIndex = 0;
+function renderCard() {
+  document.getElementById('fc-front').textContent = flashcards[fcIndex][0];
+  document.getElementById('fc-back').textContent = flashcards[fcIndex][1];
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fc-counter').textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+}
+function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); }
+function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; renderCard(); }
+function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; renderCard(); }
+function shuffleCards() {
+  for (let i = flashcards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+  }
+  fcIndex = 0; renderCard();
+}
+renderCard();
+
+// FRQ ENGINE
+const frqQuestions = [
+  { q: "Explain why a cell cannot grow without a complete set of building blocks.", hint: "Think about what building blocks are needed for and what happens if one is missing.",
+    a: "A cell needs <strong>all building blocks</strong> (nucleotides, amino acids, sugars, fatty acids) to synthesize its macromolecules — DNA, RNA, proteins, carbohydrates, and lipids. If even <strong>one building block is missing</strong>, the cell cannot complete biosynthesis of essential macromolecules, halting growth. If the cell cannot make a building block itself, it must <strong>acquire it from the environment</strong> via transport (at an energy cost)." },
+  { q: "Explain how the ability to synthesize building blocks defines a microbe's nutritional requirements.", hint: "Compare E. coli and S. agalactiae.",
+    a: "Different bacteria can synthesize <strong>different building blocks</strong>. For example, <strong>E. coli</strong> can make its own amino acids and grow on minimal media, while <strong>S. agalactiae</strong> cannot make its own amino acids and must acquire them from the environment. Even though both are heterotrophs, S. agalactiae has <strong>more complex nutritional requirements</strong> because it lacks biosynthetic pathways that E. coli possesses." },
+  { q: "Describe the 3 steps of biological fueling.", hint: "Entry, feeder pathways, central pathways.",
+    a: "<strong>Step 1 (Entry):</strong> Substrates enter the cell by diffusion or active transport. <strong>Step 2 (Feeder pathways):</strong> Generate intermediate organic molecules needed for central metabolism. <strong>Step 3 (Central pathways):</strong> Glycolysis, pentose phosphate cycle, and TCA cycle make the <strong>13 precursor metabolites</strong> common to all organisms. These steps also provide <strong>ATP</strong> (energy) and <strong>NADH</strong> (reducing power) for biosynthesis." },
+  { q: "How do molecules cross the outer membrane of a Gram-negative bacterium?", hint: "Think about porins and size limits.",
+    a: "The hydrophobic outer membrane is an <strong>impenetrable barrier</strong> to water and dissolved ions on its own. It is equipped with <strong>transport proteins called porins</strong>. Water and hydrophilic solutes diffuse readily into the periplasm if they are <strong>no larger than 600-700 daltons</strong>. Sugars, amino acids, and most ions can diffuse through porins. Peptidoglycan does <strong>not</strong> readily affect diffusion of hydrophilic compounds." },
+  { q: "Compare simple diffusion and facilitated diffusion across the inner membrane.", hint: "Which is selective? Which molecules use each?",
+    a: "<strong>Simple diffusion:</strong> Non-selective, no energy required. Only <strong>water, O₂, CO₂, and ammonia</strong> can pass. Very few molecules can passively cross the inner membrane this way. <strong>Facilitated diffusion:</strong> Also requires no energy, but is <strong>selective</strong> — uses membrane proteins to transport specific molecules like <strong>glycerol</strong>. Both are passive transport methods, but facilitated diffusion has specificity." },
+  { q: "Describe the 3 types of active transport.", hint: "Ion-coupled, ABC, and group translocation.",
+    a: "<strong>1. Ion-coupled transport:</strong> Driven by the electrochemical gradient (proton or sodium-motive force). <strong>2. ABC (ATP-binding cassette) transport:</strong> Uses energy from <strong>ATP hydrolysis</strong> to move solutes into the cell. <strong>3. Group translocation (PTS):</strong> Phosphotransferase system — chemically modifies the molecule during transport, making it membrane-impermeable and trapped inside the cell." },
+  { q: "Explain how the PTS system works and why it is energetically 'free' for glucose transport.", hint: "Think about phosphorylation and the first step of glycolysis.", hy: true,
+    a: "The PTS system <strong>phosphorylates sugars</strong> during transport, creating a membrane-impermeable derivative trapped in the cell. For glucose, this is <strong>energetically free</strong> because the first step of glycolysis requires forming <strong>glucose-6-phosphate</strong> anyway (which would normally cost ATP). PTS accomplishes this during transport, effectively <strong>saving one ATP</strong>. This strategy is common among energetically-challenged microbes like <strong>anaerobic E. coli</strong>." },
+  { q: "Why is iron transport a special challenge for bacteria?", hint: "Think about availability, siderophores, and energy cost.",
+    a: "Iron is usually <strong>limiting in the environment</strong> but essential for both eukaryotes and prokaryotes. Bacteria secrete <strong>siderophores</strong> (e.g., enterochelin) — powerful iron chelators that bind environmental iron. Once bound, the iron-siderophore complex is recognized by a <strong>special 8-protein transport system</strong> and actively transported into the cell. This process is energy-demanding, driven by both the <strong>proton motive force and ATP hydrolysis</strong>. Inside, iron is cleaved and converted to a soluble form." },
+  { q: "What are the 13 precursor metabolites and which pathways produce them?", hint: "Name the 3 central pathways and their role.", hy: true,
+    a: "The 13 precursor metabolites are small molecules that serve as starting materials for <strong>all building blocks</strong>. They are produced by the three central pathways: <strong>glycolysis</strong> (produces PEP, pyruvate, etc.), <strong>pentose phosphate cycle</strong> (produces erythrose-4-phosphate, ribose-5-phosphate, etc.), and the <strong>TCA cycle</strong> (produces oxaloacetate, α-ketoglutarate, etc.). Together these pathways account for synthesis of all 13 precursor metabolites." },
+  { q: "Which central pathway produces nucleotide building blocks?", hint: "Think about pentose sugars.", hy: true,
+    a: "The <strong>pentose phosphate pathway</strong> is the source of nucleotide building blocks. It produces <strong>ribose-5-phosphate</strong> and other pentose sugars that are essential precursors for nucleotide synthesis (both purines and pyrimidines for DNA and RNA). It also produces <strong>erythrose-4-phosphate</strong>, needed for aromatic amino acid synthesis." },
+  { q: "Describe the pathway from precursor metabolites to aromatic amino acids.", hint: "Two precursors combine to make chorismate.", hy: true,
+    a: "The <strong>pentose phosphate pathway</strong> produces erythrose-4-phosphate (E4P). <strong>Glycolysis</strong> produces phosphoenolpyruvate (PEP). Both E4P and PEP are needed to synthesize <strong>chorismate</strong>. Chorismate is the common precursor to all three aromatic amino acids: <strong>tryptophan, phenylalanine, and tyrosine</strong>." },
+  { q: "Explain the experimental approach to determine why a bacterium cannot make aromatic amino acids.", hint: "Think about supplementation experiments and controls.", hy: true,
+    a: "<strong>Experiment 1:</strong> Grow bacteria in media + E4P and PEP. Controls: media + aromatics (+) and unsupplemented media (−). If it grows → bacteria can't make E4P/PEP. If no growth → proceed to Exp 2. <strong>Experiment 2:</strong> Grow bacteria in media + chorismate. If it grows → bacteria can't make chorismate (block between E4P/PEP and chorismate). If no growth → bacteria can't convert chorismate to aromatics (block is downstream). This <strong>systematic supplementation</strong> narrows down where the metabolic block occurs." },
+];
+
+const hardFRQ = [
+  { q: "A bacterium grows well in rich media but fails to grow in minimal media (glucose + salts). Another bacterium of a different species grows in both. Explain the metabolic basis for this difference and predict what you might find about each organism's genome.", hint: "Think about building block synthesis capabilities and gene content.", hy: true,
+    a: "The first bacterium <strong>lacks biosynthetic pathways</strong> for one or more essential building blocks (amino acids, vitamins, nucleotides, etc.). Like <strong>S. agalactiae</strong>, it cannot synthesize all 75-100 building blocks from the 13 precursor metabolites and must acquire them from rich media. The second bacterium (like <strong>E. coli</strong>) has complete biosynthetic pathways. Genomically, the first would <strong>lack genes</strong> encoding enzymes for certain biosynthetic pathways. This is common in organisms that evolved in <strong>nutrient-rich environments</strong> (e.g., host-associated pathogens) where building blocks were always available, leading to <strong>gene loss</strong> over evolutionary time." },
+  { q: "A Gram-negative bacterium is placed in an environment with a high concentration of a novel sugar (MW ~400 Da). Trace the possible routes this sugar could take to enter the cytoplasm, considering all types of transport.", hint: "Think about outer membrane, periplasm, and inner membrane separately.",
+    a: "<strong>Outer membrane:</strong> At ~400 Da, the sugar is under the 600-700 Da limit and can diffuse through <strong>porins</strong> into the periplasm. Peptidoglycan won't block it. <strong>Inner membrane:</strong> The sugar is too large/polar for simple diffusion (only water, O₂, CO₂, ammonia cross passively). Possible routes: (1) <strong>Facilitated diffusion</strong> if a specific channel exists (no energy needed, selective). (2) <strong>Ion-coupled transport</strong> using the proton/sodium-motive force. (3) <strong>ABC transport</strong> using ATP hydrolysis. (4) <strong>PTS system</strong> if the bacterium has one — would phosphorylate the sugar during transport, trapping it inside. The actual route depends on which <strong>transport proteins the bacterium encodes</strong>." },
+  { q: "Explain why the PTS system is especially advantageous for bacteria living in anaerobic environments. Connect this to ATP yield from glycolysis.", hint: "Think about how anaerobes make ATP and the cost of sugar phosphorylation.", hy: true,
+    a: "Anaerobic bacteria primarily rely on <strong>substrate-level phosphorylation (SLP)</strong> during glycolysis, yielding only <strong>2 ATP per glucose</strong> — far less than aerobic respiration via ETC. Every ATP matters enormously. Normally, the first step of glycolysis requires <strong>1 ATP to phosphorylate glucose to glucose-6-phosphate</strong>. The PTS system performs this phosphorylation <strong>during transport</strong>, effectively saving 1 ATP. For an organism making only 2 ATP per glucose, saving 1 ATP represents a <strong>50% increase in net energy yield</strong>. This is why PTS is a strategy common among <strong>energetically-challenged microbes</strong> in anaerobic environments." },
+  { q: "Design an experiment to determine whether a bacterium uses ion-coupled transport, ABC transport, or PTS to import a specific amino acid. What results would you expect for each?", hint: "Think about what each transport type requires — energy sources, chemical modifications.",
+    a: "<strong>Experiment 1: Test for PTS.</strong> Check if the amino acid is phosphorylated upon entry. If the intracellular form is chemically modified (phosphorylated), it's PTS. Amino acids are rarely transported by PTS, so this is unlikely. <strong>Experiment 2: Deplete ATP (use arsenate or DCCD).</strong> If transport stops → likely <strong>ABC transport</strong> (requires ATP hydrolysis). If transport continues → likely <strong>ion-coupled</strong> (uses PMF, not ATP directly). <strong>Experiment 3: Collapse the PMF (use uncouplers like CCCP).</strong> If transport stops → <strong>ion-coupled transport</strong>. If transport continues → <strong>ABC transport</strong>. <strong>Controls:</strong> Measure transport rate with no treatment. Note: collapsing PMF also reduces ATP over time, so experiments must be done quickly." },
+  { q: "A researcher discovers a bacterium that requires supplementation with tryptophan but NOT phenylalanine or tyrosine. Using the aromatic amino acid biosynthetic pathway, identify where the metabolic block must be.", hint: "Think about where the pathway branches from chorismate.", hy: true,
+    a: "Since the bacterium <strong>can make phenylalanine and tyrosine but NOT tryptophan</strong>, the block must be <strong>downstream of chorismate</strong>. Chorismate is the common precursor to all three aromatic amino acids. If chorismate synthesis were blocked, ALL three would be missing. Since only tryptophan is affected, the bacterium can make chorismate and convert it to Phe and Tyr, but <strong>the branch pathway from chorismate to tryptophan is blocked</strong>. The bacterium likely has a mutation in one of the enzymes specific to the <strong>tryptophan biosynthesis branch</strong> (e.g., anthranilate synthase or a downstream enzyme)." },
+  { q: "Compare the energy costs of acquiring building blocks from the environment versus synthesizing them de novo. Why might some bacteria evolve to lose biosynthetic pathways?", hint: "Think about transport costs, biosynthesis costs, and evolutionary pressure.",
+    a: "**Acquiring from environment:** Requires energy for <strong>transport</strong> (active transport costs ATP or PMF), but the building block arrives pre-made. Cost is relatively low — just the transport energy. **De novo synthesis:** Requires <strong>100s of enzymatic reactions</strong>, consuming multiple ATPs, NADHs, and precursor metabolites per building block. Also requires maintaining all the <strong>genes encoding those enzymes</strong>. **Evolutionary loss:** In nutrient-rich environments (e.g., host tissues), building blocks are abundant. Maintaining unused biosynthetic genes has a <strong>metabolic cost</strong> (DNA replication, transcription). Mutations that inactivate these genes are not selected against and may even be <strong>advantageous</strong> (smaller genome = faster replication). Over time, this leads to <strong>genome reduction</strong>, as seen in many obligate pathogens and symbionts like S. agalactiae." },
+  { q: "Explain why porins have a size limit of 600-700 daltons. What would happen to a Gram-negative bacterium if its porins allowed passage of molecules up to 5000 daltons?", hint: "Think about membrane integrity and what molecules are in the periplasm.",
+    a: "Porins are <strong>water-filled channels</strong> through the outer membrane with a narrow constriction that limits passage to molecules under <strong>600-700 Da</strong>. This size limit is a <strong>selective barrier</strong> — it allows small nutrients (sugars, amino acids, ions) to enter while excluding larger harmful molecules like <strong>antibiotics, toxins, and enzymes</strong>. If porins allowed 5000 Da molecules: (1) Many <strong>antibiotics</strong> could freely enter, making the bacterium highly susceptible. (2) <strong>Periplasmic enzymes</strong> and other large molecules could leak out. (3) The outer membrane would lose its function as a <strong>selective permeability barrier</strong>. (4) <strong>Host immune molecules</strong> (lysozyme ~14 kDa wouldn't fit, but smaller antimicrobial peptides might). The size restriction is evolutionarily critical for Gram-negative survival." },
+  { q: "A mutant E. coli strain has lost the ability to make erythrose-4-phosphate. Predict ALL the consequences for this cell's biosynthetic capabilities.", hint: "Think about which pathway makes E4P and what building blocks depend on it.", hy: true,
+    a: "Erythrose-4-phosphate (E4P) is produced by the <strong>pentose phosphate pathway</strong> and is one of the 13 precursor metabolites. Loss of E4P would mean: (1) <strong>Cannot make chorismate</strong> → cannot synthesize <strong>tryptophan, phenylalanine, or tyrosine</strong> (all three aromatic amino acids). (2) Loss of any other building blocks that require E4P as a precursor. (3) The cell would become an <strong>aromatic amino acid auxotroph</strong> — requiring supplementation with all three for growth. (4) Any <strong>vitamins or cofactors</strong> derived from the aromatic pathway would also be affected. (5) The cell would still have PEP from glycolysis and other PPP products, so non-E4P-dependent pathways would be unaffected. This demonstrates how losing <strong>one precursor metabolite</strong> can cascade into multiple building block deficiencies." },
+  { q: "Iron acquisition via siderophores requires 8 transport proteins, PMF, and ATP. Why would bacteria invest so much energy in acquiring a single element? What would happen to a pathogen that lost its siderophore system?", hint: "Think about iron's biological roles and host-pathogen competition for iron.",
+    a: "**Why invest so much:** Iron is a <strong>cofactor in essential enzymes</strong> — electron carriers in the ETC (cytochromes), enzymes in the TCA cycle, and many redox reactions. Without iron, a cell <strong>cannot perform aerobic respiration</strong> efficiently and many metabolic pathways fail. Iron is also <strong>severely limiting</strong> in most environments. In hosts, iron is sequestered by <strong>transferrin, lactoferrin, and ferritin</strong> — a host defense strategy called <strong>nutritional immunity</strong>. **Loss of siderophore system:** A pathogen would be unable to <strong>scavenge iron from the host</strong>. It would become <strong>avirulent</strong> in most cases — unable to establish infection because it can't compete with the host for iron. This is why siderophore systems are often <strong>virulence factors</strong>, and why iron acquisition genes are targets for antimicrobial strategies." },
+  { q: "Explain the relationship between the 13 precursor metabolites, the 75-100 building blocks, and the final macromolecules of the cell. Why is it significant that there are only 13 precursor metabolites?", hint: "Think about metabolic efficiency and pathway organization.", hy: true,
+    a: "The <strong>13 precursor metabolites</strong> are the outputs of the 3 central pathways (glycolysis, PPP, TCA). Through <strong>100s of biosynthetic reactions</strong>, these 13 metabolites are converted into <strong>75-100 building blocks</strong> (amino acids, nucleotides, sugars, fatty acids, vitamins, cofactors). Building blocks are then polymerized into <strong>macromolecules</strong> (proteins, nucleic acids, polysaccharides, lipids) and assembled into cellular structures. The significance of only 13 precursor metabolites: (1) <strong>Metabolic efficiency</strong> — cells funnel diverse substrates through just 3 pathways to 13 common intermediates, creating a universal metabolic hub. (2) <strong>Evolutionary conservation</strong> — these pathways are shared across virtually all life. (3) <strong>Regulatory simplicity</strong> — controlling 13 branch points is simpler than regulating hundreds of independent pathways. (4) <strong>Adaptability</strong> — different substrates can enter at different points of the central pathways, all converging on the same 13 metabolites." },
+  { q: "Design a complete experiment to determine whether a newly discovered bacterium can synthesize all 20 amino acids or requires supplementation. Include controls and interpretation.", hint: "Think systematically about minimal media, dropout experiments, and controls.", hy: true,
+    a: "<strong>Step 1:</strong> Grow in <strong>minimal media</strong> (glucose + salts + vitamins). If growth → can make all 20 amino acids. If no growth → needs supplements. <strong>Step 2:</strong> Grow in minimal media + all 20 amino acids. This is the <strong>positive control</strong> confirming the organism is viable. <strong>Step 3:</strong> Systematic dropout — grow in media with all amino acids except one (20 separate cultures, each missing a different amino acid). If no growth when amino acid X is dropped → bacterium <strong>cannot synthesize X</strong>. <strong>Step 4:</strong> For amino acids required, test if supplementing with <strong>pathway intermediates</strong> restores growth (like the chorismate experiment) to identify where biosynthetic blocks occur. <strong>Controls:</strong> Minimal media only (−), complete media (+), and heat-killed bacteria (sterility control). This approach identifies <strong>exactly which amino acids</strong> the organism is auxotrophic for and can pinpoint metabolic blocks." },
+  { q: "Compare how a Gram-positive and Gram-negative bacterium would differ in their substrate entry strategies. What advantages and disadvantages does each cell envelope present?", hint: "Think about the structural differences — outer membrane, periplasm, peptidoglycan thickness.",
+    a: "<strong>Gram-negative:</strong> Has outer membrane with porins (600-700 Da limit), periplasm, thin peptidoglycan, and inner membrane. <strong>Advantage:</strong> Outer membrane acts as selective barrier, excluding many antibiotics and toxins. <strong>Disadvantage:</strong> Molecules must cross TWO membranes; large nutrients need specialized transport. <strong>Gram-positive:</strong> No outer membrane, thick peptidoglycan, single cytoplasmic membrane. <strong>Advantage:</strong> Only one membrane to cross; peptidoglycan doesn't restrict hydrophilic diffusion, so molecules have more direct access to membrane transporters. <strong>Disadvantage:</strong> No outer membrane barrier means less protection from environmental toxins and antibiotics. Both use the same inner membrane transport mechanisms (facilitated diffusion, ion-coupled, ABC, sometimes PTS), but Gram-negatives have the additional challenge/protection of the outer membrane." },
+];
+
+function buildFRQ(questions, containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'frq-card' + (q.hy ? ' hy-frq' : '');
+    div.innerHTML = `
+      <div class="frq-prompt"><span class="q-num">${i+1}</span>${q.q}${q.hy ? ' <span class="hy-badge">EXAM TOPIC</span>' : ''}</div>
+      <div class="frq-hint">${q.hint}</div>
+      <textarea placeholder="Write your answer here..." id="ta-${containerId}-${i}"></textarea>
+      <button class="frq-reveal-btn" onclick="revealFRQ(this, ${i}, '${containerId}', '${scoreId}')">Show Model Answer</button>
+      <div class="frq-answer" id="ans-${containerId}-${i}">${q.a}</div>
+      <div class="frq-self-grade" id="grade-${containerId}-${i}">
+        <button class="grade-btn got-it" onclick="gradeFRQ(this, 'got-it', '${containerId}', '${scoreId}')">Got It</button>
+        <button class="grade-btn partial" onclick="gradeFRQ(this, 'partial', '${containerId}', '${scoreId}')">Partial</button>
+        <button class="grade-btn missed" onclick="gradeFRQ(this, 'missed', '${containerId}', '${scoreId}')">Missed It</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function revealFRQ(btn, idx, containerId, scoreId) {
+  document.getElementById('ans-' + containerId + '-' + idx).classList.add('show');
+  document.getElementById('grade-' + containerId + '-' + idx).classList.add('show');
+  btn.style.display = 'none';
+}
+
+function gradeFRQ(btn, grade, containerId, scoreId) {
+  btn.parentElement.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected-grade'));
+  btn.classList.add('selected-grade');
+  updateFRQScore(containerId, scoreId);
+}
+
+function updateFRQScore(containerId, scoreId) {
+  const container = document.getElementById(containerId);
+  const graded = container.querySelectorAll('.grade-btn.selected-grade');
+  let gotIt = 0;
+  graded.forEach(b => { if (b.classList.contains('got-it')) gotIt++; });
+  document.getElementById(scoreId).textContent = gotIt + ' / ' + graded.length;
+}
+
+function resetFRQ(type) {
+  const containerId = type + '-container';
+  const scoreId = type + '-score';
+  const questions = type === 'frq' ? frqQuestions : hardFRQ;
+  buildFRQ(questions, containerId, scoreId);
+  document.getElementById(scoreId).textContent = '0 / 0';
+}
+
+buildFRQ(frqQuestions, 'frq-container', 'frq-score');
+buildFRQ(hardFRQ, 'hardfrq-container', 'hardfrq-score');
+
+// MATCHING
+const matchPairs = [
+  ["Building blocks", "Nucleotides, amino acids, sugars, fatty acids needed for macromolecules"],
+  ["S. agalactiae", "Group B Strep; cannot make its own amino acids"],
+  ["Porins", "Allow molecules <600-700 Da to cross the outer membrane"],
+  ["Simple diffusion", "Only water, O\u2082, CO\u2082, and ammonia cross the inner membrane this way"],
+  ["Facilitated diffusion", "Selective, no energy required; e.g., glycerol transport"],
+  ["Active transport", "Requires energy; can concentrate molecules 1000x inside cell"],
+  ["ABC transport", "Uses ATP hydrolysis to move solutes into the cell"],
+  ["PTS system", "Phosphorylates sugars during import, trapping them inside"],
+  ["Siderophores", "Iron chelators secreted by bacteria (e.g., enterochelin)"],
+  ["Chorismate", "Common precursor to tryptophan, phenylalanine, and tyrosine"],
+  ["Erythrose-4-phosphate", "Precursor metabolite from the pentose phosphate pathway"],
+  ["13 precursor metabolites", "Produced by glycolysis, PPP, and TCA; starting materials for all building blocks"],
+];
+
+let matchSelected = { left: null, right: null };
+let matchedCount = 0;
+
+function resetMatching() {
+  matchSelected = { left: null, right: null };
+  matchedCount = 0;
+  document.getElementById('match-score').textContent = '0 / ' + matchPairs.length;
+  renderMatching();
+}
+
+function renderMatching() {
+  const leftArr = matchPairs.map((p, i) => ({ text: p[0], idx: i }));
+  const rightArr = matchPairs.map((p, i) => ({ text: p[1], idx: i }));
+  for (let i = rightArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [rightArr[i], rightArr[j]] = [rightArr[j], rightArr[i]];
+  }
+  document.getElementById('match-left').innerHTML = leftArr.map(item =>
+    `<div class="match-item" data-side="left" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+  document.getElementById('match-right').innerHTML = rightArr.map(item =>
+    `<div class="match-item" data-side="right" data-idx="${item.idx}" onclick="selectMatch(this)">${item.text}</div>`
+  ).join('');
+}
+
+function selectMatch(el) {
+  const side = el.dataset.side;
+  document.querySelectorAll(`.match-item[data-side="${side}"]`).forEach(e => {
+    if (!e.classList.contains('matched')) e.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  matchSelected[side] = { el, idx: parseInt(el.dataset.idx) };
+  if (matchSelected.left && matchSelected.right) {
+    if (matchSelected.left.idx === matchSelected.right.idx) {
+      matchSelected.left.el.classList.remove('selected');
+      matchSelected.right.el.classList.remove('selected');
+      matchSelected.left.el.classList.add('matched');
+      matchSelected.right.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('match-score').textContent = matchedCount + ' / ' + matchPairs.length;
+    } else {
+      matchSelected.left.el.classList.add('wrong-match');
+      matchSelected.right.el.classList.add('wrong-match');
+      setTimeout(() => {
+        matchSelected.left.el.classList.remove('selected', 'wrong-match');
+        matchSelected.right.el.classList.remove('selected', 'wrong-match');
+        matchSelected = { left: null, right: null };
+      }, 600);
+      return;
+    }
+    matchSelected = { left: null, right: null };
+  }
+}
+
+renderMatching();
+</script>
+
+</body>
+</html>
